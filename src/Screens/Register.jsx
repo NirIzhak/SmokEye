@@ -10,7 +10,7 @@ export default function Register() {
   const [smoke, setSmoke] = useState(false);
   
   const handleRegister = () => {
-    
+
     console.log('Name:', name);
     console.log('Email:', email);
     console.log('Phone:', phone);
