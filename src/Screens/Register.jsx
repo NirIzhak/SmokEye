@@ -7,7 +7,10 @@ export default function Register() {
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [address, setAddress] = useState('');
+  const [isEnabled, setIsEnabled] = useState(false);
   const [clients,setClients] = useState([]);
+
+  const toggleSwitch = () => setIsEnabled(previousState => !previousState);
   
   const AddUser = () => {
     let user = {
