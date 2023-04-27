@@ -1,4 +1,4 @@
-import { View,Button,StyleSheet,TextInput,CheckBox } from 'react-native'
+import { View,Button,StyleSheet,TextInput } from 'react-native'
 import { useState } from 'react';
 import React from 'react'
 
@@ -7,15 +7,16 @@ export default function Register() {
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [address, setAddress] = useState('');
-  const [smoke, setSmoke] = useState(false);
+  const [clients,setClients] = useState([]);
   
-  const handleRegister = () => {
-    
-    console.log('Name:', name);
-    console.log('Email:', email);
-    console.log('Phone:', phone);
-    console.log('Address:', address);
-    console.log('Smoke:', smoke);
+  const AddUser = () => {
+    let user = {
+      name,
+      email,
+      phone,
+      address
+    }
+    setClients(user);
     
   };
   return (
@@ -46,14 +47,7 @@ export default function Register() {
         value={address}
         onChangeText={(text) => setAddress(text)}
       />
-      <View style={styles.checkboxContainer}>
-          <CheckBox
-            value={smoke}
-            onValueChange={(value) => setSmoke(value)}
-          />
-          <Text>Smoke / Don't Smoke</Text>
-        </View>
-      <Button title="Register" onPress={handleRegister} />
+      <Button title="Register" onPress={AddUser} />
       </View>
   );
 };
