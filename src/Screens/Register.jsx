@@ -1,4 +1,4 @@
-import { View,Button,StyleSheet,TextInput } from 'react-native'
+import { View,Button,StyleSheet,TextInput,Switch } from 'react-native'
 import { useState } from 'react';
 import React from 'react'
 
@@ -46,6 +46,13 @@ export default function Register() {
         placeholder="Address"
         value={address}
         onChangeText={(text) => setAddress(text)}
+      />
+       <Switch
+        trackColor={{false: '#767577', true: '#81b0ff'}}
+        thumbColor={isEnabled ? '#f5dd4b' : '#f4f3f4'}
+        ios_backgroundColor="#3e3e3e"
+        onValueChange={toggleSwitch}
+        value={isEnabled}
       />
       <Button title="Register" onPress={AddUser} />
       </View>
