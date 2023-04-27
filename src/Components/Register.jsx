@@ -1,4 +1,4 @@
-import { View, Text,Button,StyleSheet,CheckBox } from 'react-native'
+import { View, Text,Button,StyleSheet,CheckBox,TextInput } from 'react-native'
 import { useState } from 'react';
 import React from 'react'
 
