@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, {useState } from "react";
 import {
   View,
   Text,
@@ -8,7 +8,7 @@ import {
   Keyboard,
 } from "react-native";
 
-export default function Login() {
+export default function Login({navigation}) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -60,7 +60,9 @@ export default function Login() {
             התחברות
           </Text>
         </TouchableOpacity>
-        <TouchableOpacity style={{marginTop: 100}}>
+        <TouchableOpacity onPress={()=>{
+            navigation.navigate('Register')
+        }} style={{marginTop: 100}}>
           <Text style={{ textAlign: "center", borderWidth: 1 }}>
             אין לך משתמש עדיין? הרשם עכשיו!
           </Text>
