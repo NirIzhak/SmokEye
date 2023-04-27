@@ -46,13 +46,13 @@ export default function Register() {
         value={address}
         onChangeText={(text) => setAddress(text)}
       />
-      <View style={styles.checkboxContainer}>
+      {/* <View style={styles.checkboxContainer}>
           <CheckBox
             value={smoke}
             onValueChange={(value) => setSmoke(value)}
           />
           <Text>Smoke / Don't Smoke</Text>
-        </View>
+        </View> */}
       <Button title="Register" onPress={handleRegister} />
       </View>
   );
