@@ -4,7 +4,9 @@ import React from 'react'
 export default function AllReports() {
   return (
     <View>
-      <Text>AllReports</Text>
+    <Text style={{ textAlign: "center", marginTop: 110, fontSize: 40 }}>
+        הדיווחים שלי
+      </Text>
     </View>
   )
 }

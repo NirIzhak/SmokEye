@@ -4,7 +4,9 @@ import React from 'react'
 export default function Info() {
   return (
     <View>
-      <Text>Info</Text>
+      <Text style={{ textAlign: "center", marginTop: 110, fontSize: 40 }}>
+        מידע
+      </Text>
     </View>
   )
 }

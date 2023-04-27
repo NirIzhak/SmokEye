@@ -1,11 +1,12 @@
-import { View, Text, TextInput, useState } from "react-native";
+import { View, Text, TextInput } from "react-native";
 import React from "react";
-import DatePicker from 'react-native-date-picker'
+
 
 
 export default function NewReport() {
-    const [date, setDate] = useState(new Date())
-  const [open, setOpen] = useState(false)
+
+  
+
   return (
     <View>
       <Text style={{ textAlign: "center", marginTop: 110, fontSize: 40 }}>
@@ -45,24 +46,13 @@ export default function NewReport() {
       />
       <View style={{display: 'flex', flexDirection: 'row', justifyContent: "space-between", width: '50%', marginLeft: 'auto', marginRight: 'auto', marginTop: 40}}>
         <View>
-            <Text onPress={() => setOpen(true)}>תאריך</Text>
-            <DatePicker
-        modal
-        open={open}
-        date={date}
-        onConfirm={(date) => {
-          setOpen(false)
-          setDate(date)
-        }}
-        onCancel={() => {
-          setOpen(false)
-        }}
-      />
-
+            <Text>תאריך</Text>
+            {/* add here date picker */}
         </View>
         <View>
             <Text>שעה</Text>
-            <Text>כגדכ</Text>
+            {/* add here time picker */}
+
         </View>
       </View>
     </View>
