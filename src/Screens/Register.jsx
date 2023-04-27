@@ -1,4 +1,4 @@
-import { View, Text,Button,StyleSheet,CheckBox,TextInput } from 'react-native'
+import { View,Button,StyleSheet,TextInput,CheckBox } from 'react-native'
 import { useState } from 'react';
 import React from 'react'
 
@@ -8,7 +8,16 @@ export default function Register() {
   const [phone, setPhone] = useState('');
   const [address, setAddress] = useState('');
   const [smoke, setSmoke] = useState(false);
-
+  
+  const handleRegister = () => {
+    
+    console.log('Name:', name);
+    console.log('Email:', email);
+    console.log('Phone:', phone);
+    console.log('Address:', address);
+    console.log('Smoke:', smoke);
+    
+  };
   return (
     <View style={styles.container}>
       <TextInput
@@ -38,16 +47,39 @@ export default function Register() {
         onChangeText={(text) => setAddress(text)}
       />
       <View style={styles.checkboxContainer}>
-        <CheckBox
-          value={smoke}
-          onValueChange={(value) => setSmoke(value)}
-        />
-        <Text>Smoke / Don't Smoke</Text>
-      </View>
+          <CheckBox
+            value={smoke}
+            onValueChange={(value) => setSmoke(value)}
+          />
+          <Text>Smoke / Don't Smoke</Text>
+        </View>
       <Button title="Register" onPress={handleRegister} />
       </View>
   );
 };
 const styles = StyleSheet.create({
-
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#f5f5f5',
+  },
+  formContainer: {
+    width: '80%',
+    backgroundColor: '#fff',
+    padding: 16,
+    borderRadius: 8,
+  },
+  input: {
+    height: 40,
+    borderColor: 'gray',
+    borderWidth: 1,
+    marginBottom: 16,
+    paddingLeft: 8,
+  },
+  checkboxContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 16,
+  },
 })
