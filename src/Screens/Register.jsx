@@ -1,4 +1,5 @@
-import { View,Button,StyleSheet,TextInput,Switch,Text } from 'react-native'
+
+import { Text, View,Button,StyleSheet,TextInput,Switch, Keyboard,TouchableWithoutFeedback } from 'react-native'
 import { useState } from 'react';
 import React from 'react'
 
@@ -11,6 +12,10 @@ export default function Register() {
   const [clients,setClients] = useState([]);
 
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
+
+  const handlePress = () => {
+    Keyboard.dismiss();
+  };
   
   const AddUser = () => {
     let user = {
@@ -24,28 +29,35 @@ export default function Register() {
     
   };
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>שם מלא</Text>
+    <TouchableWithoutFeedback onPress={handlePress}>
+    <View style={styles.container} >
+      <Text style={{ textAlign: "center", marginTop: 110, fontSize: 40, marginBottom: 70}}>הרשמה</Text>
       <TextInput
         style={styles.input}
-        placeholder="שם מלא"
+        placeholder="שם"
         value={name}
         onChangeText={(text) => setName(text)}
+        onBlur={() => Keyboard.dismiss()}
+
       />
       <Text style={styles.title}>Email</Text>
       <TextInput
         style={styles.input}
-        placeholder="Email"
+        placeholder="מייל"
         value={email}
         onChangeText={(text) => setEmail(text)}
+        onBlur={() => Keyboard.dismiss()}
+
         keyboardType="email-address"
       />
       <Text style={styles.title}>מספר טלפון</Text>
       <TextInput
         style={styles.input}
-        placeholder="טלפון"
+        placeholder="פלאפון"
         value={phone}
         onChangeText={(text) => setPhone(text)}
+        onBlur={() => Keyboard.dismiss()}
+
         keyboardType="phone-pad"
       />
       <Text style={styles.title}>כתובת</Text>
@@ -54,17 +66,24 @@ export default function Register() {
         placeholder="כתובת"
         value={address}
         onChangeText={(text) => setAddress(text)}
+        onBlur={() => Keyboard.dismiss()}
+
       />
-      <Text>מעשן ?</Text>
+      <View style={{display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginTop: 20, marginBottom: 100, width: '50%',marginLeft: 'auto', marginRight: 'auto' }}>
+        <Text style={{fontSize:20}}>לא מעשן</Text>
        <Switch
         trackColor={{false: '#767577', true: '#81b0ff'}}
         thumbColor={isEnabled ? '#f5dd4b' : '#f4f3f4'}
         ios_backgroundColor="#3e3e3e"
         onValueChange={toggleSwitch}
         value={isEnabled}
+        style={{margin: 10}}
       />
-      <Button title="הרשם" onPress={AddUser} />
+       <Text style={{fontSize:20}}>מעשן</Text>
       </View>
+      <Button title="הרשם" onPress={AddUser}  />
+      </View>
+      </TouchableWithoutFeedback>
   );
 };
 const styles = StyleSheet.create({
@@ -77,6 +96,12 @@ const styles = StyleSheet.create({
   title:{
     textAlign: 'right'
   },
+  // container: {
+  //   flex: 1,
+  //   justifyContent: 'center',
+  //   alignItems: 'center',
+  //   backgroundColor: '#f5f5f5',
+  // },
   formContainer: {
     width: '80%',
     backgroundColor: '#fff',
@@ -88,9 +113,13 @@ const styles = StyleSheet.create({
     width:'50%',
     height: 40,
     borderColor: 'gray',
-    borderWidth: 1,
+    borderBottomWidth: 1,
     marginBottom: 16,
     paddingLeft: 8,
+    width: '60%', 
+    marginLeft: 'auto', 
+    marginRight: 'auto',
+    textAlign: 'center'
   },
   checkboxContainer: {
     flexDirection: 'row',
