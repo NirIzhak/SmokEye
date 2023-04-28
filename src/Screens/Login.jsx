@@ -53,7 +53,8 @@ export default function Login({navigation}) {
         <TouchableOpacity>
           <Text
             onPress={() => {
-                console.log(password, email)
+                console.log(password, email);
+                navigation.navigate("userScreens")
             }}
             style={{ textAlign: "center", marginTop: 50 }}
           >
@@ -72,7 +73,9 @@ export default function Login({navigation}) {
             התחברות מהירה עם גוגל
           </Text>
         </TouchableOpacity>
-        <TouchableOpacity style={{marginTop: 100}}>
+        <TouchableOpacity style={{marginTop: 100}} onPress={()=>{
+          navigation.navigate("Report")
+        }}>
           <Text style={{ textAlign: "center", borderWidth: 1 }}>
             דיווח מהיר ללא התחברות
           </Text>
