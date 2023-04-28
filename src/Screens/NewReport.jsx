@@ -1,11 +1,28 @@
-import { View, Text, TextInput } from "react-native";
-import React from "react";
-
-
+import { View, Text, TextInput, Platform, Button } from "react-native";
+import React, { useState } from "react";
+import DateTimePicker from "@react-native-community/datetimepicker";
 
 export default function NewReport() {
+  const [date, setDate] = useState(new Date());
+  const [show, setShow] = useState(true);
 
-  
+  // on change on date or time input
+  const onChange = (e, selectedDate) => {
+    const currentDate = selectedDate || date;
+    setShow(Platform.OS === "ios");
+    setDate(currentDate);
+
+    let tempDate = new Date(currentDate);
+    let fDate =
+      tempDate.getDate() +
+      "/" +
+      (tempDate.getMonth() + 1) +
+      "/" +
+      tempDate.getFullYear();
+    let fTime =
+      "Hours: " + tempDate.getHours() + "| Minutes: " + tempDate.getMinutes();
+    console.log(fDate + "\n" + fTime);
+  };
 
   return (
     <View>
@@ -44,15 +61,42 @@ export default function NewReport() {
           textAlign: "right",
         }}
       />
-      <View style={{display: 'flex', flexDirection: 'row', justifyContent: "space-between", width: '50%', marginLeft: 'auto', marginRight: 'auto', marginTop: 40}}>
+      <View
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-between",
+          width: "50%",
+          marginLeft: "auto",
+          marginRight: "auto",
+          marginTop: 40,
+        }}
+      >
         <View>
-            <Text>תאריך</Text>
-            {/* add here date picker */}
+          <Text style={{ textAlign: "center" }}>תאריך</Text>
+
+          {show && (
+            <DateTimePicker
+              value={date}
+              mode="date"
+              is24Hour={true}
+              display="default"
+              onChange={onChange}
+            />
+          )}
         </View>
         <View>
-            <Text>שעה</Text>
-            {/* add here time picker */}
+          <Text style={{ textAlign: "center" }}>שעה</Text>
 
+          {show && (
+            <DateTimePicker
+              value={date}
+              mode="time"
+              is24Hour={true}
+              display="default"
+              onChange={onChange}
+            />
+          )}
         </View>
       </View>
     </View>
