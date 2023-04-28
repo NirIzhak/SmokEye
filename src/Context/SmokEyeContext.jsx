@@ -14,15 +14,20 @@ export default function SmokeyeContextProvider({children}) {
   const [confirmPassword,setConfirmPassword] = useState('');
   const [phone, setPhone] = useState('');
   const [address, setAddress] = useState('');
+  const [smoke,setSmoke] = useState(false);
   const [clients,setClients] = useState([]);
 
+  //change the state of smokeking status
+  const toggleSwitch = () => setSmoke(previousState => !previousState);
+  
   //Add Client to clients Array
   const AddClient=()=>{
       let user = {
       name,
       email,
       phone,
-      address
+      address,
+      smoke
     }
     setClients(user);
   }
@@ -34,6 +39,7 @@ export default function SmokeyeContextProvider({children}) {
     
   })
   const value = {
+    toggleSwitch,
     AddClient,
     setEmail,
     setPassword,
@@ -41,7 +47,8 @@ export default function SmokeyeContextProvider({children}) {
     setConfirmPassword,
     setPhone,
     setAddress,
-    setClients,
+    setSmoke,
+    smoke,
     email,
     password,
     name,
