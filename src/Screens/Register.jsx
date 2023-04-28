@@ -1,22 +1,18 @@
 
-import { Text, View,StyleSheet,TextInput,Switch, Keyboard,TouchableWithoutFeedback,TouchableOpacity } from 'react-native'
+import { Text, View,StyleSheet,TextInput,Switch, Keyboard,TouchableWithoutFeedback,TouchableOpacity, ScrollView } from 'react-native'
 import { useContext, useState } from 'react';
 import { SmokeyeContext } from '../Context/SmokEyeContext';
 
 export default function Register() {
 
-  const {setName,setEmail,setPhone,setAddress,AddClient} = useContext(SmokeyeContext);
+  const {setName,setEmail,setPhone,setAddress,AddClient,toggleSwitch,smoke} = useContext(SmokeyeContext);
   
-  const [isEnabled, setIsEnabled] = useState(false);
-
-  const toggleSwitch = () => setIsEnabled(previousState => !previousState);
-
   const handlePress = () => {
     Keyboard.dismiss();
   };
   
-  return (
-    <TouchableWithoutFeedback onPress={handlePress}>
+  return ( 
+  <TouchableWithoutFeedback onPress={handlePress}>
     <View style={styles.container} >
       <Text style={{ textAlign: "center", marginTop: 10, fontSize: 40, marginBottom: 50}}>הרשמה</Text>
       <TextInput
@@ -71,11 +67,11 @@ export default function Register() {
       <View style={{display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginTop: 10, marginBottom: 20, width: '50%',marginLeft: 'auto', marginRight: 'auto' }}>
         <Text style={{fontSize:20}}>מעשן</Text>
        <Switch
-        trackColor={{false: '#767577', true: '#81b0ff'}}
-        thumbColor={isEnabled ? '#f5dd4b' : '#f4f3f4'}
+        trackColor={{false: '#767577', true: '#7CC69E'}}
+        thumbColor={smoke ? '#5CEE9F' : '#f4f3f4'}
         ios_backgroundColor="#3e3e3e"
         onValueChange={toggleSwitch}
-        value={isEnabled}
+        value={smoke}
         style={{margin: 10}}
       />
        <Text style={{fontSize:20}}>לא מעשן</Text>
@@ -83,8 +79,9 @@ export default function Register() {
       <TouchableOpacity onPress={AddClient} style={styles.button}>
         <Text style={{textAlign:'center'}}>הרשם</Text>
       </TouchableOpacity>
-      </View>
-      </TouchableWithoutFeedback>
+    </View>
+  </TouchableWithoutFeedback>
+      
   );
 };
 const styles = StyleSheet.create({
