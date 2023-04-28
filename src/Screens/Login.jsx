@@ -1,4 +1,4 @@
-import React, {useState } from "react";
+import React, {useContext } from "react";
 import {
   View,
   Text,
@@ -7,11 +7,11 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
 } from "react-native";
+import { SmokeyeContext } from "../Context/SmokEyeContext";
 
 export default function Login({navigation}) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
 
+  const {setEmail,setPassword,password,email} = useContext(SmokeyeContext);
   const handlePress = () => {
     Keyboard.dismiss();
   };
