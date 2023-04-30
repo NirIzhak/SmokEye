@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import { SmokeyeContext } from "../Context/SmokEyeContext";
 
+
 export default function Login({navigation}) {
 
   const {setEmail,setPassword,password,email} = useContext(SmokeyeContext);
