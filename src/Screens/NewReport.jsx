@@ -9,7 +9,7 @@ export default function NewReport() {
   // on change on date or time input
   const onChange = (e, selectedDate) => {
     const currentDate = selectedDate || date;
-    setShow(Platform.OS === "ios");
+    setShow(Platform.OS === "ios" || Platform.OS === 'android');
     setDate(currentDate);
 
     let tempDate = new Date(currentDate);
