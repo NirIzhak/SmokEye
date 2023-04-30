@@ -18,7 +18,7 @@ export default function Login({navigation}) {
 
   return (
     <TouchableWithoutFeedback onPress={handlePress}>
-      <View style={{ direction: "rtl" }}>
+      <View style={{ direction: "rtl" }}> 
         <Text style={{ textAlign: "center", marginTop: 110, fontSize: 40 }}>
           התחברות
         </Text>
