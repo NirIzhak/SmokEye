@@ -1,29 +1,9 @@
 import { View, Text, TextInput, Platform, Button } from "react-native";
-import React, { useState } from "react";
-import DateTimePicker from "@react-native-community/datetimepicker";
+import React from "react";
 
 export default function NewReport() {
-  const [date, setDate] = useState(new Date());
-  const [show, setShow] = useState(true);
-
-  // on change on date or time input
-  const onChange = (e, selectedDate) => {
-    const currentDate = selectedDate || date;
-    setShow(Platform.OS === "ios");
-    setDate(currentDate);
-
-    let tempDate = new Date(currentDate);
-    let fDate =
-      tempDate.getDate() +
-      "/" +
-      (tempDate.getMonth() + 1) +
-      "/" +
-      tempDate.getFullYear();
-    let fTime =
-      "Hours: " + tempDate.getHours() + "| Minutes: " + tempDate.getMinutes();
-    console.log(fDate + "\n" + fTime);
-  };
-
+  const date = new Date();
+  
   return (
     <View>
       <Text style={{ textAlign: "center", marginTop: 110, fontSize: 40 }}>
@@ -74,29 +54,19 @@ export default function NewReport() {
       >
         <View>
           <Text style={{ textAlign: "center" }}>תאריך</Text>
-
-          {show && (
-            <DateTimePicker
-              value={date}
-              mode="date"
-              is24Hour={true}
-              display="default"
-              onChange={onChange}
-            />
-          )}
+          <Text style={{ textAlign: "center" }}>
+            {date.getDate() +
+              "/" +
+              (date.getMonth() + 1) +
+              "/" +
+              date.getFullYear()}
+          </Text>
         </View>
         <View>
           <Text style={{ textAlign: "center" }}>שעה</Text>
-
-          {show && (
-            <DateTimePicker
-              value={date}
-              mode="time"
-              is24Hour={true}
-              display="default"
-              onChange={onChange}
-            />
-          )}
+          <Text style={{ textAlign: "center" }}>
+            {date.getHours() + ":" + date.getMinutes()}
+          </Text>
         </View>
       </View>
     </View>
