@@ -75,10 +75,10 @@ export default function Login({navigation}) {
           </Text>
         </TouchableOpacity>
         <TouchableOpacity style={{marginTop: 100}} onPress={()=>{
-          navigation.navigate("Report")
+          navigation.navigate("FastReport")
         }}>
           <Text style={{ textAlign: "center", borderWidth: 1 }}>
-            דיווח מהיר ללא התחברות
+            כניסה מהירה ללא התחברות
           </Text>
         </TouchableOpacity>
       </View>

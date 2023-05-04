@@ -1,9 +1,35 @@
-import { View, Text, TextInput, Platform, Button } from "react-native";
-import React from "react";
+import { View, Text, TextInput } from "react-native";
+import React, { useEffect, useState } from "react";
+import * as Location  from "expo-location";
 
 export default function NewReport() {
   const date = new Date();
+  const [location, setLocation] = useState({});
+
+
   
+
+
+
+
+
+useEffect(()=>{
+const getPermissions = async()=>{
+  let {status} = await Location.requestForegroundPermissionsAsync();
+  if(status !== 'granted'){
+    console.log("Not Granted")
+    return;
+  }
+
+  let currentLocation = await Location.getCurrentPositionAsync({});
+  setLocation(currentLocation);
+  console.log("Location:")
+  console.log(currentLocation)
+};
+getPermissions();
+},[])
+
+
   return (
     <View>
       <Text style={{ textAlign: "center", marginTop: 110, fontSize: 40 }}>
@@ -69,6 +95,7 @@ export default function NewReport() {
           </Text>
         </View>
       </View>
+      <Text>Press</Text>
     </View>
   );
 }

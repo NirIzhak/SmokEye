@@ -21,7 +21,7 @@ export default function App() {
        <Stack.Navigator initialRouteName='Login'>
         <Stack.Screen name='Login' component={Login} options={{headerShown: false}} />
         <Stack.Screen name='Register' component={Register} options={{headerShown: false}} />
-        <Stack.Screen name='Report' component={NewReport} options={{headerShown: false}} />
+        <Stack.Screen name='FastReport' component={NotRegisteresUser} options={{headerShown: false}} />
         <Stack.Screen name='userScreens' component={UserTab} options={{headerShown: false}} />
         <Stack.Screen name='adminScreens' component={AdminTab} options={{headerShown: false}} />
         </Stack.Navigator>
@@ -52,4 +52,17 @@ const AdminTab = ()=>{
   </Tab.Navigator>
   )
 }
+
+
+
+const NotRegisteresUser = ()=>{
+  return(
+<Tab.Navigator>
+    <Tab.Screen component={NewReport} name='NotRegisteresUserReport' options={{headerShown: false,tabBarLabel: "דיווח חדש", tabBarIcon:()=>(<MaterialCommunityIcons name="archive-check" size={34} color="black" />)}}></Tab.Screen>
+    <Tab.Screen component={Info} name='NotRegisteresUserInfo' options={{headerShown: false, tabBarLabel: "מידע", tabBarIcon:()=>(<MaterialCommunityIcons name="archive-lock" size={34} color="black" />)}}></Tab.Screen>
+  </Tab.Navigator>
+  )
+}
+
+
 
