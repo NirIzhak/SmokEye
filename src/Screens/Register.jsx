@@ -5,7 +5,7 @@ import { SmokeyeContext } from '../Context/SmokEyeContext';
 
 export default function Register() {
 
-  const {setName,setEmail,setPhone,setAddress,AddClient,toggleSwitch,smoke} = useContext(SmokeyeContext);
+  const {setName,setEmail,setPassword,setPhone,setAddress,AddClient,toggleSwitch,smoke} = useContext(SmokeyeContext);
   
   const handlePress = () => {
     Keyboard.dismiss();
