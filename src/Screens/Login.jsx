@@ -1,12 +1,5 @@
-import React, {useContext } from "react";
-import {
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  TouchableWithoutFeedback,
-  Keyboard,
-} from "react-native";
+import {useContext } from "react";
+import {View,Text,TextInput,TouchableOpacity,TouchableWithoutFeedback,Keyboard} from "react-native";
 import { SmokeyeContext } from "../Context/SmokEyeContext";
 
 
