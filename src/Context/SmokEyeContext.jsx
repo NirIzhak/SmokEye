@@ -18,18 +18,20 @@ export default function SmokeyeContextProvider({children}) {
 
   const dataFetch = async () => {
     try {
-      const data = await fetch("/src/Data/Users.json");
-    const res = data.json();
-    setClients(res);
-    console.log('clients :>> ', clients);
+      const data = await fetch('/src/Data/Users.json');
+      const res = await data.json();
+      setClients(res);
     }catch(err){
       console.log('err :>> ', err);
-    }
-    
-  }
+    }    
+}
 const LoadUsers=()=>{
   dataFetch();
 }
+
+useEffect(()=>{
+  LoadUsers()
+},[])
 
   //change the state of smokeking status
   const toggleSwitch = () => setSmoke(previousState => !previousState);
@@ -44,7 +46,6 @@ const LoadUsers=()=>{
       smoke
     }
     setClients(user);
-    console.log('user :>> ', clients);
   }
 
   //Check Client in Array
