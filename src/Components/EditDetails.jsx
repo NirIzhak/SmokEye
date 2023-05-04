@@ -1,13 +1,11 @@
 import { View, Text } from 'react-native'
 import React from 'react'
+import { useContext } from 'react';
+import { SmokeyeContext } from '../Context/SmokEyeContext';
 
 export default function EditDetails() {
     const {setName,setEmail,setPhone,setAddress,toggleSwitch,smoke} = useContext(SmokeyeContext);
 
-    const upDateUser=()=>{
-
-        
-    }
     const handlePress = () => {
         Keyboard.dismiss();
       };
