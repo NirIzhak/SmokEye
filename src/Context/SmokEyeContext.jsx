@@ -1,9 +1,14 @@
-import { View, Text } from 'react-native'
-import {createContext, useState,useEffect} from 'react';
+import {
+  createContext,
+  useState,
+  useEffect
+} from 'react';
 
 export const SmokeyeContext = createContext()
 
-export default function SmokeyeContextProvider({children}) {
+export default function SmokeyeContextProvider({
+  children
+}) {
 
   /*Login Values*/
   const [email, setEmail] = useState("");
@@ -11,34 +16,56 @@ export default function SmokeyeContextProvider({children}) {
 
   /*Register Values*/
   const [name, setName] = useState('');
-  const [confirmPassword,setConfirmPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [phone, setPhone] = useState('');
   const [address, setAddress] = useState('');
-  const [smoke,setSmoke] = useState(false);
-  const [clients,setClients] = useState([]);
+  const [smoke, setSmoke] = useState(false);
+  const [clients, setClients] = useState([]);
+
 
   //change the state of smokeking status
   const toggleSwitch = () => setSmoke(previousState => !previousState);
-  
+
   //Add Client to clients Array
-  const AddClient=()=>{
-      let user = {
-      name,
-      email,
-      phone,
-      address,
-      smoke
+  const AddClient = () => {
+    let User;
+    if (ConfirmRegistration) {
+      User = {
+        name,
+        email,
+        phone,
+        address,
+        smoke
+      }
     }
-    setClients(user);
+    setClients(User);
   }
 
   //Check Client in Array
-  const ConfirmClient=()=>{}
+  const ConfirmClient = (e,p) => {
 
-  useEffect(()=>{
-    
+    let isExsist = clients.find((item)=> item.email == e);
+    if(isExsist)
+    {
+    return isExsist.password == p;
+    }
+    else{return false;}
+  }
+  //Cheack if regstration corrent
+  const ConfirmRegistration = () => {
+    if (email != null || email != undefined &
+      password != null || password != undefined &
+      password === confirmPassword &
+      name != null || name != undefined) {
+      return true;
+    }
+  }
+
+  useEffect(() => {
+
   })
   const value = {
+    ConfirmClient,
     toggleSwitch,
     AddClient,
     setEmail,
@@ -57,10 +84,10 @@ export default function SmokeyeContextProvider({children}) {
     address,
     clients
   }
-  return (
-    <SmokeyeContext.Provider value={value}>
-    {children}
+  return ( <
+    SmokeyeContext.Provider value={value}> 
+    {children} 
     </SmokeyeContext.Provider>
-    
+
   )
 }
