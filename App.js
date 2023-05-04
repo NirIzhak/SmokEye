@@ -35,12 +35,11 @@ export default function App() {
 const UserTab = ()=>{
   return(
   <Tab.Navigator>
-    <Tab.Screen component={Info} name='Info' options={{headerShown: false,tabBarLabel: "מידע" ,tabBarBadgeStyle: { backgroundColor: '#007CFF' }, tabBarIcon:()=>(<MaterialCommunityIcons name="information-outline" size={34} color="black" />)}}></Tab.Screen>
     <Tab.Screen component={NewReport} name='Report' options={{headerShown: false,tabBarLabel: "דיווח חדש", tabBarIcon:()=>(<MaterialCommunityIcons name="store" size={34} color="black" />)}}></Tab.Screen>
-    <Tab.Screen component={Profile} name='Profile' options={{tabBarLabel: "פרופיל" ,headerShown: false,tabBarIcon:()=>(<Entypo name="user" size={34} color="black" />)}}></Tab.Screen>
+    <Tab.Screen component={Info} name='Info' options={{headerShown: false,tabBarLabel: "מידע" ,tabBarBadgeStyle: { backgroundColor: '#007CFF' }, tabBarIcon:()=>(<MaterialCommunityIcons name="information-outline" size={34} color="black" />)}}></Tab.Screen>
     <Tab.Screen component={AllReports} name='Reports' options={{tabBarLabel: "הדיווחים שלי" ,headerShown: false,tabBarIcon:()=>(<MaterialCommunityIcons name="store" size={34} color="black" />)}}></Tab.Screen>
     <Tab.Screen component={Store} name='Store' options={{tabBarLabel: "חנות" ,headerShown: false,tabBarIcon:()=>(<MaterialCommunityIcons name="store" size={34} color="black" />)}}></Tab.Screen>
-   
+    <Tab.Screen component={Profile} name='Profile' options={{tabBarLabel: "פרופיל" ,headerShown: false,tabBarIcon:()=>(<Entypo name="user" size={34} color="black" />)}}></Tab.Screen>
   </Tab.Navigator>
   )
 }
