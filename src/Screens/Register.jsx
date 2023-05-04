@@ -1,11 +1,11 @@
 
-import { Text, View,StyleSheet,TextInput,Switch, Keyboard,TouchableWithoutFeedback,TouchableOpacity, ScrollView } from 'react-native'
-import { useContext, useState } from 'react';
+import { Text, View,StyleSheet,TextInput,Switch, Keyboard,TouchableWithoutFeedback,TouchableOpacity } from 'react-native'
+import { useContext } from 'react';
 import { SmokeyeContext } from '../Context/SmokEyeContext';
 
 export default function Register() {
 
-  const {setName,setEmail,setPhone,setAddress,AddClient,toggleSwitch,smoke} = useContext(SmokeyeContext);
+  const {setPassword,setConfirmPassword,setName,setEmail,setPhone,setAddress,AddClient,toggleSwitch,smoke} = useContext(SmokeyeContext);
   
   const handlePress = () => {
     Keyboard.dismiss();
@@ -65,7 +65,7 @@ export default function Register() {
 
       />
       <View style={{display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginTop: 10, marginBottom: 20, width: '50%',marginLeft: 'auto', marginRight: 'auto' }}>
-        <Text style={{fontSize:20}}>לא מעשן</Text>
+        <Text style={{fontSize:20}}>מעשן</Text>
        <Switch
         trackColor={{false: '#767577', true: '#7CC69E'}}
         thumbColor={smoke ? '#5CEE9F' : '#f4f3f4'}
@@ -74,7 +74,7 @@ export default function Register() {
         value={smoke}
         style={{margin: 10}}
       />
-        <Text style={{fontSize:20}}>מעשן</Text>
+        <Text style={{fontSize:20}}>לא מעשן</Text>
       </View>
       <TouchableOpacity onPress={AddClient} style={styles.button}>
         <Text style={{textAlign:'center'}}>הרשם</Text>
