@@ -1,4 +1,3 @@
-import { View, Text } from 'react-native'
 import {createContext, useState,useEffect} from 'react';
 
 export const SmokeyeContext = createContext()
@@ -17,6 +16,21 @@ export default function SmokeyeContextProvider({children}) {
   const [smoke,setSmoke] = useState(false);
   const [clients,setClients] = useState([]);
 
+  const dataFetch = async () => {
+    try {
+      const data = await fetch("/src/Data/Users.json");
+    const res = data.json();
+    setClients(res);
+    console.log('clients :>> ', clients);
+    }catch(err){
+      console.log('err :>> ', err);
+    }
+    
+  }
+const LoadUsers=()=>{
+  dataFetch();
+}
+
   //change the state of smokeking status
   const toggleSwitch = () => setSmoke(previousState => !previousState);
   
@@ -30,14 +44,13 @@ export default function SmokeyeContextProvider({children}) {
       smoke
     }
     setClients(user);
+    console.log('user :>> ', clients);
   }
 
   //Check Client in Array
-  const ConfirmClient=()=>{}
+  //const ConfirmClient=()=>{}
 
-  useEffect(()=>{
-    
-  })
+
   const value = {
     toggleSwitch,
     AddClient,
