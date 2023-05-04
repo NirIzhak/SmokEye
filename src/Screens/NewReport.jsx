@@ -91,7 +91,7 @@ getPermissions();
         <View>
           <Text style={{ textAlign: "center" }}>שעה</Text>
           <Text style={{ textAlign: "center" }}>
-            {date.getHours() + ":" + date.getMinutes()}
+            {date.getHours().toString().padStart(2, '0') + ":" + date.getMinutes().toString().padStart(2, '0')}
           </Text>
         </View>
       </View>
