@@ -49,6 +49,7 @@ export default function Login({navigation}) {
             onPress={() => {
                 console.log(password, email);
                 navigation.navigate("userScreens")
+                
             }}
             style={{ textAlign: "center", marginTop: 50 }}
           >
