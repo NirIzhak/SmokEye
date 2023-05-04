@@ -9,7 +9,7 @@ import NewReport from './src/Screens/NewReport';
 import Info from './src/Screens/Info';
 import AllReports from './src/Screens/AllReports';
 import Store from './src/Screens/Store';
-import Profile from './src/Screens/Profile';
+import Profile from './src/Components/Profile';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
