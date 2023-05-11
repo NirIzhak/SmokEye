@@ -5,7 +5,7 @@ import { SmokeyeContext } from "../Context/SmokEyeContext";
 
 export default function Login({navigation}) {
 
-  const {setEmail,setPassword,password,email} = useContext(SmokeyeContext);
+  const {setEmail,setPassword,password,email, ConfirmClient} = useContext(SmokeyeContext);
   const handlePress = () => {
     Keyboard.dismiss();
   };
@@ -48,7 +48,26 @@ export default function Login({navigation}) {
           <Text
             onPress={() => {
                 console.log(password, email);
-                navigation.navigate("userScreens")
+                console.log(ConfirmClient(email, password))
+                if(ConfirmClient(email, password) == undefined){
+                  alert("No User")
+                }
+                else{
+                  if(ConfirmClient(email, password).role == "User"){
+                    alert("User")
+                  }
+                  else if(ConfirmClient(email, password).role == "Admin"){
+                    alert("Admin")
+
+                  }
+                  else if(ConfirmClient(email, password).role == "Regulator"){
+                    alert("regulator")
+                  }
+                  else if(ConfirmClient(email, password).role == "Reasercher"){
+                    alert("reasercher")
+                  }
+                }
+                //navigation.navigate("userScreens")
                 
             }}
             style={{ textAlign: "center", marginTop: 50 }}
