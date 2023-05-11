@@ -1,10 +1,62 @@
 [
     {
-        "name":"Ilana S",
+        "firstName":"אילנה",
+        "lastName" : "שפירא",
         "email":"e@gmail.com",
-        "password":"123456",
+        "password":"99",
         "phone":"0526211386",
-        "adress":"Ramt Hashron",
-        "smoke":false
+        "adress":{
+            "street": "דיזינגוף",
+            "number": 50,
+            "city": "תל אביב"
+        },
+        "role" : "User",
+        "smoke":false,
+        "image": "https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=922&q=80"
+    },
+    {
+        "firstName":"עדן",
+        "lastName" : "דיין",
+        "email":"eden@gmail.com",
+        "password":"99",
+        "phone":"0526211386",
+        "adress":{
+            "street": "דיזינגוף",
+            "number": 50,
+            "city": "תל אביב"
+        },
+        "role" : "Admin",
+        "smoke":false,
+        "image": "https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=922&q=80"
+    },
+    {
+        "firstName":"ניר",
+        "lastName" : "יצחק",
+        "email":"nir@gmail.com",
+        "password":"99",
+        "phone":"0526211386",
+        "adress":{
+            "street": "דיזינגוף",
+            "number": 50,
+            "city": "תל אביב"
+        },
+        "role": "Regulator",
+        "smoke":false,
+        "image": "https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=922&q=80"
+    },
+    {
+        "firstName":"יעל",
+        "lastName" : "בר זאב",
+        "email":"yael@gmail.com",
+        "password":"99",
+        "phone":"0526211386",
+        "adress":{
+            "street": "דיזינגוף",
+            "number": 50,
+            "city": "תל אביב"
+        },
+        "role": "Reasercher",
+        "smoke":false,
+        "image": "https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=922&q=80"
     }
 ]

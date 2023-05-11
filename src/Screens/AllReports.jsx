@@ -5,7 +5,7 @@ export default function AllReports() {
   return (
     <View>
     <Text style={{ textAlign: "center", marginTop: 110, fontSize: 40 }}>
-        הדיווחים שלי
+        כל הדיווחים
       </Text>
     </View>
   )
