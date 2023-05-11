@@ -55,10 +55,11 @@ export default function Login({navigation}) {
                 else{
                   if(ConfirmClient(email, password).role == "User"){
                     alert("User")
+                    navigation.navigate("userScreens")
                   }
                   else if(ConfirmClient(email, password).role == "Admin"){
                     alert("Admin")
-
+                    navigation.navigate("adminScreens")
                   }
                   else if(ConfirmClient(email, password).role == "Regulator"){
                     alert("regulator")
