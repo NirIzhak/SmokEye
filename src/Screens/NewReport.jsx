@@ -2,6 +2,7 @@ import { View, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, Keyb
 import React, { useEffect, useRef, useState } from "react";
 import * as Location from "expo-location";
 
+
 export default function NewReport() {
   const date = new Date();
   const [location, setLocation] = useState({});
@@ -9,6 +10,9 @@ export default function NewReport() {
   const [latitude, setLatitude] = useState("");
   const [longitude, setLongitude] = useState("");
   const [address, setAddress] = useState("");
+
+
+
 
   const handlePress = () => {
     Keyboard.dismiss();
@@ -58,6 +62,7 @@ export default function NewReport() {
  
 
   return (
+    <>
     <TouchableWithoutFeedback onPress={handlePress}>
     <View>
       <Text style={{ textAlign: "center", marginTop: 110, fontSize: 40 }}>
@@ -83,6 +88,7 @@ export default function NewReport() {
       <Text style={{ marginTop: 40, textAlign: "center" }}>
         תמונות \ סרטונים
       </Text>
+      
       <View
         style={{
           display: "flex",
@@ -136,5 +142,6 @@ export default function NewReport() {
       </View>
     </View>
     </TouchableWithoutFeedback>
+    </>
   );
 }
