@@ -50,6 +50,12 @@ export default function SmokeyeContextProvider({ children, navigation }) {
   // }
 
 
+  const extractStreetName = (address) => {
+    const streetNameRegex = /^[^0-9,]+/;
+    const match = address.match(streetNameRegex);
+    return match ? match[0].trim() : '';
+  };
+
 
   // chack who is the current user and his role
   const cheackUser=()=>{
@@ -121,7 +127,8 @@ export default function SmokeyeContextProvider({ children, navigation }) {
     ConfirmClient, 
     setCurrentUser,
     currentUser,
-    cheackUser
+    cheackUser,
+    extractStreetName
   };
   return (
     <SmokeyeContext.Provider value={value}>{children}</SmokeyeContext.Provider>

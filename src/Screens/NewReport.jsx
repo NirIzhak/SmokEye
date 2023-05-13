@@ -8,9 +8,10 @@ import {
   Image,
   Alert
 } from "react-native";
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useContext } from "react";
 import * as Location from "expo-location";
 import * as ImagePicker from "expo-image-picker";
+import { SmokeyeContext } from "../Context/SmokEyeContext";
 
 
 
@@ -22,6 +23,9 @@ export default function NewReport() {
   const [longitude, setLongitude] = useState("");
   const [address, setAddress] = useState("");
   const [imageUri, setImageUri] = useState(null);
+  const [des, setDes] = useState("")
+
+  const {extractStreetName} = useContext(SmokeyeContext)
 
 
   const openCamera = async () => {
@@ -126,6 +130,7 @@ export default function NewReport() {
           חנות שמוכרת בניגוד לחוק"
             multiline
             numberOfLines={3}
+            onChangeText={(text) => setDes(text)}
             style={{
               borderBottomWidth: 1,
               width: "60%",
@@ -204,6 +209,19 @@ export default function NewReport() {
                 מצא כתובת
               </Text>
             </TouchableOpacity>
+          </View>
+          <View>
+            <Text onPress={()=>{
+              console.log("des ===> ",  des);
+              console.log("time ===> ",  date.getHours().toString().padStart(2, "0") +
+              ":" +
+              date.getMinutes().toString().padStart(2, "0"));
+              console.log("date ===> ",  date.getDate() +
+                "/" +
+                (date.getMonth() + 1) +
+                "/" +
+                date.getFullYear());              
+            }}>דווח</Text>
           </View>
         </View>
       </TouchableWithoutFeedback>
