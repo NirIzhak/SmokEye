@@ -5,10 +5,11 @@ import { SmokeyeContext } from "../Context/SmokEyeContext";
 
 export default function Login({navigation}) {
 
-  const {setEmail,setPassword,password,email, ConfirmClient,setCurrentUser} = useContext(SmokeyeContext);
+  const {setEmail,setPassword,cheackUser} = useContext(SmokeyeContext);
   const handlePress = () => {
     Keyboard.dismiss();
   };
+
 
   return (
     <TouchableWithoutFeedback onPress={handlePress}>
@@ -19,63 +20,40 @@ export default function Login({navigation}) {
         <TextInput
           onChangeText={(text) => setEmail(text)}
           placeholder="מייל"
-          style={Styles.input}
+          style={[Styles.input,Styles.input_btn]}
+          keyboardType="email-address"
         />
         <TextInput
           onChangeText={(text) => setPassword(text)}
           placeholder="סיסמא"
           secureTextEntry={true}
-          style={Styles.input}
+          style={[Styles.input,Styles.input_btn]}
           onBlur={() => Keyboard.dismiss()}
         />
         <TouchableOpacity>
           <Text
-            onPress={() => {
-                console.log(password, email);
-                console.log(ConfirmClient(email, password))
-                if(ConfirmClient(email, password) == undefined){
-                  alert("No User")
-                }
-                else{
-                  setCurrentUser(ConfirmClient(email, password));
-                  if(ConfirmClient(email, password).role == "User"){
-                    navigation.navigate("userScreens")
-                  }
-                  else if(ConfirmClient(email, password).role == "Admin"){
-                    navigation.navigate("adminScreens")
-                  }
-                  else if(ConfirmClient(email, password).role == "Regulator"){
-                    alert("regulator")
-                  }
-                  else if(ConfirmClient(email, password).role == "Reasercher"){
-                    alert("reasercher")
-                  }
-                }
-                //navigation.navigate("userScreens")
-                
-            }}
-            style={{ textAlign: "center", marginTop: 50 }}
-          >
+            onPress={() => {cheackUser()}}
+            style={{ textAlign: "center", marginTop: 50 }}>
             התחברות
           </Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={()=>{
             navigation.navigate('Register')
         }} style={{marginTop: 100}}>
-          <Text style={Styles.button}>
+          <Text style={[Styles.button,Styles.input_btn]}>
             אין לך משתמש ? הרשם עכשיו !
           </Text>
         </TouchableOpacity>
         <TouchableOpacity>
           <Image source={{uri: 'https://reactnative.dev/img/tiny_logo.png'}} ></Image>
-          <Text style={Styles.button}>
+          <Text style={[Styles.button,Styles.input_btn]}>
             התחברות מהירה עם גוגל
           </Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={()=>{
           navigation.navigate("FastReport")
         }}>
-          <Text style={Styles.button}>
+          <Text style={[Styles.button,Styles.input_btn]}>
             כניסה מהירה ללא התחברות
           </Text>
         </TouchableOpacity>
@@ -88,32 +66,26 @@ const Styles = StyleSheet.create({
     flex:1,
     direction: "rtl"
   },
-  input:{
-    borderWidth:1,
-    borderRadius:25,
-    borderStyle:'solid',
-    borderColor:'#8C8A89',
+  input_btn:{
     justifyContent:'center',
     textAlign: "center",
-    fontSize: 24,
+    borderWidth:1,
+    borderStyle:'solid',
+    borderRadius:25,
     padding:5,
     marginTop:20,
     marginLeft:50,
     marginRight:50
   },
+  input:{
+    borderColor:'#8C8A89',
+    fontSize: 24,
+  
+  },
   button:{
-    backgroundColor:'#EFC862',
-    borderWidth:1,
-    borderRadius:25,
-    borderStyle:'solid',
-    borderColor:'transparent',
-    justifyContent:'center',
-    textAlign: "center",
     fontSize: 15,
-    padding:5,
-    marginTop:20,
-    marginLeft:50,
-    marginRight:50
+    backgroundColor:'#EFC862',
+    borderColor:'transparent',
   }
 
 })
