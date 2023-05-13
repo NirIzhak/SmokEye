@@ -5,9 +5,12 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
   Keyboard,
+  Image,
 } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import * as Location from "expo-location";
+import * as ImagePicker from "expo-image-picker";
+
 
 export default function NewReport() {
   const date = new Date();
@@ -16,6 +19,26 @@ export default function NewReport() {
   const [latitude, setLatitude] = useState("");
   const [longitude, setLongitude] = useState("");
   const [address, setAddress] = useState("");
+  const [imageUri, setImageUri] = useState(null);
+
+
+
+
+  const handleChooseImage = async () => {
+    let permissionResult =
+      await ImagePicker.requestMediaLibraryPermissionsAsync();
+
+    if (permissionResult.granted === false) {
+      alert("Permission to access camera roll is required!");
+      return;
+    }
+
+    let pickerResult = await ImagePicker.launchImageLibraryAsync();
+
+    if (!pickerResult.cancelled) {
+      setImageUri(pickerResult.uri);
+    }
+  };
 
   const handlePress = () => {
     Keyboard.dismiss();
@@ -84,8 +107,24 @@ export default function NewReport() {
               textAlign: "right",
             }}
           />
-          <Text style={{ marginTop: 40, textAlign: "center" }}>הוסף תמונה</Text>
 
+          <TouchableOpacity onPress={handleChooseImage} style={{ marginTop: 40 }} >
+            {imageUri ? <Text style={{textAlign: 'center'}}>החלף תמונה</Text> : <Text style={{textAlign: 'center'}}>בחר תמונה</Text>}
+          </TouchableOpacity>
+
+          {imageUri && (
+            <Image
+              source={{ uri: imageUri }}
+              style={{
+                width: 200,
+                height: 200,
+                alignSelf: "center",
+                marginTop: 10,
+              }}
+            />
+          )}
+
+        
           <View
             style={{
               display: "flex",
