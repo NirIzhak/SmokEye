@@ -66,21 +66,17 @@ export default function NewReport() {
   };
 
   const GetAddress = async () => {
-    const url = `https://address-from-to-latitude-longitude.p.rapidapi.com/geolocationapi?lat=${latitude}&lng=${longitude}`;
-    const options = {
-      method: "GET",
-      headers: {
-        "X-RapidAPI-Key": "11a0f318a4msh5d32c1a19d99036p144455jsn538c51d6c8f1",
-        "X-RapidAPI-Host": "address-from-to-latitude-longitude.p.rapidapi.com",
-      },
-    };
-
     try {
-      const response = await fetch(url, options);
+      const response = await fetch("https://api.tomtom.com/search/2/reverseGeocode/32.929976075800624%2C35.08836002062856.json?&key=RjOFc93hAGcOpbjZ0SnOV4TIzDTP1mz9", {
+        headers: {
+          Accept: "*/*"
+        }
+      });
       const result = await response.json();
-      console.log(result);
-      setAddressInfo(result);
-      setAddress(result.Results[0].address);
+      //console.log(result);
+      console.log(result.addresses[0].address.streetNameAndNumber);
+      setAddressInfo(result.addresses[0]);
+      setAddress(result.addresses[0].address.streetNameAndNumber);
     } catch (error) {
       console.error(error);
     }
@@ -188,7 +184,7 @@ export default function NewReport() {
             </View>
           </View>
           <View style={{ marginTop: 20 }}>
-            <Text style={{ textAlign: "center" }}>כתובת:</Text>
+            <Text style={{ textAlign: "center", }}>כתובת:</Text>
             <TextInput
               placeholder="כתובת מלאה"
               defaultValue={address}
