@@ -1,7 +1,13 @@
-import { View, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, Keyboard } from "react-native";
-import React, { useEffect, useRef, useState } from "react";
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+  Keyboard,
+} from "react-native";
+import React, { useEffect, useState } from "react";
 import * as Location from "expo-location";
-
 
 export default function NewReport() {
   const date = new Date();
@@ -10,9 +16,6 @@ export default function NewReport() {
   const [latitude, setLatitude] = useState("");
   const [longitude, setLongitude] = useState("");
   const [address, setAddress] = useState("");
-
-
-
 
   const handlePress = () => {
     Keyboard.dismiss();
@@ -34,7 +37,6 @@ export default function NewReport() {
       console.log(result);
       setAddressInfo(result);
       setAddress(result.Results[0].address);
-
     } catch (error) {
       console.error(error);
     }
@@ -58,90 +60,87 @@ export default function NewReport() {
     getPermissions();
   }, []);
 
-
- 
-
   return (
     <>
-    <TouchableWithoutFeedback onPress={handlePress}>
-    <View>
-      <Text style={{ textAlign: "center", marginTop: 110, fontSize: 40 }}>
-        על מה הדיווח?
-      </Text>
-      <Text style={{ marginTop: 40, textAlign: "center" }}>
-        פרט בקצרה על המקרה
-      </Text>
-      <TextInput
-        placeholder="לדוגמא:
+      <TouchableWithoutFeedback onPress={handlePress}>
+        <View>
+          <Text style={{ textAlign: "center", marginTop: 110, fontSize: 40 }}>
+            על מה הדיווח?
+          </Text>
+          <Text style={{ marginTop: 40, textAlign: "center" }}>
+            פרט בקצרה על המקרה
+          </Text>
+          <TextInput
+            placeholder="לדוגמא:
         עישון במקום לא חוקי
           חנות שמוכרת בניגוד לחוק"
-        multiline
-        numberOfLines={3}
-        style={{
-          borderBottomWidth: 1,
-          width: "60%",
-          marginLeft: "auto",
-          marginRight: "auto",
-          textAlign: "right",
-        }}
-      />
-      <Text style={{ marginTop: 40, textAlign: "center" }}>
-        תמונות \ סרטונים
-      </Text>
-      
-      <View
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "space-between",
-          width: "50%",
-          marginLeft: "auto",
-          marginRight: "auto",
-          marginTop: 40,
-        }}
-      >
-        <View>
-          <Text style={{ textAlign: "center" }}>תאריך</Text>
-          <Text style={{ textAlign: "center" }}>
-            {date.getDate() +
-              "/" +
-              (date.getMonth() + 1) +
-              "/" +
-              date.getFullYear()}
-          </Text>
+            multiline
+            numberOfLines={3}
+            style={{
+              borderBottomWidth: 1,
+              width: "60%",
+              marginLeft: "auto",
+              marginRight: "auto",
+              textAlign: "right",
+            }}
+          />
+          <Text style={{ marginTop: 40, textAlign: "center" }}>הוסף תמונה</Text>
+
+          <View
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
+              width: "50%",
+              marginLeft: "auto",
+              marginRight: "auto",
+              marginTop: 40,
+            }}
+          >
+            <View>
+              <Text style={{ textAlign: "center" }}>תאריך</Text>
+              <Text style={{ textAlign: "center" }}>
+                {date.getDate() +
+                  "/" +
+                  (date.getMonth() + 1) +
+                  "/" +
+                  date.getFullYear()}
+              </Text>
+            </View>
+            <View>
+              <Text style={{ textAlign: "center" }}>שעה</Text>
+              <Text style={{ textAlign: "center" }}>
+                {date.getHours().toString().padStart(2, "0") +
+                  ":" +
+                  date.getMinutes().toString().padStart(2, "0")}
+              </Text>
+            </View>
+          </View>
+          <View style={{ marginTop: 20 }}>
+            <Text style={{ textAlign: "center" }}>כתובת:</Text>
+            <TextInput
+              placeholder="כתובת מלאה"
+              defaultValue={address}
+              style={{
+                borderBottomWidth: 1,
+                width: "30%",
+                marginLeft: "auto",
+                marginRight: "auto",
+                textAlign: "right",
+              }}
+            />
+            <TouchableOpacity
+              onPress={() => {
+                GetAddress();
+              }}
+            >
+              <Text style={{ textAlign: "center", marginTop: 10 }}>
+                מצא כתובת
+              </Text>
+            </TouchableOpacity>
+          </View>
         </View>
-        <View>
-          <Text style={{ textAlign: "center" }}>שעה</Text>
-          <Text style={{ textAlign: "center" }}>
-            {date.getHours().toString().padStart(2, "0") +
-              ":" +
-              date.getMinutes().toString().padStart(2, "0")}
-          </Text>
-        </View>
-      </View>
-      <View style={{ marginTop: 20 }}>
-        <Text style={{ textAlign: "center" }}>כתובת:</Text>
-        <TextInput
-          placeholder="כתובת מלאה" 
-          defaultValue={address}         
-          style={{
-            borderBottomWidth: 1,
-            width: "30%",
-            marginLeft: "auto",
-            marginRight: "auto",
-            textAlign: "right",
-          }}
-        />
-        <TouchableOpacity
-          onPress={() => {
-             GetAddress();
-          }}
-        >
-          <Text style={{ textAlign: "center", marginTop: 10 }}>מצא כתובת</Text>
-        </TouchableOpacity>
-      </View>
-    </View>
-    </TouchableWithoutFeedback>
+      </TouchableWithoutFeedback>
     </>
   );
 }
