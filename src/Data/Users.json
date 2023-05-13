@@ -11,6 +11,30 @@
             "city": "תל אביב"
         },
         "role" : "User",
+        "Reports": [
+            {
+              "id": 654321,
+              "description": "עישון במקום לא חוקי",
+              "media": "https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=922&q=80",
+              "location": [
+                32.0853,
+                34.7818
+              ],
+              "address": "רוטשילד 17, תל אביב",
+              "date": "05/01/2023 09:45"
+            },
+            {
+                "id": 89685468,
+                "description": "חנות שמוכרת סיגריות לקטינים",
+                "media": "https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=922&q=80",
+                "location": [
+                  32.0853,
+                  34.7818
+                ],
+                "address": "הירדן 98, רמת גן",
+                "date": "07/01/2023 19:46"
+              }
+          ],
         "smoke":false,
         "image": "https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=922&q=80"
     },

@@ -15,6 +15,7 @@ export default function SmokeyeContextProvider({ children }) {
   const [address, setAddress] = useState("");
   const [smoke, setSmoke] = useState(false);
   const [clients, setClients] = useState([]);
+  const [currentUser, setCurrentUser] = useState({});
 
   const dataFetch = async () => {
     try {
@@ -92,6 +93,8 @@ export default function SmokeyeContextProvider({ children }) {
     address,
     clients,
     ConfirmClient, 
+    setCurrentUser,
+    currentUser
   };
   return (
     <SmokeyeContext.Provider value={value}>{children}</SmokeyeContext.Provider>

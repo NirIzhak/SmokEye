@@ -1,14 +1,20 @@
-import { View, Text,Image,TouchableOpacity,Button } from 'react-native'
-import React from 'react'
+import { View, Text,Image,TouchableOpacity,Button, SafeAreaView } from 'react-native'
+import React, { useContext } from 'react'
+import { SmokeyeContext } from '../Context/SmokEyeContext'
+import { Avatar } from "@react-native-material/core";
+
 
 export default function Profile() {
+  const {currentUser} = useContext(SmokeyeContext);
+
   return (
-    <View style={{flex:1,justifyContent:'center'}}>
-      <Image source={{uri: 'https://www.bswitch.semicom.co.il/wp-content/uploads/2021/08/8011564373075_1.jpg'}} 
-      style={{ width: 100,height: 100}}></Image>
-      <Text>here we place the full name.... </Text>
-      <Text>mail address</Text>
+    <SafeAreaView >
+      <View style={{alignItems: 'center'}}>
+      {currentUser.image ? (<Avatar image={{ uri: `${currentUser.image}` }} size={150} />) : (<Avatar label={currentUser.firstName + " " + currentUser.lastName} autoColor size={150} />)}
+      <Text style={{fontSize: 40}}>{currentUser.firstName} {currentUser.lastName}</Text>
+      <Text style={{fontSize: 30}}>{currentUser.email}</Text>
+      </View>
       <Button title='עריכת פרטים'></Button>
-    </View>
+    </SafeAreaView>
   )
 }
