@@ -6,10 +6,12 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   Image,
+  Alert
 } from "react-native";
 import React, { useEffect, useState, useRef } from "react";
 import * as Location from "expo-location";
 import * as ImagePicker from "expo-image-picker";
+
 
 
 export default function NewReport() {
@@ -21,6 +23,21 @@ export default function NewReport() {
   const [address, setAddress] = useState("");
   const [imageUri, setImageUri] = useState(null);
 
+
+  const openCamera = async () => {
+    let permissionResult = await ImagePicker.requestCameraPermissionsAsync();
+  
+    if (permissionResult.granted === false) {
+      alert("Permission to access the camera is required!");
+      return;
+    }
+  
+    let pickerResult = await ImagePicker.launchCameraAsync();
+  
+    if (!pickerResult.cancelled) {
+      setImageUri(pickerResult.uri);
+    }
+  };
 
 
 
@@ -83,6 +100,16 @@ export default function NewReport() {
     getPermissions();
   }, []);
 
+
+  const createTwoButtonAlert = () =>
+    Alert.alert('הוספת תמונה', 'בחר אחת מן האופציות', [
+      {
+        text: 'העלאת תמונה מהאלבום',
+        onPress: () => handleChooseImage(),
+      },
+      {text: 'העלאת תמונה חדשה מהמצלמה', onPress: () => openCamera()},
+    ]);
+
   return (
     <>
       <TouchableWithoutFeedback onPress={handlePress}>
@@ -108,7 +135,7 @@ export default function NewReport() {
             }}
           />
 
-          <TouchableOpacity onPress={handleChooseImage} style={{ marginTop: 40 }} >
+          <TouchableOpacity onPress={createTwoButtonAlert} style={{ marginTop: 40 }} >
             {imageUri ? <Text style={{textAlign: 'center'}}>החלף תמונה</Text> : <Text style={{textAlign: 'center'}}>בחר תמונה</Text>}
           </TouchableOpacity>
 
