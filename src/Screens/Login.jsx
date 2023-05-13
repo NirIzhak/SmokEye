@@ -5,7 +5,7 @@ import { SmokeyeContext } from "../Context/SmokEyeContext";
 
 export default function Login({navigation}) {
 
-  const {setEmail,setPassword,cheackUser} = useContext(SmokeyeContext);
+  const {setEmail,setPassword,ConfirmClient, email, password, setCurrentUser} = useContext(SmokeyeContext);
   const handlePress = () => {
     Keyboard.dismiss();
   };
@@ -32,7 +32,28 @@ export default function Login({navigation}) {
         />
         <TouchableOpacity>
           <Text
-            onPress={() => {cheackUser()}}
+            onPress={() => {const typerole = ConfirmClient(email, password);
+              if(typerole == undefined){
+                  alert("No User")
+              }
+              else{
+                  setCurrentUser(typerole);
+                if(typerole.role == "User"){
+                    navigation.navigate("userScreens")
+                    alert("user")
+                }
+                else if(typerole.role == "Admin"){
+                    navigation.navigate("adminScreens")
+                    alert("admin")
+          
+                }
+                else if(typerole.role == "Regulator"){
+                    alert("regulator")
+                }
+                else if(typerole.role == "Reasercher"){
+                    alert("reasercher")
+                }
+              }}}
             style={{ textAlign: "center", marginTop: 50 }}>
             התחברות
           </Text>

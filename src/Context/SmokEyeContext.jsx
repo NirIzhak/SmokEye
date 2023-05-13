@@ -3,7 +3,7 @@ import Users from "../Data/Users.json";
 
 export const SmokeyeContext = createContext();
 
-export default function SmokeyeContextProvider({ children }) {
+export default function SmokeyeContextProvider({ children, navigation }) {
   /*Login Values*/
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -17,10 +17,10 @@ export default function SmokeyeContextProvider({ children }) {
   const [clients, setClients] = useState([]);
   const [currentUser, setCurrentUser] = useState({});
 
+  // try to get users
   const dataFetch = async () => {
     try {
       setClients(Users);
-      console.log(clients);
     } catch (err) {
       console.log("err :>> ", err);
     }
@@ -31,6 +31,7 @@ export default function SmokeyeContextProvider({ children }) {
 
 
 
+  // chack if the user is exsist
   const ConfirmClient = (e,p) => {
     let isExsist = clients.find((item)=> item.email == e && item.password == p);
     if(isExsist) return isExsist;
@@ -48,26 +49,32 @@ export default function SmokeyeContextProvider({ children }) {
   //   }
   // }
 
+
+
+  // chack who is the current user and his role
   const cheackUser=()=>{
-    const typerole = ConfirmClient(email, password);
-    if(typerole == undefined){
-        alert("No User")
-    }
-    else{
-        setCurrentUser(typerole);
-      if(typerole.role == "User"){
-          navigation.navigate("userScreens")
-      }
-      else if(typerole.role == "Admin"){
-          navigation.navigate("adminScreens")
-      }
-      else if(typerole.role == "Regulator"){
-          alert("regulator")
-      }
-      else if(typerole.role == "Reasercher"){
-          alert("reasercher")
-      }
-    }
+    // const typerole = ConfirmClient(email, password);
+    // if(typerole == undefined){
+    //     alert("No User")
+    // }
+    // else{
+    //     setCurrentUser(typerole);
+    //   if(typerole.role == "User"){
+    //       navigation.navigate("userScreens")
+    //       alert("user")
+    //   }
+    //   else if(typerole.role == "Admin"){
+    //       //navigation.navigate("adminScreens")
+    //       alert("admin")
+
+    //   }
+    //   else if(typerole.role == "Regulator"){
+    //       alert("regulator")
+    //   }
+    //   else if(typerole.role == "Reasercher"){
+    //       alert("reasercher")
+    //   }
+    // }
   }
 
 
@@ -88,7 +95,6 @@ export default function SmokeyeContextProvider({ children }) {
       smoke,
     };
     setClients([...clients, user]);
-    console.log(clients);
   };
 
   //Check Client in Array
