@@ -48,7 +48,27 @@ export default function SmokeyeContextProvider({ children }) {
   //   }
   // }
 
-
+  const cheackUser=()=>{
+    const typerole = ConfirmClient(email, password);
+    if(typerole == undefined){
+        alert("No User")
+    }
+    else{
+        setCurrentUser(typerole);
+      if(typerole.role == "User"){
+          navigation.navigate("userScreens")
+      }
+      else if(typerole.role == "Admin"){
+          navigation.navigate("adminScreens")
+      }
+      else if(typerole.role == "Regulator"){
+          alert("regulator")
+      }
+      else if(typerole.role == "Reasercher"){
+          alert("reasercher")
+      }
+    }
+  }
 
 
   useEffect(() => {
@@ -94,7 +114,8 @@ export default function SmokeyeContextProvider({ children }) {
     clients,
     ConfirmClient, 
     setCurrentUser,
-    currentUser
+    currentUser,
+    cheackUser
   };
   return (
     <SmokeyeContext.Provider value={value}>{children}</SmokeyeContext.Provider>
