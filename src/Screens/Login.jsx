@@ -35,6 +35,7 @@ export default function Login({ navigation }) {
           placeholder="מייל"
           style={[Styles.input, Styles.input_btn]}
           keyboardType="email-address"
+          autoCapitalize="none"
         />
         <TextInput
           onChangeText={(text) => setPassword(text)}
@@ -104,6 +105,7 @@ const Styles = StyleSheet.create({
   continer: {
     flex: 1,
     direction: "rtl",
+    justifyContent:'center'
   },
   input_btn: {
     justifyContent: "center",
