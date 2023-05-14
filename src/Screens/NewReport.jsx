@@ -117,7 +117,7 @@ export default function NewReport() {
           <Text style={{ textAlign: "center", marginTop: 110, fontSize: 40 }}>
             על מה הדיווח?
           </Text>
-          <Text style={{ marginTop: 40, textAlign: "center" }}>
+          <Text style={styles.report_Details}>
             פרט בקצרה על המקרה
           </Text>
           <TextInput
@@ -224,3 +224,10 @@ export default function NewReport() {
     </>
   );
 }
+const styles = StyleSheet.create({
+
+  report_Details:{
+
+
+  }
+})
