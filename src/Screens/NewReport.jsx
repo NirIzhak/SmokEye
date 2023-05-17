@@ -1,13 +1,4 @@
-import {
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  TouchableWithoutFeedback,
-  Keyboard,
-  Image,
-  Alert
-} from "react-native";
+import {View,Text,TextInput,TouchableOpacity,TouchableWithoutFeedback,Keyboard,Image,Alert,StyleSheet} from "react-native";
 import React, { useEffect, useState, useRef, useContext } from "react";
 import * as Location from "expo-location";
 import * as ImagePicker from "expo-image-picker";
@@ -113,11 +104,11 @@ export default function NewReport() {
   return (
     <>
       <TouchableWithoutFeedback onPress={handlePress}>
-        <View>
-          <Text style={{ textAlign: "center", marginTop: 110, fontSize: 40 }}>
+        <View style={styles.container}>
+          <Text style={[styles.font_Location,styles.title]}>
             על מה הדיווח?
           </Text>
-          <Text style={styles.report_Details}>
+          <Text style={[styles.font_Location,styles.title]}>
             פרט בקצרה על המקרה
           </Text>
           <TextInput
@@ -127,15 +118,8 @@ export default function NewReport() {
             multiline
             numberOfLines={3}
             onChangeText={(text) => setDes(text)}
-            style={{
-              borderBottomWidth: 1,
-              width: "60%",
-              marginLeft: "auto",
-              marginRight: "auto",
-              textAlign: "right",
-            }}
+            style={[styles.report_Details]}
           />
-
           <TouchableOpacity onPress={createTwoButtonAlert} style={{ marginTop: 40 }} >
             {imageUri ? <Text style={{textAlign: 'center'}}>החלף תמונה</Text> : <Text style={{textAlign: 'center'}}>בחר תמונה</Text>}
           </TouchableOpacity>
@@ -225,9 +209,24 @@ export default function NewReport() {
   );
 }
 const styles = StyleSheet.create({
-
+  title:{
+    marginBottom:10
+  },
+  font_Location:{
+    textAlign:"center"
+  },
+  container:{
+    flex:1,
+    justifyContent:'center',
+    alignItems:'center',
+    margin:'auto'
+  },
   report_Details:{
-
-
+    borderColor: "#8C8A89",
+    borderWidth:1,
+    width:'75%',
+    padding:15,
+    direction: 'rtl',
+    textAlignVertical: 'top'
   }
 })
