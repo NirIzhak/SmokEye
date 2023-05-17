@@ -50,10 +50,12 @@ export default function SmokeyeContextProvider({ children, navigation }) {
   // }
 
 
-  const extractStreetName = (address) => {
-    const streetNameRegex = /^[^0-9,]+/;
-    const match = address.match(streetNameRegex);
-    return match ? match[0].trim() : '';
+  const extractStreetName = (inputString) => {
+      const firstSpaceIndex = inputString.indexOf(' ');
+      if (firstSpaceIndex !== -1) {
+        return inputString.substring(firstSpaceIndex + 1);
+      }
+      return inputString;
   };
 
 

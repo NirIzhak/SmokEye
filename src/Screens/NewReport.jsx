@@ -9,10 +9,11 @@ import { SmokeyeContext } from "../Context/SmokEyeContext";
 export default function NewReport() {
   const date = new Date();
   const [location, setLocation] = useState({});
-  const [addressInfo, setAddressInfo] = useState({});
   const [latitude, setLatitude] = useState("");
   const [longitude, setLongitude] = useState("");
-  const [address, setAddress] = useState("");
+  const [city, setCity] = useState("");
+  const [street, setStreet] = useState("");
+  const [streetNum, SetStreetNum] = useState("");
   const [imageUri, setImageUri] = useState(null);
   const [des, setDes] = useState("")
 
@@ -58,20 +59,23 @@ export default function NewReport() {
 
   const GetAddress = async () => {
     try {
-      const response = await fetch("https://api.tomtom.com/search/2/reverseGeocode/32.929976075800624%2C35.08836002062856.json?&key=RjOFc93hAGcOpbjZ0SnOV4TIzDTP1mz9", {
+      const response = await fetch(`https://api.tomtom.com/search/2/reverseGeocode/${latitude}%2C${longitude}.json?&key=RjOFc93hAGcOpbjZ0SnOV4TIzDTP1mz9`, {
         headers: {
           Accept: "*/*"
         }
       });
       const result = await response.json();
-      //console.log(result);
-      console.log(result.addresses[0].address.streetNameAndNumber);
-      setAddressInfo(result.addresses[0]);
-      setAddress(result.addresses[0].address.streetNameAndNumber);
+      console.log(result)
+      setCity(result.addresses[0].address.municipality);
+      setStreet(extractStreetName(result.addresses[0].address.street));
+      SetStreetNum(result.addresses[0].address.streetNumber)
     } catch (error) {
       console.error(error);
     }
   };
+
+
+
 
   useEffect(() => {
     const getPermissions = async () => {
@@ -108,6 +112,7 @@ export default function NewReport() {
           <Text style={[styles.font_Location,styles.title]}>
             על מה הדיווח?
           </Text>
+
           <Text style={[styles.font_Location,styles.title]}>
             פרט בקצרה על המקרה
           </Text>
@@ -168,16 +173,41 @@ export default function NewReport() {
             </View>
           </View>
           <View style={{ marginTop: 20 }}>
-            <Text style={{ textAlign: "center", }}>כתובת:</Text>
+            <Text style={{ textAlign: "center", }}>פרטי מיקום:</Text>
             <TextInput
-              placeholder="כתובת מלאה"
-              defaultValue={address}
+              placeholder="שם הרחוב"
+              defaultValue={street}
               style={{
                 borderBottomWidth: 1,
                 width: "30%",
                 marginLeft: "auto",
                 marginRight: "auto",
                 textAlign: "right",
+                marginTop: 10
+              }}
+            />
+            <TextInput
+              placeholder="מספר רחוב"
+              defaultValue={streetNum}
+              style={{
+                borderBottomWidth: 1,
+                width: "30%",
+                marginLeft: "auto",
+                marginRight: "auto",
+                textAlign: "right",
+                marginTop: 10
+              }}
+            />
+            <TextInput
+              placeholder="עיר"
+              defaultValue={city}
+              style={{
+                borderBottomWidth: 1,
+                width: "30%",
+                marginLeft: "auto",
+                marginRight: "auto",
+                textAlign: "right",
+                marginTop: 10
               }}
             />
             <TouchableOpacity
@@ -186,7 +216,7 @@ export default function NewReport() {
               }}
             >
               <Text style={{ textAlign: "center", marginTop: 10 }}>
-                מצא כתובת
+                השתמש במיקום שלי!
               </Text>
             </TouchableOpacity>
           </View>
