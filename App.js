@@ -13,6 +13,9 @@ import Profile from './src/Components/Profile';
 import MyReports from './src/Screens/MyReports';
 import FullReport from './src/Screens/FullReport';
 
+
+
+
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
