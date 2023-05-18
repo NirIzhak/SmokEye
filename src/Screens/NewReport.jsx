@@ -7,15 +7,12 @@ import { RadioButton } from 'react-native-paper';
 
 
 export default function NewReport() {
+
+  const {city, setCity,street, setStreet,streetNum, SetStreetNum,imageUri, setImageUri,des, setDes} = useContext(SmokeyeContext);
   const date = new Date();
   const [location, setLocation] = useState({});
   const [latitude, setLatitude] = useState("");
   const [longitude, setLongitude] = useState("");
-  const [city, setCity] = useState("");
-  const [street, setStreet] = useState("");
-  const [streetNum, SetStreetNum] = useState("");
-  const [imageUri, setImageUri] = useState(null);
-  const [des, setDes] = useState("")
   const [checked,setChecked] =useState('first');
   const {extractStreetName} = useContext(SmokeyeContext)
 
@@ -79,9 +76,6 @@ export default function NewReport() {
     }
   };
 
-
-
-
   useEffect(() => {
     const getPermissions = async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
@@ -131,42 +125,23 @@ export default function NewReport() {
             פרט בקצרה על המקרה
           </Text>
           <TextInput
-            placeholder="לדוגמא:
-        עישון במקום לא חוקי
-          חנות שמוכרת בניגוד לחוק"
+            placeholder="לדוגמא: עסק שמוכר סיגריות שנראות באופן גלוי  "
             multiline
             numberOfLines={3}
             onChangeText={(text) => setDes(text)}
             style={[styles.report_Details]}
           />
-          <TouchableOpacity onPress={createTwoButtonAlert} style={{ marginTop: 40 }} >
-            {imageUri ? <Text style={styles.title}>החלף תמונה</Text> : <Text style={{textAlign: 'center'}}>בחר תמונה</Text>}
+          <TouchableOpacity onPress={createTwoButtonAlert} style={styles.buttonContainer} >
+            {imageUri ? <Text style={[styles.btn]}>החלף תמונה</Text> : <Text style={[styles.btn]}>בחר תמונה</Text>}
           </TouchableOpacity>
 
           {imageUri && (
             <Image
               source={{ uri: imageUri }}
-              style={{
-                width: 200,
-                height: 200,
-                alignSelf: "center",
-                marginTop: 10,
-              }}
+              style={styles.img}
             />
           )}
-
-        
-          <View
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "space-between",
-              width: "50%",
-              marginLeft: "auto",
-              marginRight: "auto",
-              marginTop: 40,
-            }}
-          >
+          <View style={styles.date}>
             <View>
               <Text style={styles.title}>תאריך</Text>
               <Text style={styles.title}>
@@ -194,7 +169,7 @@ export default function NewReport() {
               style={[styles.addressInput, styles.streetInput]}
             />
             <TextInput
-              placeholder="מספר רחוב"
+              placeholder="מספר"
               defaultValue={streetNum}
               style={[styles.addressInput, styles.streetNumInput]}
             />
@@ -210,9 +185,7 @@ export default function NewReport() {
                 GetAddress();
               }}
             >
-              <Text style={styles.title}>
-                השתמש במיקום שלי!
-              </Text>
+              <Text style={styles.buttonContainer}>מצא אותי !</Text>
             </TouchableOpacity>
           </View>
           <View>
@@ -247,7 +220,8 @@ const styles = StyleSheet.create({
   report_Details:{
     borderColor: "#8C8A89",
     borderWidth:1,
-    width:'75%',
+    borderRadius:5,
+    width:'85%',
     padding:15,
     direction: 'rtl',
     textAlignVertical: 'top'
@@ -265,6 +239,31 @@ const styles = StyleSheet.create({
   radioButtonText: {
     marginLeft: 5,
   },
+  buttonContainer:{
+    marginTop:20,
+    backgroundColor: "#F1C684",
+    borderRadius: 5,
+    paddingVertical: 10,
+    paddingHorizontal: 50
+  },
+  btn:{
+    width:'50%'
+  },
+  img:{
+      width: 200,
+      height: 200,
+      alignSelf: "center",
+      marginTop: 10
+  },
+  date:{
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    width: "50%",
+    marginLeft: "auto",
+    marginRight: "auto",
+    marginTop: 40,
+  },
   addressContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -274,6 +273,7 @@ const styles = StyleSheet.create({
   addressInput: {
     borderWidth: 1,
     borderColor: '#8C8A89',
+    borderRadius:5,
     padding: 5,
     textAlign: 'right',
     margin:2
@@ -282,7 +282,8 @@ const styles = StyleSheet.create({
     width: '40%',
   },
   streetNumInput: {
-    width: '10%',
+    textAlign:'center',
+    width: '15%',
   },
   cityInput: {
     width: '30%',
