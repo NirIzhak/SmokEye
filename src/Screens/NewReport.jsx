@@ -1,4 +1,4 @@
-import {View,Text,TextInput,TouchableOpacity,TouchableWithoutFeedback,Keyboard,Image,Alert,StyleSheet} from "react-native";
+import {View,Text,TextInput,TouchableOpacity,TouchableWithoutFeedback,Keyboard,Image,Alert,StyleSheet,Button} from "react-native";
 import React, { useEffect, useState, useRef, useContext } from "react";
 import * as Location from "expo-location";
 import * as ImagePicker from "expo-image-picker";
@@ -14,6 +14,7 @@ export default function NewReport() {
   const [latitude, setLatitude] = useState("");
   const [longitude, setLongitude] = useState("");
   const [checked,setChecked] =useState('first');
+  const [title,setTitle]= useState("בחר תמונה");
   const {extractStreetName} = useContext(SmokeyeContext)
 
   const handlePress = () => {
@@ -134,13 +135,8 @@ export default function NewReport() {
           <TouchableOpacity onPress={createTwoButtonAlert} style={styles.buttonContainer} >
             {imageUri ? <Text style={[styles.btn]}>החלף תמונה</Text> : <Text style={[styles.btn]}>בחר תמונה</Text>}
           </TouchableOpacity>
-
           {imageUri && (
-            <Image
-              source={{ uri: imageUri }}
-              style={styles.img}
-            />
-          )}
+            <Image source={{ uri: imageUri }}style={styles.img}/>)}
           <View style={styles.date}>
             <View>
               <Text style={styles.title}>תאריך</Text>
@@ -180,12 +176,8 @@ export default function NewReport() {
             />
           </View>
           <View>
-          <TouchableOpacity
-              onPress={() => {
-                GetAddress();
-              }}
-            >
-              <Text style={styles.buttonContainer}>מצא אותי !</Text>
+            <TouchableOpacity onPress={() => {GetAddress();}}style={[styles.buttonContainer]}>
+              <Text style={styles.btn}>מצא אותי !</Text>
             </TouchableOpacity>
           </View>
           <View>
@@ -241,13 +233,14 @@ const styles = StyleSheet.create({
   },
   buttonContainer:{
     marginTop:20,
-    backgroundColor: "#F1C684",
+    backgroundColor: "#F39508",
     borderRadius: 5,
     paddingVertical: 10,
-    paddingHorizontal: 50
+    paddingHorizontal: 40
   },
   btn:{
-    width:'50%'
+    color:'white',
+    width:'100%'
   },
   img:{
       width: 200,
