@@ -1,14 +1,5 @@
 import { useContext } from "react";
-import {
-  Image,
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  TouchableWithoutFeedback,
-  Keyboard,
-  StyleSheet,
-} from "react-native";
+import {Image,View,Text,TextInput,TouchableOpacity,TouchableWithoutFeedback,Keyboard,StyleSheet,KeyboardAvoidingView} from "react-native";
 import { SmokeyeContext } from "../Context/SmokEyeContext";
 
 export default function Login({ navigation }) {
@@ -25,14 +16,14 @@ export default function Login({ navigation }) {
   };
 
   return (
-    <TouchableWithoutFeedback onPress={handlePress}>
+    <KeyboardAvoidingView behavior="padding" onPress={handlePress}>
       <View style={Styles.continer}>
         <Text style={{ textAlign: "center", marginTop: 110, fontSize: 40 }}>
           התחברות
         </Text>
         <TextInput
           onChangeText={(text) => setEmail(text)}
-          placeholder="מייל"
+          placeholder="כתובת מייל"
           style={[Styles.input, Styles.input_btn]}
           keyboardType="email-address"
           autoCapitalize="none"
@@ -98,14 +89,12 @@ export default function Login({ navigation }) {
           </Text>
         </TouchableOpacity>
       </View>
-    </TouchableWithoutFeedback>
+      </KeyboardAvoidingView>
   );
 }
 const Styles = StyleSheet.create({
   continer: {
-    flex: 1,
     direction: "rtl",
-    justifyContent:'center'
   },
   input_btn: {
     justifyContent: "center",
