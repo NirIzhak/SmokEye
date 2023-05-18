@@ -71,7 +71,7 @@ export default function Login({ navigation }) {
           <Image
             source={{ uri: "https://reactnative.dev/img/tiny_logo.png" }}
           ></Image>
-          <Text style={[Styles.button, Styles.input_btn]}>
+          <Text style={[Styles.googleConection,Styles.input_btn]}>
             התחברות מהירה עם גוגל
           </Text>
         </TouchableOpacity>
@@ -104,12 +104,15 @@ const Styles = StyleSheet.create({
     marginRight: 50,
   },
   input: {
-    borderColor: "#8C8A89",
+    borderColor: "#F39508",
     fontSize: 24,
   },
   button: {
     fontSize: 15,
-    backgroundColor: "#EFC862",
+    backgroundColor: "#F39508",
     borderColor: "transparent",
   },
+  googleConection:{
+    borderColor: "#F39508"
+  }
 });
