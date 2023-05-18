@@ -1,9 +1,9 @@
-import {View,Text,TextInput,TouchableOpacity,TouchableWithoutFeedback,Keyboard,Image,Alert,StyleSheet,Button} from "react-native";
+import {View,Text,TextInput,TouchableOpacity,TouchableWithoutFeedback,Keyboard,Image,Alert,StyleSheet} from "react-native";
 import React, { useEffect, useState, useRef, useContext } from "react";
 import * as Location from "expo-location";
 import * as ImagePicker from "expo-image-picker";
 import { SmokeyeContext } from "../Context/SmokEyeContext";
-import { RadioButton } from 'react-native-paper';
+import { RadioButton ,DefaultTheme, Provider as PaperProvider} from 'react-native-paper';
 
 
 export default function NewReport() {
@@ -14,8 +14,17 @@ export default function NewReport() {
   const [latitude, setLatitude] = useState("");
   const [longitude, setLongitude] = useState("");
   const [checked,setChecked] =useState('first');
-  const [title,setTitle]= useState("בחר תמונה");
-  const {extractStreetName} = useContext(SmokeyeContext)
+
+  const {extractStreetName} = useContext(SmokeyeContext);
+  const theme = {
+    ...DefaultTheme,
+    roundness: 2,
+    colors: {
+      ...DefaultTheme.colors,
+      primary: '#F39508',
+      accent: '#f1c40f',
+    }
+  }
 
   const handlePress = () => {
     Keyboard.dismiss();
@@ -99,6 +108,7 @@ export default function NewReport() {
   return (
     <>
       <TouchableWithoutFeedback onPress={handlePress}>
+      <PaperProvider theme={theme}>
         <View style={styles.container}>
           <Text style={[styles.title]}>
             על מה הדיווח?
@@ -109,6 +119,7 @@ export default function NewReport() {
                value="first"
                status={ checked === 'first' ? 'checked' : 'unchecked' }
                onPress={() => setChecked('first')}
+               color={theme.colors.primary}
             />
           <Text style={styles.radioButtonText}>עסק</Text>
       </View>
@@ -181,7 +192,7 @@ export default function NewReport() {
             </TouchableOpacity>
           </View>
           <View>
-            <Text onPress={()=>{
+            <Text style={styles.sendReport} onPress={()=>{
               console.log("des ===> ",  des);
               console.log("time ===> ",  date.getHours().toString().padStart(2, "0") +
               ":" +
@@ -194,6 +205,7 @@ export default function NewReport() {
             }}>דווח</Text>
           </View>
         </View>
+        </PaperProvider>
       </TouchableWithoutFeedback>
     </>
   );
@@ -280,5 +292,12 @@ const styles = StyleSheet.create({
   },
   cityInput: {
     width: '30%',
+  },
+  sendReport:{
+    borderWidth:1,
+    borderStyle:'solid',
+    borderColor:'#F39508',
+    marginTop:5,
+    paddingHorizontal:50
   }
 })
