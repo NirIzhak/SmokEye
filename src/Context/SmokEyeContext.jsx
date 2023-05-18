@@ -17,6 +17,15 @@ export default function SmokeyeContextProvider({ children, navigation }) {
   const [clients, setClients] = useState([]);
   const [currentUser, setCurrentUser] = useState({});
 
+ /*New Report */
+  const [city, setCity] = useState("");
+  const [street, setStreet] = useState("");
+  const [streetNum, SetStreetNum] = useState("");
+  const [imageUri, setImageUri] = useState(null);
+  const [des, setDes] = useState("")
+
+
+
   // try to get users
   const dataFetch = async () => {
     try {
@@ -109,6 +118,7 @@ export default function SmokeyeContextProvider({ children, navigation }) {
   //const ConfirmClient=()=>{}
 
   const value = {
+    setCity,
     toggleSwitch,
     AddClient,
     setEmail,
@@ -118,6 +128,14 @@ export default function SmokeyeContextProvider({ children, navigation }) {
     setPhone,
     setAddress,
     setSmoke,
+    ConfirmClient, 
+    setCurrentUser,
+    cheackUser,
+    extractStreetName,
+    setStreet,
+    SetStreetNum,
+    setImageUri,
+    setDes,
     smoke,
     email,
     password,
@@ -126,11 +144,13 @@ export default function SmokeyeContextProvider({ children, navigation }) {
     phone,
     address,
     clients,
-    ConfirmClient, 
-    setCurrentUser,
+    city, 
+    street,
+    streetNum,
+    imageUri,
+    des,
     currentUser,
-    cheackUser,
-    extractStreetName
+    
   };
   return (
     <SmokeyeContext.Provider value={value}>{children}</SmokeyeContext.Provider>
