@@ -14,6 +14,9 @@ import MyReports from './src/Screens/MyReports';
 import FullReport from './src/Screens/FullReport';
 import Map from './src/Screens/Map';
 
+
+
+
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
