@@ -19,7 +19,10 @@ export default function NewReport() {
   const [checked,setChecked] =useState('first');
   const {extractStreetName} = useContext(SmokeyeContext)
 
-
+  const handlePress = () => {
+    Keyboard.dismiss();
+  };
+//Camera
   const openCamera = async () => {
     let permissionResult = await ImagePicker.requestCameraPermissionsAsync();
   
@@ -34,8 +37,6 @@ export default function NewReport() {
       setImageUri(pickerResult.uri);
     }
   };
-
-
 
   const handleChooseImage = async () => {
     let permissionResult =
@@ -52,11 +53,15 @@ export default function NewReport() {
       setImageUri(pickerResult.uri);
     }
   };
-
-  const handlePress = () => {
-    Keyboard.dismiss();
-  };
-
+  const createTwoButtonAlert = () =>
+  Alert.alert('הוספת תמונה', 'בחר אחת מן האופציות', [
+    {
+      text: 'העלאת תמונה מהאלבום',
+      onPress: () => handleChooseImage(),
+    },
+    {text: 'העלאת תמונה חדשה מהמצלמה', onPress: () => openCamera()},
+  ]);
+//location
   const GetAddress = async () => {
     try {
       const response = await fetch(`https://api.tomtom.com/search/2/reverseGeocode/${latitude},${longitude}.json?&key=RjOFc93hAGcOpbjZ0SnOV4TIzDTP1mz9`, {
@@ -96,42 +101,33 @@ export default function NewReport() {
   }, []);
 
 
-  const createTwoButtonAlert = () =>
-    Alert.alert('הוספת תמונה', 'בחר אחת מן האופציות', [
-      {
-        text: 'העלאת תמונה מהאלבום',
-        onPress: () => handleChooseImage(),
-      },
-      {text: 'העלאת תמונה חדשה מהמצלמה', onPress: () => openCamera()},
-    ]);
-
   return (
     <>
       <TouchableWithoutFeedback onPress={handlePress}>
         <View style={styles.container}>
-          <Text style={[styles.font_Location,styles.title]}>
+          <Text style={[styles.title]}>
             על מה הדיווח?
           </Text>
           <View style={styles.radio_btn}>
-        <View>
-        <RadioButton
-        value="first"
-        status={ checked === 'first' ? 'checked' : 'unchecked' }
-        onPress={() => setChecked('first')}
-      />
-      <Text>עסק</Text>
+            <View style={styles.radioButtonContainer}>
+             <RadioButton
+               value="first"
+               status={ checked === 'first' ? 'checked' : 'unchecked' }
+               onPress={() => setChecked('first')}
+            />
+          <Text style={styles.radioButtonText}>עסק</Text>
       </View>
-    <View>
-    <RadioButton
-        value="second"
-        status={ checked === 'second' ? 'checked' : 'unchecked' }
-        onPress={() => setChecked('second')}
-      />
-      <Text>אחר</Text>
+       <View style={styles.radioButtonContainer}>
+         <RadioButton
+           value="second"
+           status={ checked === 'second' ? 'checked' : 'unchecked' }
+           onPress={() => setChecked('second')}
+         />
+      <Text style={styles.radioButtonText}>אחר</Text>
     </View>
     </View>
 
-          <Text style={[styles.font_Location,styles.title]}>
+          <Text style={[styles.title]}>
             פרט בקצרה על המקרה
           </Text>
           <TextInput
@@ -144,7 +140,7 @@ export default function NewReport() {
             style={[styles.report_Details]}
           />
           <TouchableOpacity onPress={createTwoButtonAlert} style={{ marginTop: 40 }} >
-            {imageUri ? <Text style={{textAlign: 'center'}}>החלף תמונה</Text> : <Text style={{textAlign: 'center'}}>בחר תמונה</Text>}
+            {imageUri ? <Text style={styles.title}>החלף תמונה</Text> : <Text style={{textAlign: 'center'}}>בחר תמונה</Text>}
           </TouchableOpacity>
 
           {imageUri && (
@@ -172,8 +168,8 @@ export default function NewReport() {
             }}
           >
             <View>
-              <Text style={{ textAlign: "center" }}>תאריך</Text>
-              <Text style={{ textAlign: "center" }}>
+              <Text style={styles.title}>תאריך</Text>
+              <Text style={styles.title}>
                 {date.getDate() +
                   "/" +
                   (date.getMonth() + 1) +
@@ -182,58 +178,39 @@ export default function NewReport() {
               </Text>
             </View>
             <View>
-              <Text style={{ textAlign: "center" }}>שעה</Text>
-              <Text style={{ textAlign: "center" }}>
+              <Text style={styles.title}>שעה</Text>
+              <Text style={styles.title}>
                 {date.getHours().toString().padStart(2, "0") +
                   ":" +
                   date.getMinutes().toString().padStart(2, "0")}
               </Text>
             </View>
           </View>
-          <View style={{ marginTop: 20 }}>
-            <Text style={{ textAlign: "center", }}>פרטי מיקום:</Text>
+          <Text style={styles.title}>פרטי מיקום:</Text>
+          <View style={styles.addressContainer}>
             <TextInput
               placeholder="שם הרחוב"
               defaultValue={street}
-              style={{
-                borderBottomWidth: 1,
-                width: "30%",
-                marginLeft: "auto",
-                marginRight: "auto",
-                textAlign: "right",
-                marginTop: 10
-              }}
+              style={[styles.addressInput, styles.streetInput]}
             />
             <TextInput
               placeholder="מספר רחוב"
               defaultValue={streetNum}
-              style={{
-                borderBottomWidth: 1,
-                width: "30%",
-                marginLeft: "auto",
-                marginRight: "auto",
-                textAlign: "right",
-                marginTop: 10
-              }}
+              style={[styles.addressInput, styles.streetNumInput]}
             />
             <TextInput
               placeholder="עיר"
               defaultValue={city}
-              style={{
-                borderBottomWidth: 1,
-                width: "30%",
-                marginLeft: "auto",
-                marginRight: "auto",
-                textAlign: "right",
-                marginTop: 10
-              }}
+              style={[styles.addressInput, styles.cityInput]}
             />
-            <TouchableOpacity
+          </View>
+          <View>
+          <TouchableOpacity
               onPress={() => {
                 GetAddress();
               }}
             >
-              <Text style={{ textAlign: "center", marginTop: 10 }}>
+              <Text style={styles.title}>
                 השתמש במיקום שלי!
               </Text>
             </TouchableOpacity>
@@ -258,9 +235,7 @@ export default function NewReport() {
 }
 const styles = StyleSheet.create({
   title:{
-    marginBottom:10
-  },
-  font_Location:{
+    marginBottom:10, 
     textAlign:"center"
   },
   container:{
@@ -276,5 +251,40 @@ const styles = StyleSheet.create({
     padding:15,
     direction: 'rtl',
     textAlignVertical: 'top'
+  },
+  radio_btn: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    marginBottom: 20,
+  },
+  radioButtonContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginRight: 10,
+  },
+  radioButtonText: {
+    marginLeft: 5,
+  },
+  addressContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginHorizontal: 5,
+    marginBottom: 20,
+  },
+  addressInput: {
+    borderWidth: 1,
+    borderColor: '#8C8A89',
+    padding: 5,
+    textAlign: 'right',
+    margin:2
+  },
+  streetInput: {
+    width: '40%',
+  },
+  streetNumInput: {
+    width: '10%',
+  },
+  cityInput: {
+    width: '30%',
   }
 })
