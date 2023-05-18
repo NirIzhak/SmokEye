@@ -54,14 +54,10 @@ export default function Login({ navigation }) {
                 setCurrentUser(typerole);
                 if (typerole.role == "User") {
                   navigation.navigate("userScreens");
-                  alert("user");
                 } else if (typerole.role == "Admin") {
                   navigation.navigate("adminScreens");
-                  alert("admin");
                 } else if (typerole.role == "Regulator") {
-                  alert("regulator");
                 } else if (typerole.role == "Reasercher") {
-                  alert("reasercher");
                 }
               }
             }}

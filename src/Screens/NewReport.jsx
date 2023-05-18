@@ -59,7 +59,7 @@ export default function NewReport() {
 
   const GetAddress = async () => {
     try {
-      const response = await fetch(`https://api.tomtom.com/search/2/reverseGeocode/${latitude}%2C${longitude}.json?&key=RjOFc93hAGcOpbjZ0SnOV4TIzDTP1mz9`, {
+      const response = await fetch(`https://api.tomtom.com/search/2/reverseGeocode/${latitude},${longitude}.json?&key=RjOFc93hAGcOpbjZ0SnOV4TIzDTP1mz9`, {
         headers: {
           Accept: "*/*"
         }

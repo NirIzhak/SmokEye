@@ -12,6 +12,7 @@ import Store from './src/Screens/Store';
 import Profile from './src/Components/Profile';
 import MyReports from './src/Screens/MyReports';
 import FullReport from './src/Screens/FullReport';
+import Map from './src/Screens/Map';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -62,6 +63,7 @@ const AdminTab = ()=>{
   return(
     <Tab.Navigator>
   <Tab.Screen component={AllReports} name='Reports' options={{tabBarLabel: "כל הדיווחים" ,headerShown: false,tabBarIcon:()=>(<MaterialCommunityIcons name="store" size={34} color="black" />)}}></Tab.Screen>
+  <Tab.Screen component={Map} name='Reports' options={{tabBarLabel: "מפה" ,headerShown: false,tabBarIcon:()=>(<MaterialCommunityIcons name="store" size={34} color="black" />)}}></Tab.Screen>
   </Tab.Navigator>
   )
 }
