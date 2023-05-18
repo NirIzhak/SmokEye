@@ -3,7 +3,7 @@ import React, { useEffect, useState, useRef, useContext } from "react";
 import * as Location from "expo-location";
 import * as ImagePicker from "expo-image-picker";
 import { SmokeyeContext } from "../Context/SmokEyeContext";
-
+import { RadioButton } from 'react-native-paper';
 
 
 export default function NewReport() {
@@ -16,7 +16,7 @@ export default function NewReport() {
   const [streetNum, SetStreetNum] = useState("");
   const [imageUri, setImageUri] = useState(null);
   const [des, setDes] = useState("")
-
+  const [checked,setChecked] =useState('first');
   const {extractStreetName} = useContext(SmokeyeContext)
 
 
@@ -112,6 +112,24 @@ export default function NewReport() {
           <Text style={[styles.font_Location,styles.title]}>
             על מה הדיווח?
           </Text>
+          <View style={styles.radio_btn}>
+        <View>
+        <RadioButton
+        value="first"
+        status={ checked === 'first' ? 'checked' : 'unchecked' }
+        onPress={() => setChecked('first')}
+      />
+      <Text>עסק</Text>
+      </View>
+    <View>
+    <RadioButton
+        value="second"
+        status={ checked === 'second' ? 'checked' : 'unchecked' }
+        onPress={() => setChecked('second')}
+      />
+      <Text>אחר</Text>
+    </View>
+    </View>
 
           <Text style={[styles.font_Location,styles.title]}>
             פרט בקצרה על המקרה
