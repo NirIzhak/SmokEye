@@ -8,7 +8,7 @@ export default function Profile() {
   const {currentUser} = useContext(SmokeyeContext);
 
   return (
-    <SafeAreaView style={styles.continer} >
+    <View style={styles.continer} >
       <View style={styles.profileView}>
         <View style={{ marginRight: 20 }}>
         {currentUser.image ? 
@@ -22,15 +22,17 @@ export default function Profile() {
         </View>
       </View>
       <Button title='עריכת פרטים'></Button>
-    </SafeAreaView>
+    </View>
   )
 }
 const styles= StyleSheet.create({
   continer:{
     flex:1,
     margin:15
+
   },
   profileView:{
+    marginTop:120,
     flexDirection: 'row', 
     alignItems: 'center', 
     justifyContent: 'flex-end'
