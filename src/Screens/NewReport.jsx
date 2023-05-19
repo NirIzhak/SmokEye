@@ -116,7 +116,7 @@ export default function NewReport() {
           </Text>
           <View style={styles.radio_btn}>
             <View style={styles.radioButtonContainer}>
-             <RadioButton
+             <RadioButton.Android
                value="store"
                status={ checked === 'store' ? 'checked' : 'unchecked' }
                onPress={() => setChecked('store')}
@@ -125,7 +125,7 @@ export default function NewReport() {
           <Text style={styles.radioButtonText}>עסק</Text>
       </View>
        <View style={styles.radioButtonContainer}>
-         <RadioButton
+         <RadioButton.Android
            value="people"
            status={ checked === 'people' ? 'checked' : 'unchecked' }
            onPress={() => setChecked('people')}
@@ -138,7 +138,7 @@ export default function NewReport() {
             פרט בקצרה על המקרה
           </Text>
           <TextInput
-            placeholder="לדוגמא: עסק שמוכר סיגריות שנראות באופן גלוי  "
+            placeholder="לדוגמא: עסק שמוכר סיגריות שנראות באופן גלוי"
             onBlur={handlePress}
             onChangeText={(text) => setDes(text)}
             style={[styles.report_Details]}
@@ -251,7 +251,8 @@ const styles = StyleSheet.create({
     width:'85%',
     padding:15,
     direction: 'rtl',
-    textAlignVertical: 'top'
+    textAlignVertical: 'top',
+    textAlign: 'right'
   },
   radio_btn: {
     flexDirection: 'row',
