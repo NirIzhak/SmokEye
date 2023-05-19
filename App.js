@@ -13,6 +13,8 @@ import Profile from './src/Components/Profile';
 import MyReports from './src/Screens/MyReports';
 import FullReport from './src/Screens/FullReport';
 import Map from './src/Screens/Map';
+import AddNewUser from './src/Screens/AddNewUser';
+import PushNotification from './src/Screens/PushNotification';
 
 
 
@@ -64,9 +66,11 @@ const ReportsStack = ()=>{
 // admin screens
 const AdminTab = ()=>{
   return(
-    <Tab.Navigator>
+  <Tab.Navigator>
   <Tab.Screen component={AllReports} name='Reports' options={{tabBarLabel: "כל הדיווחים" ,headerShown: false,tabBarIcon:()=>(<MaterialCommunityIcons name="store" size={34} color="black" />)}}></Tab.Screen>
-  <Tab.Screen component={Map} name='Reports' options={{tabBarLabel: "מפה" ,headerShown: false,tabBarIcon:()=>(<MaterialCommunityIcons name="store" size={34} color="black" />)}}></Tab.Screen>
+  <Tab.Screen component={Map} name='Map' options={{tabBarLabel: "מפה" ,headerShown: false,tabBarIcon:()=>(<MaterialCommunityIcons name="store" size={34} color="black" />)}}></Tab.Screen>
+  <Tab.Screen component={AddNewUser} name='AddNewUser' options={{tabBarLabel: "הוספת משתמש" ,headerShown: false,tabBarIcon:()=>(<MaterialCommunityIcons name="store" size={34} color="black" />)}}></Tab.Screen>
+  <Tab.Screen component={PushNotification} name='PushNotification' options={{tabBarLabel: "הודעת פוש" ,headerShown: false,tabBarIcon:()=>(<MaterialCommunityIcons name="store" size={34} color="black" />)}}></Tab.Screen>
   </Tab.Navigator>
   )
 }

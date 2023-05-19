@@ -13,7 +13,7 @@ export default function NewReport() {
   const [location, setLocation] = useState({});
   const [latitude, setLatitude] = useState("");
   const [longitude, setLongitude] = useState("");
-  const [checked,setChecked] =useState('first');
+  const [checked,setChecked] =useState('store');
 
   const {extractStreetName} = useContext(SmokeyeContext);
   const theme = {
@@ -28,6 +28,7 @@ export default function NewReport() {
 
   const handlePress = () => {
     Keyboard.dismiss();
+    console.log("close")
   };
 //Camera
   const openCamera = async () => {
@@ -116,18 +117,18 @@ export default function NewReport() {
           <View style={styles.radio_btn}>
             <View style={styles.radioButtonContainer}>
              <RadioButton
-               value="first"
-               status={ checked === 'first' ? 'checked' : 'unchecked' }
-               onPress={() => setChecked('first')}
+               value="store"
+               status={ checked === 'store' ? 'checked' : 'unchecked' }
+               onPress={() => setChecked('store')}
                color={theme.colors.primary}
             />
           <Text style={styles.radioButtonText}>עסק</Text>
       </View>
        <View style={styles.radioButtonContainer}>
          <RadioButton
-           value="second"
-           status={ checked === 'second' ? 'checked' : 'unchecked' }
-           onPress={() => setChecked('second')}
+           value="people"
+           status={ checked === 'people' ? 'checked' : 'unchecked' }
+           onPress={() => setChecked('people')}
          />
       <Text style={styles.radioButtonText}>אחר</Text>
     </View>
@@ -138,8 +139,7 @@ export default function NewReport() {
           </Text>
           <TextInput
             placeholder="לדוגמא: עסק שמוכר סיגריות שנראות באופן גלוי  "
-            multiline
-            numberOfLines={3}
+            onBlur={handlePress}
             onChangeText={(text) => setDes(text)}
             style={[styles.report_Details]}
           />
@@ -193,15 +193,38 @@ export default function NewReport() {
           </View>
           <View>
             <Text style={styles.sendReport} onPress={()=>{
-              console.log("des ===> ",  des);
-              console.log("time ===> ",  date.getHours().toString().padStart(2, "0") +
-              ":" +
-              date.getMinutes().toString().padStart(2, "0"));
-              console.log("date ===> ",  date.getDate() +
+              // console.log("des ===> ",  des);
+              // console.log("time ===> ",  date.getHours().toString().padStart(2, "0") +
+              // ":" +
+              // date.getMinutes().toString().padStart(2, "0"));
+              // console.log("date ===> ",  date.getDate() +
+              //   "/" +
+              //   (date.getMonth() + 1) +
+              //   "/" +
+              //   date.getFullYear());              
+              //   console.log("report on ===> " + checked)
+              //   console.log("StreetName ===> "+ street)
+              //   console.log("StreetNum ===> " + streetNum)
+              //   console.log("city ===> " + city)
+              //   console.log("location ===> " + latitude, longitude)
+              //   console.log("image ===> " + imageUri)
+                const newReport = {
+                  "description": des,
+                "media": imageUri,
+                "location": [
+                  latitude,
+                  longitude
+                ],
+                "address": street + " " + streetNum + "," + city,
+                "date": date.getDate() +
                 "/" +
                 (date.getMonth() + 1) +
                 "/" +
-                date.getFullYear());              
+                date.getFullYear() + "," + date.getHours().toString().padStart(2, "0") +
+                ":" +
+                date.getMinutes().toString().padStart(2, "0")
+              }
+              console.log(newReport)
             }}>דווח</Text>
           </View>
         </View>

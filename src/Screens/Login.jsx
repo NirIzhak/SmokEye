@@ -27,6 +27,7 @@ export default function Login({ navigation }) {
           style={[Styles.input, Styles.input_btn]}
           keyboardType="email-address"
           autoCapitalize="none"
+          onBlur={() => Keyboard.dismiss()}
         />
         <TextInput
           onChangeText={(text) => setPassword(text)}
