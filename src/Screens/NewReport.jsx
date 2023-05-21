@@ -139,6 +139,8 @@ export default function NewReport() {
           </Text>
           <TextInput
             placeholder="לדוגמא: עסק שמוכר סיגריות שנראות באופן גלוי"
+            multiline
+            numberOfLines={3}
             onBlur={handlePress}
             onChangeText={(text) => setDes(text)}
             style={[styles.report_Details]}
