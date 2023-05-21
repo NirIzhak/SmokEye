@@ -6,7 +6,7 @@ import { Avatar } from "@react-native-material/core";
 
 export default function Profile() {
   const {currentUser} = useContext(SmokeyeContext);
-
+  const fullname = currentUser.firstName +" "+currentUser.lastName;
   return (
     <View style={styles.continer} >
       <View style={styles.profileView}>
@@ -14,27 +14,42 @@ export default function Profile() {
         {currentUser.image ? 
         (<Avatar image={{ uri: `${currentUser.image}` }} size={100} />) 
         : 
-        (<Avatar label={currentUser.firstName + " " + currentUser.lastName} autoColor size={150} />)}
+        (<Avatar label={fullname} size={100} color='#F39508' />)}
         </View>
         <View style={styles.continer}>
-        <Text style={{fontSize: 24}}>{currentUser.firstName} {currentUser.lastName}</Text>
-        <Text style={{fontSize: 20}}>{currentUser.email}</Text>
+        <Text style={styles.title_conteiner}>
+          <Text style={styles.title}>שם: </Text>
+          <Text>{currentUser.firstName} {currentUser.lastName}</Text>
+          </Text>
+        <Text style={styles.title_conteiner}>
+          <Text style={styles.title}>מייל: </Text>
+          <Text>{currentUser.email}</Text>
+          </Text>
         </View>
       </View>
-      <Button title='עריכת פרטים'></Button>
+      <Button title='עריכת פרטים' style={styles.btn_edit}></Button>
     </View>
   )
 }
 const styles= StyleSheet.create({
   continer:{
     flex:1,
-    margin:15
-
+    margin:15,
+    marginHorizontal: 20,
+    marginVertical:60
   },
   profileView:{
-    marginTop:120,
     flexDirection: 'row', 
     alignItems: 'center', 
     justifyContent: 'flex-end'
+  },
+  title_conteiner:{
+    fontSize:20
+  },
+  title:{
+    fontWeight: 'bold'
+  },
+  btn_edit:{
+    
   }
 })
