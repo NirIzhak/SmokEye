@@ -8,7 +8,8 @@ export default function Profile() {
   const {currentUser} = useContext(SmokeyeContext);
   const fullname = currentUser.firstName +" "+currentUser.lastName;
   return (
-    <View style={styles.continer} >
+    <SafeAreaView style={styles.continer} >
+      {currentUser.coins ? (<Text>Coins: {currentUser.coins}</Text>) : (null)}
       <View style={styles.profileView}>
         <View style={{ marginRight: 20 }}>
         {currentUser.image ? 
@@ -28,7 +29,8 @@ export default function Profile() {
         </View>
       </View>
       <Button title='עריכת פרטים' style={styles.btn_edit}></Button>
-    </View>
+    </SafeAreaView>
+
   )
 }
 const styles= StyleSheet.create({

@@ -11,6 +11,7 @@ export default function MyReports({navigation}) {
       <Text style={{ textAlign: "center", marginTop: 50, fontSize: 40 }}>
         הדיווחים שלי
       </Text>
+      <Text style={{textAlign: "center",fontSize: 25 }}>סה"כ - {currentUser.Reports.length}</Text>
       <FlatList
         data={currentUser.Reports}
         renderItem={({ item }) => (
