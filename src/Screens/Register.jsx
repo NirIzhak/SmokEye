@@ -1,35 +1,19 @@
-import {
-  Text,
-  View,
-  StyleSheet,
-  TextInput,
-  Switch,
-  Keyboard,
-  TouchableWithoutFeedback,
-  TouchableOpacity,
+import {Text,View,StyleSheet,TextInput,Switch,Keyboard,TouchableWithoutFeedback,TouchableOpacity,KeyboardAvoidingView
 } from "react-native";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { SmokeyeContext } from "../Context/SmokEyeContext";
 
 export default function Register() {
-  const {
-    setPassword,
-    setConfirmPassword,
-    setName,
-    setEmail,
-    setPhone,
-    setAddress,
-    AddClient,
-    toggleSwitch,
-    smoke,
+  const [state,setState] = useState('padding')
+  const {setPassword,setConfirmPassword,setName,setEmail,setPhone,setAddress,AddClient,toggleSwitch,smoke,
   } = useContext(SmokeyeContext);
 
   const handlePress = () => {
     Keyboard.dismiss();
   };
-
+  
   return (
-    <TouchableWithoutFeedback onPress={handlePress}>
+      <KeyboardAvoidingView behavior={state} onPress={handlePress} >
       <View style={styles.container}>
         <Text
           style={{
@@ -99,7 +83,7 @@ export default function Register() {
             marginRight: "auto",
           }}
         >
-          <Text style={{ fontSize: 20 }}>לא מעשן</Text>
+          <Text style={{ fontSize: 20 }}> מעשן</Text>
           <Switch
             trackColor={{ false: "#767577", true: "#7CC69E" }}
             thumbColor={smoke ? "#5CEE9F" : "#f4f3f4"}
@@ -108,43 +92,32 @@ export default function Register() {
             value={smoke}
             style={{ margin: 10 }}
           />
-          <Text style={{ fontSize: 20 }}>מעשן</Text>
+          <Text style={{ fontSize: 20 }}>לא מעשן</Text>
         </View>
         <TouchableOpacity onPress={AddClient} style={styles.button}>
           <Text style={{ textAlign: "center" }}>הרשם</Text>
         </TouchableOpacity>
       </View>
-    </TouchableWithoutFeedback>
+      </KeyboardAvoidingView>
   );
 }
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    direction: "rtl",
     backgroundColor: "#f5f5f5",
+    marginHorizontal:20,
+    marginVertical:80
   },
   title: {
-    textAlign: "right",
-  },
-  formContainer: {
-    width: "80%",
-    backgroundColor: "#fff",
-    padding: 16,
-    borderRadius: 8,
+    textAlign: "left",
   },
   input: {
     flexDirection: "row",
-    width: "50%",
-    height: 40,
-    borderColor: "gray",
-    borderBottomWidth: 1,
-    marginBottom: 16,
-    paddingLeft: 8,
-    width: "60%",
-    marginLeft: "auto",
-    marginRight: "auto",
-    textAlign: "center",
+    borderColor: "#8C8A89",
+    borderRadius:5,
+    borderWidth: 1,
+    marginBottom: 10,
+    textAlign: 'right',
   },
   button: {
     backgroundColor: "gray",
