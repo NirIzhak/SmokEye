@@ -15,6 +15,8 @@ import FullReport from './src/Screens/FullReport';
 import Map from './src/Screens/Map';
 import AddNewUser from './src/Screens/AddNewUser';
 import PushNotification from './src/Screens/PushNotification';
+import AddItem from './src/Screens/AddItem';
+import UpdateItem from './src/Screens/UpdateItem';
 
 
 
@@ -32,7 +34,8 @@ export default function App() {
         <Stack.Screen name='FastReport' component={NotRegisteresUser} options={{headerShown: false}} />
 
         <Stack.Screen name='userScreens' component={UserTab} options={{headerShown: false}} />
-        <Stack.Screen name='adminScreens' component={AdminTab} options={{headerShown: false}} />
+        <Stack.Screen name='adminScreens' component={ReasercherAndRegulator} options={{headerShown: false}} />
+        <Stack.Screen name='storeAdmin' component={StoreAdmin} options={{headerShown: false}} />
         </Stack.Navigator>
     </NavigationContainer>
   </SmokeyeContextProvider>
@@ -64,7 +67,7 @@ const ReportsStack = ()=>{
 }
 
 // admin screens
-const AdminTab = ()=>{
+const ReasercherAndRegulator = ()=>{
   return(
   <Tab.Navigator>
   <Tab.Screen component={AllReports} name='Reports' options={{tabBarLabel: "כל הדיווחים" ,headerShown: false,tabBarIcon:()=>(<MaterialCommunityIcons name="store" size={34} color="black" />)}}></Tab.Screen>
@@ -86,7 +89,15 @@ const NotRegisteresUser = ()=>{
 }
 
 
-// Reasercher tabs, Regulator tabs , storeAdmin tabs
 
+const StoreAdmin = ()=>{
+  return(
+<Tab.Navigator>
+    <Tab.Screen component={Store} name='Store' options={{tabBarLabel: "חנות" ,headerShown: false,tabBarIcon:()=>(<MaterialCommunityIcons name="store" size={34} color="black" />)}}></Tab.Screen>
+    <Tab.Screen component={AddItem} name='AddItem' options={{tabBarLabel: "AddItem" ,headerShown: false,tabBarIcon:()=>(<MaterialCommunityIcons name="store" size={34} color="black" />)}}></Tab.Screen>
+    <Tab.Screen component={UpdateItem} name='UpdateItem' options={{tabBarLabel: "UpdateItem" ,headerShown: false,tabBarIcon:()=>(<MaterialCommunityIcons name="store" size={34} color="black" />)}}></Tab.Screen>
+  </Tab.Navigator>
+  )
+}
 
 
