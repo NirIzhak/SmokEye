@@ -13,7 +13,7 @@ import { Avatar } from "@react-native-material/core";
 
 export default function Profile() {
   const { currentUser } = useContext(SmokeyeContext);
-  const fullname = currentUser.firstName + " " + currentUser.lastName;
+const fullname = currentUser.firstName+" "+currentUser.lastName;
   return (
     <SafeAreaView style={styles.continer}>
       <View style={styles.profileView}>
@@ -24,8 +24,7 @@ export default function Profile() {
             <Avatar label={fullname} size={100} color="#F39508" />
           )}
         </View>
-
-        <View style={styles.continer}>
+        <View>
           <Text style={styles.title_conteiner}>
             {currentUser.firstName} {currentUser.lastName}
           </Text>
@@ -43,11 +42,14 @@ export default function Profile() {
           <Text>coins</Text>
         </View>
       </View>
-      <Button title="עריכת פרטים" style={styles.btn_edit}></Button>
+      <Button title="עריכת פרטים" color="#F39508" style={styles.btn_edit}></Button>
     </SafeAreaView>
   );
 }
 const styles = StyleSheet.create({
+  continer:{
+    marginVertical:50
+  },
   profileView: {
     alignItems: "center",
     justifyContent: "flex-end",
@@ -58,9 +60,11 @@ const styles = StyleSheet.create({
   title: {
     fontWeight: "bold",
   },
-  btn_edit: {},
+  btn_edit: {
+    marginTop:5
+  },
   avatar: {
-    marginTop: 25,
+    //marginTop: 25,
   },
   line: {
     height: 2,
