@@ -8,10 +8,10 @@ export default function MyReports({navigation}) {
 
   return (
     <View style={styles.continer} >
-      <Text style={styles.continer_title}>
+      <Text style={[styles.continer_title,styles.title]}>
         הדיווחים שלי
       </Text>
-      <Text style={styles.secondary_title}>סה"כ - 
+      <Text style={[styles.secondary_title,styles.title]}>סה"כ - 
       {currentUser.Reports.length}</Text>
       <FlatList
         data={currentUser.Reports}
@@ -19,23 +19,24 @@ export default function MyReports({navigation}) {
           <ReportCard {...item} navigation={navigation}  />
         )}
         keyExtractor={(item) => item.id}
-        style={styles.table}
+        style={styles.continer_table}
       />
     </View>
   );
 }
 const styles = StyleSheet.create({
-  continer:{},
+  continer:{
+    marginVertical:50
+  },
+  title:{textAlign: "center"},
   continer_title:{
-    textAlign: "center", 
-    marginTop: 50, 
-    fontSize: 40 
+    fontSize: 36 
   },
   secondary_title:{
-    textAlign: "center",
     fontSize: 25 
   },
-  table:{
-    marginTop: 30
+  continer_table:{
+    marginVertical:20,
+    marginHorizontal:2
   }
 })
