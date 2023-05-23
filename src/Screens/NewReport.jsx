@@ -189,9 +189,11 @@ export default function NewReport() {
             />
           </View>
           <View>
-            <TouchableOpacity onPress={() => {GetAddress();}}style={[styles.buttonContainer]}>
-              <Text style={styles.btn}>מצא אותי !</Text>
-            </TouchableOpacity>
+          {latitude && longitude ? (
+        <TouchableOpacity onPress={GetAddress} style={styles.buttonContainer}>
+          <Text style={styles.btn}>מצא אותי !</Text>
+        </TouchableOpacity>
+      ) : null}
           </View>
           <View>
             <Text style={styles.sendReport} onPress={()=>{
