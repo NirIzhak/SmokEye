@@ -54,10 +54,14 @@ export default function Login({ navigation }) {
               setCurrentUser(typerole);
               if (typerole.role == "User") {
                 navigation.navigate("userScreens");
-              } else if (typerole.role == "Admin") {
+              } else if (
+                typerole.role == "Regulator" ||
+                typerole.role == "Reasercher"
+                // typerole.role == "Admin"
+              ) {
                 navigation.navigate("adminScreens");
-              } else if (typerole.role == "Regulator") {
-              } else if (typerole.role == "Reasercher") {
+              } else if (typerole.role == "storeAdmin") {
+                navigation.navigate("storeAdmin");
               }
             }
           }}
