@@ -17,28 +17,49 @@ import AddNewUser from './src/Screens/AddNewUser';
 import PushNotification from './src/Screens/PushNotification';
 import AddItem from './src/Screens/AddItem';
 import UpdateItem from './src/Screens/UpdateItem';
-
-
+import OnBoarding from './src/Components/OnBoarding';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {ActivityIndicator, View, Text, SafeAreaView} from 'react-native'
+import React, {useEffect, useState} from 'react';
 
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
-export default function App() {
-  return (
-  <SmokeyeContextProvider>
-    <NavigationContainer>
-       <Stack.Navigator initialRouteName='Login'>
-        <Stack.Screen name='Login' component={Login} options={{headerShown: false}} />
-        <Stack.Screen name='Register' component={Register} options={{headerShown: false}} />
-        <Stack.Screen name='FastReport' component={NotRegisteresUser} options={{headerShown: false}} />
 
-        <Stack.Screen name='userScreens' component={UserTab} options={{headerShown: false}} />
-        <Stack.Screen name='adminScreens' component={ReasercherAndRegulator} options={{headerShown: false}} />
-        <Stack.Screen name='storeAdmin' component={StoreAdmin} options={{headerShown: false}} />
+export default function App() {
+  const [viewedOnboarding, setViewedOnboarding] = useState(false);
+
+  useEffect(() => {
+    checkOnboarding();
+  }, [viewedOnboarding]);
+
+  const checkOnboarding = async () => {
+    try {
+      const value = await AsyncStorage.getItem('@viewedOnboarding');
+      if (value !== null) {
+        setViewedOnboarding(true);
+      }
+    } catch (err) {
+      console.log('Error - checkOnboarding', err);
+    }
+  };
+
+  return viewedOnboarding ? (
+    <SmokeyeContextProvider>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
+          <Stack.Screen name="Register" component={Register} options={{ headerShown: false }} />
+          <Stack.Screen name="FastReport" component={NotRegisteresUser} options={{ headerShown: false }} />
+          <Stack.Screen name="userScreens" component={UserTab} options={{ headerShown: false }} />
+          <Stack.Screen name="adminScreens" component={ReasercherAndRegulator} options={{ headerShown: false }} />
+          <Stack.Screen name="storeAdmin" component={StoreAdmin} options={{ headerShown: false }} />
         </Stack.Navigator>
-    </NavigationContainer>
-  </SmokeyeContextProvider>
+      </NavigationContainer>
+    </SmokeyeContextProvider>
+  ) : (
+      <OnBoarding />
   );
 }
 
@@ -65,6 +86,7 @@ const ReportsStack = ()=>{
   )
 
 }
+
 
 // admin screens
 const ReasercherAndRegulator = ()=>{
@@ -99,5 +121,8 @@ const StoreAdmin = ()=>{
   </Tab.Navigator>
   )
 }
+
+
+
 
 
