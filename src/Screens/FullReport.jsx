@@ -4,10 +4,9 @@ import React from "react";
 export default function FullReport({ route }) {
   const { id, description, media, location, address, date } = route.params;
   return (
-    <SafeAreaView>
+    <SafeAreaView style={styles.continer}>
       <Text style={styles.title}>פרטי דיווח מלאים:</Text>
       <Text style={styles.text}>תיאור: {description}</Text>
-      <Text style={styles.text}>מיקום בקורדינטות: {location[0] + " " + location[1]}</Text>
       <Text style={styles.text}>כתובת מלאה: {address}</Text>
       <Text style={styles.text}>תאריך ושעה: {date}</Text>
       <Text style={styles.imageText}>תמונה:</Text>
@@ -17,9 +16,14 @@ export default function FullReport({ route }) {
 }
 
 const styles = StyleSheet.create({
+  continer:{
+      flex:1,
+      justifyContent:'center',
+      backgroundColor:'#fff'
+  },
   image: {
-    width: "90%",
-    height: "65%",
+    width: "80%",
+    height: "50%",
     borderRadius: 4,
     marginRight: "auto",
     marginLeft: "auto",
