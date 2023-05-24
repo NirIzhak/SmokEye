@@ -49,16 +49,21 @@ const styles = StyleSheet.create({
     margin:5,
     borderRadius:5,
     flexDirection:'row',
+    justifyContent: 'center',
   },
   text_bold:{
-    fontWeight:'bold'
+    fontWeight:'bold',
+    textAlign: 'center'
   },
   text_continer:{
     gap:2,
-    margin:10
+    margin:10,
+    textAlign: 'center'
+
   },
   text_field:{
-    fontSize: 15
+    fontSize: 15,
+    textAlign: 'center'
   },
   btn:{
   }
