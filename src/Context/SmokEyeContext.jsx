@@ -23,9 +23,7 @@ export default function SmokeyeContextProvider({ children, navigation }) {
   const [streetNum, SetStreetNum] = useState("");
   const [imageUri, setImageUri] = useState(null);
   const [des, setDes] = useState("")
-
-
-
+  
   // try to get users
   const dataFetch = async () => {
     try {
@@ -149,8 +147,7 @@ export default function SmokeyeContextProvider({ children, navigation }) {
     streetNum,
     imageUri,
     des,
-    currentUser,
-    
+    currentUser,    
   };
   return (
     <SmokeyeContext.Provider value={value}>{children}</SmokeyeContext.Provider>

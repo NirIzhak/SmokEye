@@ -11,6 +11,18 @@ import {
   KeyboardAvoidingView,
 } from "react-native";
 import { SmokeyeContext } from "../Context/SmokEyeContext";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+
+const clearOnboarding = async()=>{
+  try{
+await AsyncStorage.removeItem('@viewedOnboarding');
+console.log("clear onboarding")
+  }catch(err){
+console.log("err clearonboarding", err)
+  }
+}
+
 
 export default function Login({ navigation }) {
   const {
@@ -78,9 +90,6 @@ export default function Login({ navigation }) {
           <Text>אין לך משתמש ? הרשם עכשיו !</Text>
         </TouchableOpacity>
         <TouchableOpacity style={[Styles.input_btn, Styles.googleConection]}>
-          <Image
-            source={{ uri: "https://reactnative.dev/img/tiny_logo.png" }}
-          ></Image>
           <Text>כניסה מהירה עם גוגל</Text>
         </TouchableOpacity>
         <TouchableOpacity
@@ -90,6 +99,14 @@ export default function Login({ navigation }) {
           }}
         >
           <Text>כניסה מהירה ללא התחברות</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[Styles.button, Styles.input_btn]}
+          onPress={() => {
+            clearOnboarding();
+          }}
+        >
+          <Text>אנבורדינג</Text>
         </TouchableOpacity>
       </View>
     </KeyboardAvoidingView>

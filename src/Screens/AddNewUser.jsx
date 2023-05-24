@@ -1,10 +1,11 @@
-import { View, Text } from 'react-native'
+import { View, Text, SafeAreaView } from 'react-native'
 import React from 'react'
 
 export default function AddNewUser() {
   return (
-    <View>
-      <Text>AddNewUser</Text>
-    </View>
+    <SafeAreaView>
+      <Text>הוספת משתמש חדש</Text>
+      
+    </SafeAreaView>
   )
 }
