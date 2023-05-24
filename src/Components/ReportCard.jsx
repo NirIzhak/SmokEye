@@ -26,8 +26,7 @@ export default function ReportCard({id, description, media, location, address, d
         <Text>{description}</Text>
         </Text>
         <View style={styles.btn}>
-        <Button 
-        
+        <Button
           title='פרטים מלאים'
           color='#F39508'
           onPress={() => {
@@ -49,17 +48,20 @@ const styles = StyleSheet.create({
     margin:5,
     borderRadius:5,
     flexDirection:'row',
+    
   },
   text_bold:{
     fontWeight:'bold'
   },
   text_continer:{
     gap:2,
-    margin:10
+    margin:10,
   },
   text_field:{
     fontSize: 15
   },
   btn:{
+    width:350,
+    marginHorizontal:10
   }
 })
