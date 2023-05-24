@@ -14,17 +14,7 @@ import { SmokeyeContext } from "../Context/SmokEyeContext";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
-const clearOnboarding = async()=>{
-  try{
-await AsyncStorage.removeItem('@viewedOnboarding');
-console.log("clear onboarding")
-  }catch(err){
-console.log("err clearonboarding", err)
-  }
-}
-
-
-export default function Login({ navigation }) {
+export default function Login({ navigation}) {
   const {
     setEmail,
     setPassword,
@@ -36,6 +26,16 @@ export default function Login({ navigation }) {
   const handlePress = () => {
     Keyboard.dismiss();
   };
+
+  
+const clearOnboarding = async()=>{
+  try{
+await AsyncStorage.removeItem('@viewedOnboarding');
+console.log("clear onboarding")
+  }catch(err){
+console.log("err clearonboarding", err)
+  }
+}
 
   return (
     <KeyboardAvoidingView behavior="padding" onPress={handlePress}>

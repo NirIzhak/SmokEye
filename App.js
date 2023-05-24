@@ -19,7 +19,6 @@ import AddItem from './src/Screens/AddItem';
 import UpdateItem from './src/Screens/UpdateItem';
 import OnBoarding from './src/Components/OnBoarding';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {ActivityIndicator, View, Text, SafeAreaView} from 'react-native'
 import React, {useEffect, useState} from 'react';
 
 
@@ -28,12 +27,14 @@ const Tab = createBottomTabNavigator();
 
 
 export default function App() {
+  // user see onboarding or not
   const [viewedOnboarding, setViewedOnboarding] = useState(false);
 
   useEffect(() => {
     checkOnboarding();
   }, [viewedOnboarding]);
 
+  // check if user saw the onboarding
   const checkOnboarding = async () => {
     try {
       const value = await AsyncStorage.getItem('@viewedOnboarding');
@@ -45,6 +46,8 @@ export default function App() {
     }
   };
 
+
+  // if user saw the onboarding' he will go to login, else to see the onboarding
   return viewedOnboarding ? (
     <SmokeyeContextProvider>
       <NavigationContainer>
@@ -59,7 +62,7 @@ export default function App() {
       </NavigationContainer>
     </SmokeyeContextProvider>
   ) : (
-      <OnBoarding />
+      <OnBoarding change={setViewedOnboarding} value={viewedOnboarding} />
   );
 }
 
@@ -77,6 +80,7 @@ const UserTab = ()=>{
   )
 }
 
+// reports stack
 const ReportsStack = ()=>{
   return(
   <Stack.Navigator initialRouteName='myReports'>
@@ -111,7 +115,7 @@ const NotRegisteresUser = ()=>{
 }
 
 
-
+// stroe admin stack
 const StoreAdmin = ()=>{
   return(
 <Tab.Navigator>

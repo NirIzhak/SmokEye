@@ -8,7 +8,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
 
-export default function OnBoarding() {
+export default function OnBoarding({change, value}) {
 
   const [currentIndex, setCurrenIndex] = useState(0);
   const scrollX = useRef(new Animated.Value(0)).current;
@@ -26,7 +26,8 @@ export default function OnBoarding() {
     } else{
        try{
         await AsyncStorage.setItem('@viewedOnboarding', JSON.stringify(true));
-             }catch(err){
+        change(true)
+      }catch(err){
         console.log("SetItemError", err)
        }
     }

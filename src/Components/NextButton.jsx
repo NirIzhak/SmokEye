@@ -17,6 +17,7 @@ export default function NextButton({ percentage, scrollTo }) {
   const progressAnimation = useRef(new Animated.Value(0)).current;
   const progressRef = useRef(null);
 
+  // make the circle move when user pressed
   const animation = (toValue) => {
     return Animated.timing(progressAnimation, {
       toValue,
@@ -25,6 +26,7 @@ export default function NextButton({ percentage, scrollTo }) {
     }).start();
   };
 
+  
   useEffect(() => {
     progressAnimation.addListener(
       (value) => {
