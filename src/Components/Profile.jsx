@@ -48,7 +48,8 @@ const fullname = currentUser.firstName+" "+currentUser.lastName;
 }
 const styles = StyleSheet.create({
   continer:{
-    marginVertical:50
+    marginVertical:50,
+    
   },
   profileView: {
     alignItems: "center",
