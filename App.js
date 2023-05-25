@@ -88,7 +88,18 @@ const ReportsStack = ()=>{
   <Stack.Screen name='fullReport' component={FullReport} options={{headerShown: false}} />
   </Stack.Navigator>
   )
+}
 
+
+
+// reports stack
+const AllReportsStack = ()=>{
+  return(
+  <Stack.Navigator initialRouteName='AllReports'>
+  <Stack.Screen name='AllReports' component={AllReports} options={{headerShown: false}} />
+  <Stack.Screen name='fullReport' component={FullReport} options={{headerShown: false}} />
+  </Stack.Navigator>
+  )
 }
 
 
@@ -96,7 +107,7 @@ const ReportsStack = ()=>{
 const ReasercherAndRegulator = ()=>{
   return(
   <Tab.Navigator>
-  <Tab.Screen component={AllReports} name='Reports' options={{tabBarLabel: "כל הדיווחים" ,headerShown: false,tabBarIcon:()=>(<MaterialCommunityIcons name="store" size={34} color="black" />)}}></Tab.Screen>
+  <Tab.Screen component={AllReportsStack} name='Reports' options={{tabBarLabel: "כל הדיווחים" ,headerShown: false,tabBarIcon:()=>(<MaterialCommunityIcons name="store" size={34} color="black" />)}}></Tab.Screen>
   <Tab.Screen component={Map} name='Map' options={{tabBarLabel: "מפה" ,headerShown: false,tabBarIcon:()=>(<MaterialCommunityIcons name="store" size={34} color="black" />)}}></Tab.Screen>
   <Tab.Screen component={AddNewUser} name='AddNewUser' options={{tabBarLabel: "הוספת משתמש" ,headerShown: false,tabBarIcon:()=>(<MaterialCommunityIcons name="store" size={34} color="black" />)}}></Tab.Screen>
   <Tab.Screen component={PushNotification} name='PushNotification' options={{tabBarLabel: "הודעת פוש" ,headerShown: false,tabBarIcon:()=>(<MaterialCommunityIcons name="store" size={34} color="black" />)}}></Tab.Screen>
