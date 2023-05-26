@@ -1,10 +1,8 @@
-import {Text,View,StyleSheet,TextInput,Switch,Keyboard,TouchableWithoutFeedback,TouchableOpacity,KeyboardAvoidingView
-} from "react-native";
-import { useContext, useState } from "react";
+import {Text,View,StyleSheet,TextInput,Switch,Keyboard,TouchableOpacity,KeyboardAvoidingView} from "react-native";
+import { useContext } from "react";
 import { SmokeyeContext } from "../Context/SmokEyeContext";
-
 export default function Register() {
-  const [state,setState] = useState('padding')
+
   const {setPassword,setConfirmPassword,setName,setEmail,setPhone,setAddress,AddClient,toggleSwitch,smoke,
   } = useContext(SmokeyeContext);
 
@@ -13,7 +11,7 @@ export default function Register() {
   };
   
   return (
-      <KeyboardAvoidingView behavior={state} onPress={handlePress} >
+      <KeyboardAvoidingView behavior={'padding'} onPress={handlePress} >
       <View style={styles.container}>
         <Text
           style={{
@@ -26,7 +24,6 @@ export default function Register() {
           הרשמה
         </Text>
         <Text style={styles.title}>שם</Text>
-
         <TextInput
           style={styles.input}
           placeholder="שם"
