@@ -2,6 +2,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import { MaterialCommunityIcons, AntDesign, Entypo } from '@expo/vector-icons';
+import 'react-native-gesture-handler';
 import Register from './src/Screens/Register';
 import Login from './src/Screens/Login';
 import SmokeyeContextProvider from './src/Context/SmokEyeContext';
@@ -20,10 +21,12 @@ import UpdateItem from './src/Screens/UpdateItem';
 import OnBoarding from './src/Components/OnBoarding';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, {useEffect, useState} from 'react';
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 
+const Tab = createMaterialBottomTabNavigator();
 
 const Stack = createStackNavigator();
-const Tab = createBottomTabNavigator();
+//const Tab = createBottomTabNavigator();
 
 
 export default function App() {
@@ -70,12 +73,12 @@ export default function App() {
 // user screens
 const UserTab = ()=>{
   return(
-  <Tab.Navigator>
-    <Tab.Screen component={NewReport} name='Report' options={{headerShown: false,tabBarLabel: "דיווח חדש", tabBarIcon:()=>(<MaterialCommunityIcons name="store" size={34} color="black" />)}}></Tab.Screen>
-    <Tab.Screen component={Info} name='Info' options={{headerShown: false,tabBarLabel: "מידע" ,tabBarBadgeStyle: { backgroundColor: '#007CFF' }, tabBarIcon:()=>(<MaterialCommunityIcons name="information-outline" size={34} color="black" />)}}></Tab.Screen>
-    <Tab.Screen component={ReportsStack} name='Reports' options={{tabBarLabel: "הדיווחים שלי" ,headerShown: false,tabBarIcon:()=>(<MaterialCommunityIcons name="store" size={34} color="black" />)}}></Tab.Screen>
-    <Tab.Screen component={Store} name='Store' options={{tabBarLabel: "חנות" ,headerShown: false,tabBarIcon:()=>(<MaterialCommunityIcons name="store" size={34} color="black" />)}}></Tab.Screen>
-    <Tab.Screen component={Profile} name='Profile' options={{tabBarLabel: "פרופיל" ,headerShown: false,tabBarIcon:()=>(<Entypo name="user" size={34} color="black" />)}}></Tab.Screen>
+  <Tab.Navigator barStyle={{ backgroundColor: '#fff' }} activeColor="#F39508">
+    <Tab.Screen component={NewReport} name='Report' options={{headerShown: false,tabBarLabel: "דיווח חדש", tabBarIcon:()=>(<MaterialCommunityIcons name="store" size={26} color="black" />)}}></Tab.Screen>
+    <Tab.Screen component={Info} name='Info' options={{headerShown: false,tabBarLabel: "מידע" ,tabBarBadgeStyle: { backgroundColor: '#007CFF' }, tabBarIcon:()=>(<MaterialCommunityIcons name="information-outline" size={26} color="black" />)}}></Tab.Screen>
+    <Tab.Screen component={ReportsStack} name='Reports' options={{tabBarLabel: "הדיווחים שלי" ,headerShown: false,tabBarIcon:()=>(<MaterialCommunityIcons name="store" size={26} color="black" />)}}></Tab.Screen>
+    <Tab.Screen component={Store} name='Store' options={{tabBarLabel: "חנות" ,headerShown: false,tabBarIcon:()=>(<MaterialCommunityIcons name="store" size={26} color="black" />)}}></Tab.Screen>
+    <Tab.Screen component={Profile} name='Profile'  options={{tabBarLabel: 'פרופיל',tabBarIcon: () => (<MaterialCommunityIcons name="account" color="#000" size={26} />)}}></Tab.Screen>
   </Tab.Navigator>
   )
 }
