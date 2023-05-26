@@ -21,8 +21,16 @@ export default function Map() {
             latitude: 37.78825,
             longitude: -122.4324,
           }}
-          title="ניסיון"
-          description="עישון בקניון סגור"
+          title="עסק"
+          description="סיגריות חשופות לציבור"
+        />
+         <Marker
+          coordinate={{
+            latitude: 37.78625,
+            longitude: -122.4324,
+          }}
+          title="אחר"
+          description="בן אדם מעשן בקניון סגור"
         />
 
 {/* to many markers */}
