@@ -1,15 +1,5 @@
 import { useContext } from "react";
-import {
-  Image,
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  TouchableWithoutFeedback,
-  Keyboard,
-  StyleSheet,
-  KeyboardAvoidingView,
-} from "react-native";
+import {View,Text,TextInput,TouchableOpacity,Keyboard,StyleSheet,KeyboardAvoidingView} from "react-native";
 import { SmokeyeContext } from "../Context/SmokEyeContext";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -57,6 +47,7 @@ console.log("err clearonboarding", err)
           style={[Styles.input, Styles.input_btn]}
           onBlur={() => Keyboard.dismiss()}
         />
+        <TouchableOpacity style={{marginLeft:250,marginTop:10}}><Text>שכחת סיסמא ? </Text></TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
             const typerole = ConfirmClient(email, password);
