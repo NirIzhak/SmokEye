@@ -37,10 +37,6 @@ const fullname = currentUser.firstName+" "+currentUser.lastName;
           <Text style={styles.nums}>{currentUser.Reports.length}</Text>
           <Text>reports</Text>
         </View>
-        <View style={styles.reports}>
-        {currentUser.coins ? <Text style={styles.nums}>{currentUser.coins}</Text> : <Text >דווח כדי לקבל מטבעות</Text>}
-          <Text>coins</Text>
-        </View>
       </View>
       <Button title="עריכת פרטים" color="#F39508" style={styles.btn_edit}></Button>
     </SafeAreaView>
