@@ -60,7 +60,6 @@ export default function App() {
           <Stack.Screen name="FastReport" component={NotRegisteresUser} options={{ headerShown: false }} />
           <Stack.Screen name="userScreens" component={UserTab} options={{ headerShown: false }} />
           <Stack.Screen name="adminScreens" component={ReasercherAndRegulator} options={{ headerShown: false }} />
-          <Stack.Screen name="storeAdmin" component={StoreAdmin} options={{ headerShown: false }} />
         </Stack.Navigator>
       </NavigationContainer>
     </SmokeyeContextProvider>
@@ -74,10 +73,9 @@ export default function App() {
 const UserTab = ()=>{
   return(
   <Tab.Navigator barStyle={{ backgroundColor: '#fff' }} activeColor="#F39508">
-    <Tab.Screen component={NewReport} name='Report' options={{headerShown: false,tabBarLabel: "דיווח חדש", tabBarIcon:()=>(<MaterialCommunityIcons name="store" size={26} color="black" />)}}></Tab.Screen>
+    <Tab.Screen component={NewReport} name='Report' options={{headerShown: false,tabBarLabel: "דיווח חדש", tabBarIcon:()=>(<MaterialCommunityIcons name="pen" size={26} color="black" />)}}></Tab.Screen>
     <Tab.Screen component={Info} name='Info' options={{headerShown: false,tabBarLabel: "מידע" ,tabBarBadgeStyle: { backgroundColor: '#007CFF' }, tabBarIcon:()=>(<MaterialCommunityIcons name="information-outline" size={26} color="black" />)}}></Tab.Screen>
     <Tab.Screen component={ReportsStack} name='Reports' options={{tabBarLabel: "הדיווחים שלי" ,headerShown: false,tabBarIcon:()=>(<MaterialCommunityIcons name="store" size={26} color="black" />)}}></Tab.Screen>
-    <Tab.Screen component={Store} name='Store' options={{tabBarLabel: "חנות" ,headerShown: false,tabBarIcon:()=>(<MaterialCommunityIcons name="store" size={26} color="black" />)}}></Tab.Screen>
     <Tab.Screen component={Profile} name='Profile'  options={{tabBarLabel: 'פרופיל',tabBarIcon: () => (<MaterialCommunityIcons name="account" color="#000" size={26} />)}}></Tab.Screen>
   </Tab.Navigator>
   )
@@ -130,7 +128,7 @@ const NotRegisteresUser = ()=>{
 
 
 // stroe admin stack
-const StoreAdmin = ()=>{
+/*const StoreAdmin = ()=>{
   return(
 <Tab.Navigator>
     <Tab.Screen component={Store} name='Store' options={{tabBarLabel: "חנות" ,headerShown: false,tabBarIcon:()=>(<MaterialCommunityIcons name="store" size={34} color="black" />)}}></Tab.Screen>
@@ -138,7 +136,7 @@ const StoreAdmin = ()=>{
     <Tab.Screen component={UpdateItem} name='UpdateItem' options={{tabBarLabel: "UpdateItem" ,headerShown: false,tabBarIcon:()=>(<MaterialCommunityIcons name="store" size={34} color="black" />)}}></Tab.Screen>
   </Tab.Navigator>
   )
-}
+}*/
 
 
 
