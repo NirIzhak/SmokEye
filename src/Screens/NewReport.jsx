@@ -1,9 +1,13 @@
 import {View,Text,TextInput,TouchableOpacity,TouchableWithoutFeedback,Keyboard,Image,Alert,StyleSheet} from "react-native";
+//import { SelectList } from 'react-native-dropdown-select-list'
+import { Dropdown } from 'react-native-element-dropdown';
 import React, { useEffect, useState, useRef, useContext } from "react";
 import * as Location from "expo-location";
 import * as ImagePicker from "expo-image-picker";
 import { SmokeyeContext } from "../Context/SmokEyeContext";
 import { RadioButton ,DefaultTheme, Provider as PaperProvider} from 'react-native-paper';
+
+
 
 
 export default function NewReport() {
@@ -13,8 +17,8 @@ export default function NewReport() {
   const [location, setLocation] = useState({});
   const [latitude, setLatitude] = useState("");
   const [longitude, setLongitude] = useState("");
-  const [checked,setChecked] =useState('store');
-
+  const [checked,setChecked] =useState('Business');
+  const [value, setValue] = useState(null);
   const {extractStreetName} = useContext(SmokeyeContext);
   const theme = {
     ...DefaultTheme,
@@ -25,6 +29,14 @@ export default function NewReport() {
       accent: '#f1c40f',
     }
   }
+  const data = [
+    { label: 'מסעדה', value: '1' },
+    { label: 'קניון', value: '2' },
+    { label: 'קולנוע', value: '3' },
+    { label: 'פארק שעשועים', value: '4' },
+    { label: 'תאטרון', value: '5' },
+    { label: 'אולם הופעות', value: '6' },
+  ]
 
   const handlePress = () => {
     Keyboard.dismiss();
@@ -105,6 +117,11 @@ export default function NewReport() {
     getPermissions();
   }, []);
 
+  const [select,setSelect] = useState(false);
+  useEffect(()=>{
+    console.log('g :>> ');
+    if(checked == 'Private'){setSelect(true);}
+  })
 
   return (
     <>
@@ -117,23 +134,47 @@ export default function NewReport() {
           <View style={styles.radio_btn}>
             <View style={styles.radioButtonContainer}>
              <RadioButton.Android
-               value="store"
-               status={ checked === 'store' ? 'checked' : 'unchecked' }
-               onPress={() => setChecked('store')}
+               value="Business"
+               status={ checked === 'Business' ? 'checked' : 'unchecked' }
+               onPress={() => setChecked('Business')}
                color={theme.colors.primary}
             />
-          <Text style={styles.radioButtonText}>עסק</Text>
+          <Text style={styles.radioButtonText}>עסק בו הסיגריות בגלוי</Text>
       </View>
        <View style={styles.radioButtonContainer}>
          <RadioButton.Android
-           value="people"
-           status={ checked === 'people' ? 'checked' : 'unchecked' }
-           onPress={() => setChecked('people')}
+           value="Private"
+           status={ checked === 'Private' ? 'checked' : 'unchecked'}
+           onPress={() => setChecked('Private')}
          />
-      <Text style={styles.radioButtonText}>אחר</Text>
+      <Text style={styles.radioButtonText}>עישון במקום לא חוקי</Text>
     </View>
     </View>
-
+    <View>
+      <Text>בחר את מקום האירוע</Text>
+      {select ? 
+      <Dropdown
+      style={styles.dropdown}
+      placeholderStyle={[styles.placeholderStyle]}
+      selectedTextStyle={[styles.selectedTextStyle]}
+      inputSearchStyle={[styles.inputSearchStyle]}
+      iconStyle={styles.iconStyle}
+      data={data}
+      search
+      maxHeight={250}
+      labelField="label"
+      valueField="value"
+      placeholder="Select item"
+      searchPlaceholder="חפש כאן..."
+      value={value}
+      onChange={item => {
+        setValue(item.value);
+      }}
+    />
+      :
+      null
+    }
+    </View>
           <Text style={[styles.title]}>
             פרט בקצרה על המקרה
           </Text>
@@ -327,5 +368,51 @@ const styles = StyleSheet.create({
     borderColor:'#F39508',
     marginTop:5,
     paddingHorizontal:50
+  },
+  dropdown: {
+    margin: 16,
+    height: 50,
+    backgroundColor: 'white',
+    borderRadius: 5,
+    paddingHorizontal: 5,
+
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 1.41,
+
+    elevation: 2,
+  },
+  icon: {
+    marginRight: 5,
+  },
+  item: {
+    padding: 17,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  textItem: {
+    flex: 1,
+    fontSize: 16,
+  },
+  placeholderStyle: {
+    fontSize: 16,
+  },
+  selectedTextStyle: {
+    fontSize: 16,
+  },
+  iconStyle: {
+    width: 20,
+    height: 20,
+  },
+  inputSearchStyle: {
+    height: 40
+  },
+  basic_fontSize:{
+    fontSize: 16
   }
 })
