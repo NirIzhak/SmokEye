@@ -1,5 +1,4 @@
 import {View,Text,TextInput,TouchableOpacity,TouchableWithoutFeedback,Keyboard,Image,Alert,StyleSheet} from "react-native";
-//import { SelectList } from 'react-native-dropdown-select-list'
 import { Dropdown } from 'react-native-element-dropdown';
 import React, { useEffect, useState, useRef, useContext } from "react";
 import * as Location from "expo-location";
@@ -385,7 +384,6 @@ const styles = StyleSheet.create({
     paddingHorizontal:50
   },
   dropdown: {
-    margin: 16,
     height: 50,
     backgroundColor: 'white',
     borderRadius: 5,
@@ -397,7 +395,6 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.2,
     shadowRadius: 1.41,
-
     elevation: 2,
   },
   icon: {
