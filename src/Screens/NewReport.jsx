@@ -164,7 +164,7 @@ export default function NewReport() {
       maxHeight={250}
       labelField="label"
       valueField="value"
-      placeholder="Select item"
+      placeholder="בחר מקום"
       searchPlaceholder="חפש כאן..."
       value={value}
       onChange={item => {
@@ -370,12 +370,10 @@ const styles = StyleSheet.create({
     paddingHorizontal:50
   },
   dropdown: {
-    margin: 16,
     height: 50,
     backgroundColor: 'white',
     borderRadius: 5,
     paddingHorizontal: 5,
-
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -383,7 +381,6 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.2,
     shadowRadius: 1.41,
-
     elevation: 2,
   },
   icon: {
