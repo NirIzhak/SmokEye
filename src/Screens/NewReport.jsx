@@ -118,9 +118,46 @@ export default function NewReport() {
   }, []);
 
   const [select,setSelect] = useState(false);
+
+  const ViewBus=()=>{
+    return(
+      <>
+      <Text>בחר את מקום האירוע</Text>
+     <Dropdown
+      style={styles.dropdown}
+      placeholderStyle={[styles.placeholderStyle]}
+      selectedTextStyle={[styles.selectedTextStyle]}
+      inputSearchStyle={[styles.inputSearchStyle]}
+      iconStyle={styles.iconStyle}
+      data={data}
+      search
+      maxHeight={250}
+      labelField="label"
+      valueField="value"
+      placeholder="בחר מקום"
+      searchPlaceholder="חפש כאן..."
+      value={value}
+      onChange={item => {
+        setValue(item.value);
+      }}
+    /> 
+      </>
+    )
+  }
+  const ViewPrivate=()=>{
+    return(
+      <View></View>
+    )
+  }
   useEffect(()=>{
-    console.log('g :>> ');
-    if(checked == 'Private'){setSelect(true);}
+    if(checked == 'Business'){
+      console.log('Business :>> ');
+      setSelect(true);
+    }
+    else{
+      console.log('Private :>> ');
+      setSelect(false);
+    }
   })
 
   return (
@@ -151,29 +188,7 @@ export default function NewReport() {
     </View>
     </View>
     <View>
-      <Text>בחר את מקום האירוע</Text>
-      {select ? 
-      <Dropdown
-      style={styles.dropdown}
-      placeholderStyle={[styles.placeholderStyle]}
-      selectedTextStyle={[styles.selectedTextStyle]}
-      inputSearchStyle={[styles.inputSearchStyle]}
-      iconStyle={styles.iconStyle}
-      data={data}
-      search
-      maxHeight={250}
-      labelField="label"
-      valueField="value"
-      placeholder="Select item"
-      searchPlaceholder="חפש כאן..."
-      value={value}
-      onChange={item => {
-        setValue(item.value);
-      }}
-    />
-      :
-      null
-    }
+      {select ? ViewBus() : ViewPrivate()}
     </View>
           <Text style={[styles.title]}>
             פרט בקצרה על המקרה
@@ -374,8 +389,7 @@ const styles = StyleSheet.create({
     height: 50,
     backgroundColor: 'white',
     borderRadius: 5,
-    paddingHorizontal: 5,
-
+    paddingHorizontal: 80,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
