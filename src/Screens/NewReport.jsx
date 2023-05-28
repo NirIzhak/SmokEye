@@ -18,6 +18,8 @@ export default function NewReport() {
   const [longitude, setLongitude] = useState("");
   const [checked,setChecked] =useState('Business');
   const [value, setValue] = useState(null);
+  const [BusName,setBusName] = useState('');
+  const [select,setSelect] = useState(false);
   const {extractStreetName} = useContext(SmokeyeContext);
   const theme = {
     ...DefaultTheme,
@@ -116,8 +118,6 @@ export default function NewReport() {
     getPermissions();
   }, []);
 
-  const [select,setSelect] = useState(false);
-
   const ViewBus=()=>{
     return(
       <>
@@ -145,17 +145,18 @@ export default function NewReport() {
   }
   const ViewPrivate=()=>{
     return(
-      <View></View>
+      <>
+      <Text>הוסיפו את שם העסק</Text>
+        <TextInput style={[styles.report_Bus,styles.input_Text]} onChange={()=>setBusName}></TextInput>
+      </> 
     )
   }
   useEffect(()=>{
     if(checked == 'Business'){
-      console.log('Business :>> ');
-      setSelect(true);
+      setSelect(false);
     }
     else{
-      console.log('Private :>> ');
-      setSelect(false);
+      setSelect(true);
     }
   })
 
@@ -198,7 +199,7 @@ export default function NewReport() {
             numberOfLines={3}
             onBlur={handlePress}
             onChangeText={(text) => setDes(text)}
-            style={[styles.report_Details]}
+            style={[styles.report_Details,styles.input_Text]}
           />
           <TouchableOpacity onPress={createTwoButtonAlert} style={styles.buttonContainer} >
             {imageUri ? <Text style={[styles.btn]}>החלף תמונה</Text> : <Text style={[styles.btn]}>בחר תמונה</Text>}
@@ -293,6 +294,12 @@ export default function NewReport() {
   );
 }
 const styles = StyleSheet.create({
+  input_Text:{
+    borderColor: "#8C8A89",
+    borderWidth:1,
+    borderRadius:5,
+    padding:5,
+  },
   title:{
     marginBottom:10, 
     textAlign:"center"
@@ -301,15 +308,11 @@ const styles = StyleSheet.create({
     flex:1,
     justifyContent:'center',
     alignItems:'center',
-    margin:'auto'
+    margin:'auto',
+    direction: 'rtl',
   },
   report_Details:{
-    borderColor: "#8C8A89",
-    borderWidth:1,
-    borderRadius:5,
     width:'85%',
-    padding:15,
-    direction: 'rtl',
     textAlignVertical: 'top',
     textAlign: 'right'
   },
@@ -383,11 +386,15 @@ const styles = StyleSheet.create({
     marginTop:5,
     paddingHorizontal:50
   },
+  report_Bus:{
+    textAlignVertical: 'center',
+    textAlign: 'right'    
+  },
   dropdown: {
     height: 50,
     backgroundColor: 'white',
     borderRadius: 5,
-    paddingHorizontal: 80,
+    paddingHorizontal: 5,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -407,7 +414,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   textItem: {
-    flex: 1,
     fontSize: 16,
   },
   placeholderStyle: {
