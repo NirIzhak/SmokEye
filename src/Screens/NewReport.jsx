@@ -1,4 +1,4 @@
-import {View,Text,TextInput,TouchableOpacity,TouchableWithoutFeedback,Keyboard,Image,Alert,StyleSheet} from "react-native";
+import {View,Text,TextInput,TouchableOpacity,TouchableWithoutFeedback,Keyboard,Image,Alert,StyleSheet, SafeAreaView} from "react-native";
 import { Dropdown } from 'react-native-element-dropdown';
 import React, { useEffect, useState, useRef, useContext } from "react";
 import * as Location from "expo-location";
@@ -164,7 +164,7 @@ export default function NewReport() {
     <>
       <TouchableWithoutFeedback onPress={handlePress}>
       <PaperProvider theme={theme}>
-        <View style={styles.container}>
+        <SafeAreaView style={styles.container}>
           <Text style={[styles.title]}>
             על מה הדיווח?
           </Text>
@@ -195,8 +195,6 @@ export default function NewReport() {
           </Text>
           <TextInput
             placeholder="לדוגמא: עסק שמוכר סיגריות שנראות באופן גלוי"
-            multiline
-            numberOfLines={3}
             onBlur={handlePress}
             onChangeText={(text) => setDes(text)}
             style={[styles.report_Details,styles.input_Text]}
@@ -206,7 +204,7 @@ export default function NewReport() {
           </TouchableOpacity>
           {imageUri && (
             <Image source={{ uri: imageUri }}style={styles.img}/>)}
-          <View style={styles.date}>
+          {/* <View style={styles.date}>
             <View>
               <Text style={styles.title}>תאריך</Text>
               <Text style={styles.title}>
@@ -225,7 +223,7 @@ export default function NewReport() {
                   date.getMinutes().toString().padStart(2, "0")}
               </Text>
             </View>
-          </View>
+          </View> */}
           <Text style={styles.title}>פרטי מיקום:</Text>
           <View style={styles.addressContainer}>
             <TextInput
@@ -287,7 +285,7 @@ export default function NewReport() {
               console.log(newReport)
             }}>דווח</Text>
           </View>
-        </View>
+        </SafeAreaView>
         </PaperProvider>
       </TouchableWithoutFeedback>
     </>
@@ -302,10 +300,10 @@ const styles = StyleSheet.create({
   },
   title:{
     marginBottom:10, 
+    marginTop: 50,
     textAlign:"center"
   },
   container:{
-    flex:1,
     justifyContent:'center',
     alignItems:'center',
     margin:'auto',
@@ -394,7 +392,7 @@ const styles = StyleSheet.create({
     height: 50,
     backgroundColor: 'white',
     borderRadius: 5,
-    paddingHorizontal: 5,
+    paddingHorizontal: 15,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -415,12 +413,14 @@ const styles = StyleSheet.create({
   },
   textItem: {
     fontSize: 16,
+    textAlign: 'right',
   },
   placeholderStyle: {
     fontSize: 16,
   },
   selectedTextStyle: {
-    fontSize: 16,
+      fontSize: 16,
+      textAlign: 'right',
   },
   iconStyle: {
     width: 20,

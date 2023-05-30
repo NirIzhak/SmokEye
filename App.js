@@ -21,12 +21,12 @@ import UpdateItem from './src/Screens/UpdateItem';
 import OnBoarding from './src/Components/OnBoarding';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, {useEffect, useState} from 'react';
-import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+//import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 
-const Tab = createMaterialBottomTabNavigator();
+//const Tab = createMaterialBottomTabNavigator();
 
 const Stack = createStackNavigator();
-//const Tab = createBottomTabNavigator();
+const Tab = createBottomTabNavigator();
 
 
 export default function App() {
