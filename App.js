@@ -73,10 +73,10 @@ export default function App() {
 const UserTab = ()=>{
   return(
   <Tab.Navigator barStyle={{ backgroundColor: '#fff' }} activeColor="#F39508">
-    <Tab.Screen component={NewReport} name='Report' options={{headerShown: false,tabBarLabel: "דיווח חדש", tabBarIcon:()=>(<MaterialCommunityIcons name="pen" size={26} color="black" />)}}></Tab.Screen>
-    <Tab.Screen component={Info} name='Info' options={{headerShown: false,tabBarLabel: "מידע" ,tabBarBadgeStyle: { backgroundColor: '#007CFF' }, tabBarIcon:()=>(<MaterialCommunityIcons name="information-outline" size={26} color="black" />)}}></Tab.Screen>
-    <Tab.Screen component={ReportsStack} name='Reports' options={{tabBarLabel: "הדיווחים שלי" ,headerShown: false,tabBarIcon:()=>(<MaterialCommunityIcons name="store" size={26} color="black" />)}}></Tab.Screen>
-    <Tab.Screen component={Profile} name='Profile'  options={{tabBarLabel: 'פרופיל',tabBarIcon: () => (<MaterialCommunityIcons name="account" color="#000" size={26} />)}}></Tab.Screen>
+    <Tab.Screen component={NewReport} name='Report' options={({route})=>({tabBarLabel: "דיווח חדש", tabBarActiveTintColor: route.name === 'Report' ? '#F39508' : 'black',headerShown: false ,tabBarLabel: "דיווח חדש", tabBarIcon:()=>(<MaterialCommunityIcons name="pen" size={26} color="black" />)})}></Tab.Screen>
+    <Tab.Screen component={Info} name='Info' options={({route})=>({tabBarLabel: "מידע", tabBarActiveTintColor: route.name === 'Info' ? '#F39508' : 'black',headerShown: false ,tabBarLabel: "מידע" ,tabBarBadgeStyle: { backgroundColor: '#007CFF' }, tabBarIcon:()=>(<MaterialCommunityIcons name="information-outline" size={26} color="black" />)})}></Tab.Screen>
+    <Tab.Screen component={ReportsStack} name='Reports' options={({route})=>({tabBarLabel: "הדיווחים שלי", tabBarActiveTintColor: route.name === 'Reports' ? '#F39508' : 'black'  ,headerShown: false,tabBarIcon:()=>(<MaterialCommunityIcons name="store" size={26} color="black" />)})}></Tab.Screen>
+    <Tab.Screen component={Profile} name='Profile'  options={({route})=>({tabBarLabel: "פרופיל", tabBarActiveTintColor: route.name === 'Profile' ? '#F39508' : 'black', headerShown: false ,tabBarIcon: () => (<MaterialCommunityIcons name="account" color="#000" size={26} />)})}></Tab.Screen>
   </Tab.Navigator>
   )
 }
@@ -85,8 +85,8 @@ const UserTab = ()=>{
 const ReportsStack = ()=>{
   return(
   <Stack.Navigator initialRouteName='myReports'>
-  <Stack.Screen name='myReports' component={MyReports} options={{headerShown: false}} />
-  <Stack.Screen name='fullReport' component={FullReport} options={{headerShown: false}} />
+  <Stack.Screen name='myReports' component={MyReports} options={({route})=>({tabBarLabel: "הדיווחים שלי", tabBarActiveTintColor: route.name === 'myReports' ? '#F39508' : 'black'}, {headerShown: false})} />
+  <Stack.Screen name='fullReport' component={FullReport} options={({route})=>({tabBarLabel: "דיווח", tabBarActiveTintColor: route.name === 'fullReport' ? '#F39508' : 'black'}, {headerShown: false})} />
   </Stack.Navigator>
   )
 }
@@ -97,8 +97,8 @@ const ReportsStack = ()=>{
 const AllReportsStack = ()=>{
   return(
   <Stack.Navigator initialRouteName='AllReports'>
-  <Stack.Screen name='AllReports' component={AllReports} options={{headerShown: false}} />
-  <Stack.Screen name='fullReport' component={FullReport} options={{headerShown: false}} />
+  <Stack.Screen name='AllReports' component={AllReports} options={({route})=>({tabBarLabel: "דיווחים", tabBarActiveTintColor: route.name === 'AllReports' ? '#F39508' : 'black'}, {headerShown: false})} />
+  <Stack.Screen name='fullReport' component={FullReport} options={({route})=>({tabBarLabel: "דיווח", tabBarActiveTintColor: route.name === 'fullReport' ? '#F39508' : 'black'}, {headerShown: false})} />
   </Stack.Navigator>
   )
 }
@@ -108,10 +108,10 @@ const AllReportsStack = ()=>{
 const ReasercherAndRegulator = ()=>{
   return(
   <Tab.Navigator>
-  <Tab.Screen component={AllReportsStack} name='Reports' options={{tabBarLabel: "כל הדיווחים" ,headerShown: false,tabBarIcon:()=>(<MaterialCommunityIcons name="store" size={34} color="black" />)}}></Tab.Screen>
-  <Tab.Screen component={Map} name='Map' options={{tabBarLabel: "מפה" ,headerShown: false,tabBarIcon:()=>(<MaterialCommunityIcons name="store" size={34} color="black" />)}}></Tab.Screen>
-  <Tab.Screen component={AddNewUser} name='AddNewUser' options={{tabBarLabel: "הוספת משתמש" ,headerShown: false,tabBarIcon:()=>(<MaterialCommunityIcons name="store" size={34} color="black" />)}}></Tab.Screen>
-  <Tab.Screen component={PushNotification} name='PushNotification' options={{tabBarLabel: "הודעת פוש" ,headerShown: false,tabBarIcon:()=>(<MaterialCommunityIcons name="store" size={34} color="black" />)}}></Tab.Screen>
+  <Tab.Screen component={AllReportsStack} name='Reports' options={({route})=>({tabBarLabel: "כל הדיווחים", tabBarActiveTintColor: route.name === 'Reports' ? '#F39508' : 'black' ,headerShown: false,tabBarIcon:()=>(<MaterialCommunityIcons name="store" size={26} color="black" />)})}></Tab.Screen>
+  <Tab.Screen component={Map} name='Map' options={({route})=>({tabBarLabel: "מפה", tabBarActiveTintColor: route.name === 'Map' ? '#F39508' : 'black' ,headerShown: false,tabBarIcon:()=>(<MaterialCommunityIcons name="store" size={26} color="black" />)})}></Tab.Screen>
+  <Tab.Screen component={AddNewUser} name='AddNewUser' options={({route})=>({tabBarLabel: "הוספת משתמש", tabBarActiveTintColor: route.name === 'AddNewUser' ? '#F39508' : 'black' ,headerShown: false,tabBarIcon:()=>(<MaterialCommunityIcons name="store" size={26} color="black" />)})}></Tab.Screen>
+  <Tab.Screen component={PushNotification} name='PushNotification' options={({route})=>({tabBarLabel: "הודעת פוש", tabBarActiveTintColor: route.name === 'PushNotification' ? '#F39508' : 'black' ,headerShown: false,tabBarIcon:()=>(<MaterialCommunityIcons name="store" size={26} color="black" />)})}></Tab.Screen>
   </Tab.Navigator>
   )
 }
@@ -120,8 +120,8 @@ const ReasercherAndRegulator = ()=>{
 const NotRegisteresUser = ()=>{
   return(
 <Tab.Navigator>
-    <Tab.Screen component={NewReport} name='NotRegisteresUserReport' options={{headerShown: false,tabBarLabel: "דיווח חדש", tabBarIcon:()=>(<MaterialCommunityIcons name="archive-check" size={34} color="black" />)}}></Tab.Screen>
-    <Tab.Screen component={Info} name='NotRegisteresUserInfo' options={{headerShown: false, tabBarLabel: "מידע", tabBarIcon:()=>(<MaterialCommunityIcons name="archive-lock" size={34} color="black" />)}}></Tab.Screen>
+    <Tab.Screen component={NewReport} name='NotRegisteresUserReport' options={({route})=>({tabBarLabel: "דיווח חדש", tabBarActiveTintColor: route.name === 'NotRegisteresUserReport' ? '#F39508' : 'black' ,headerShown: false, tabBarIcon:()=>(<MaterialCommunityIcons name="archive-check" size={26} color="black" />)})}></Tab.Screen>
+    <Tab.Screen component={Info} name='NotRegisteresUserInfo' options={({route})=>({tabBarLabel: "מידע", tabBarActiveTintColor: route.name === 'NotRegisteresUserInfo' ? '#F39508' : 'black' ,headerShown: false, tabBarIcon:()=>(<MaterialCommunityIcons name="information-outline" size={26} color="black" />)})}></Tab.Screen>
   </Tab.Navigator>
   )
 }

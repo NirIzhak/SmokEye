@@ -31,17 +31,16 @@ export default function NewReport() {
     }
   }
   const data = [
-    { label: 'מסעדה', value: '1' },
-    { label: 'קניון', value: '2' },
-    { label: 'קולנוע', value: '3' },
-    { label: 'פארק שעשועים', value: '4' },
-    { label: 'תאטרון', value: '5' },
-    { label: 'אולם הופעות', value: '6' },
+    { label: 'מסעדה', value: 'Resturant' },
+    { label: 'קניון', value: 'Mall' },
+    { label: 'קולנוע', value: 'Cinema' },
+    { label: 'פארק שעשועים', value: 'Park' },
+    { label: 'תאטרון', value: 'Theater' },
+    { label: 'אולם הופעות', value: 'Hall' },
   ]
 
   const handlePress = () => {
     Keyboard.dismiss();
-    console.log("close")
   };
 //Camera
   const openCamera = async () => {
@@ -92,9 +91,14 @@ export default function NewReport() {
       });
       const result = await response.json();
       console.log(result)
-      setCity(result.addresses[0].address.municipality);
-      setStreet(extractStreetName(result.addresses[0].address.street));
-      SetStreetNum(result.addresses[0].address.streetNumber)
+      if(result.addresses[0].address.municipality == "" || result.addresses[0].address.street == "" ||  result.addresses[0].address.streetNumber == ""){
+        alert("לא היה ניתן למצוא את המיקום שלך, אנא מלא את פרטי המיקום באופן ידני")
+      }
+      else{
+        setCity(result.addresses[0].address.municipality);
+        setStreet(extractStreetName(result.addresses[0].address.street));
+        SetStreetNum(result.addresses[0].address.streetNumber)
+      }
     } catch (error) {
       console.error(error);
     }
@@ -147,7 +151,7 @@ export default function NewReport() {
     return(
       <>
       <Text>הוסיפו את שם העסק</Text>
-        <TextInput style={[styles.report_Bus,styles.input_Text]} onChange={()=>setBusName}></TextInput>
+        <TextInput style={[styles.report_Bus,styles.input_Text]} onChangeText={(text) => setBusName(text)}></TextInput>
       </> 
     )
   }
@@ -280,7 +284,9 @@ export default function NewReport() {
                 "/" +
                 date.getFullYear() + "," + date.getHours().toString().padStart(2, "0") +
                 ":" +
-                date.getMinutes().toString().padStart(2, "0")
+                date.getMinutes().toString().padStart(2, "0"),
+                "type" : checked,
+                "place" : checked === "Business" ? BusName : value
               }
               console.log(newReport)
             }}>דווח</Text>
