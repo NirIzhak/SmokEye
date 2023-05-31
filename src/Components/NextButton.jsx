@@ -32,15 +32,15 @@ export default function NextButton({ percentage, scrollTo }) {
       (value) => {
         const strokeDashoffset =
           circumference - (circumference * value.value) / 100;
-        if (progressRef.current) {
+        if (progressRef?.current) {
           progressRef.current.setNativeProps({
-            strokeDashoffset,
+            strokeDashoffset
           });
         }
       },
       [percentage]
     );
-
+    
     return () => {
       progressAnimation.removeAllListeners();
     };
@@ -63,8 +63,8 @@ export default function NextButton({ percentage, scrollTo }) {
           />
           <Circle
             ref={progressRef}
-            stroke="#F39508"
-            fill="white"
+             stroke="#F39508"
+             fill="white"
             cx={center}
             cy={center}
             r={radius}
@@ -78,7 +78,7 @@ export default function NextButton({ percentage, scrollTo }) {
         style={styles.button}
         activeOpacity={0.6}
       >
-        <AntDesign name="arrowright" size={32} color="#fff" />
+        <AntDesign name="arrowright" size={30} color="#fff" />
       </TouchableOpacity>
     </View>
   );

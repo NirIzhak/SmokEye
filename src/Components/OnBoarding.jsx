@@ -8,7 +8,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
 
-export default function OnBoarding({change, value}) {
+export default function OnBoarding({change}) {
 
   const [currentIndex, setCurrenIndex] = useState(0);
   const scrollX = useRef(new Animated.Value(0)).current;
@@ -40,7 +40,7 @@ export default function OnBoarding({change, value}) {
           data={Slides}
           renderItem={({ item }) => <OnBoardingItem item={item} />}
           horizontal
-          pagingEnabled
+          pagingEnabled 
           showsHorizontalScrollIndicator = {false}
           bounces={false}
           keyExtractor={(item) => item.id}
@@ -58,7 +58,7 @@ export default function OnBoarding({change, value}) {
       </View>
 
       <Paginator data={Slides} scrollX={scrollX}/>
-      <NextButton scrollTo={scrollTo} percentage={(currentIndex+1) * (100/Slides.length)}/>
+      <NextButton scrollTo={scrollTo} percentage={((currentIndex + 1) / Slides.length) * 100}/>
     </View>
   );
 }
