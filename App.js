@@ -50,7 +50,7 @@ export default function App() {
   };
 
 
-  // if user saw the onboarding' he will go to login, else to see the onboarding
+  // if user saw the onboarding, he will go to login, else to see the onboarding
   return viewedOnboarding ? (
     <SmokeyeContextProvider>
       <NavigationContainer>
@@ -109,7 +109,7 @@ const ReasercherAndRegulator = ()=>{
   return(
   <Tab.Navigator>
   <Tab.Screen component={AllReportsStack} name='Reports' options={({route})=>({tabBarLabel: "כל הדיווחים", tabBarActiveTintColor: route.name === 'Reports' ? '#F39508' : 'black' ,headerShown: false,tabBarIcon:()=>(<MaterialCommunityIcons name="store" size={26} color="black" />)})}></Tab.Screen>
-  <Tab.Screen component={Map} name='Map' options={({route})=>({tabBarLabel: "מפה", tabBarActiveTintColor: route.name === 'Map' ? '#F39508' : 'black' ,headerShown: false,tabBarIcon:()=>(<MaterialCommunityIcons name="store" size={26} color="black" />)})}></Tab.Screen>
+  <Tab.Screen component={Map} name='Map' options={({route})=>({tabBarLabel: "מפה", tabBarActiveTintColor: route.name === 'Map' ? '#F39508' : 'black' ,tabBarIcon:()=>(<MaterialCommunityIcons name="store" size={26} color="black" />)})}></Tab.Screen>
   <Tab.Screen component={AddNewUser} name='AddNewUser' options={({route})=>({tabBarLabel: "הוספת משתמש", tabBarActiveTintColor: route.name === 'AddNewUser' ? '#F39508' : 'black' ,headerShown: false,tabBarIcon:()=>(<MaterialCommunityIcons name="store" size={26} color="black" />)})}></Tab.Screen>
   <Tab.Screen component={PushNotification} name='PushNotification' options={({route})=>({tabBarLabel: "הודעת פוש", tabBarActiveTintColor: route.name === 'PushNotification' ? '#F39508' : 'black' ,headerShown: false,tabBarIcon:()=>(<MaterialCommunityIcons name="store" size={26} color="black" />)})}></Tab.Screen>
   </Tab.Navigator>
@@ -126,17 +126,6 @@ const NotRegisteresUser = ()=>{
   )
 }
 
-
-// stroe admin stack
-/*const StoreAdmin = ()=>{
-  return(
-<Tab.Navigator>
-    <Tab.Screen component={Store} name='Store' options={{tabBarLabel: "חנות" ,headerShown: false,tabBarIcon:()=>(<MaterialCommunityIcons name="store" size={34} color="black" />)}}></Tab.Screen>
-    <Tab.Screen component={AddItem} name='AddItem' options={{tabBarLabel: "AddItem" ,headerShown: false,tabBarIcon:()=>(<MaterialCommunityIcons name="store" size={34} color="black" />)}}></Tab.Screen>
-    <Tab.Screen component={UpdateItem} name='UpdateItem' options={{tabBarLabel: "UpdateItem" ,headerShown: false,tabBarIcon:()=>(<MaterialCommunityIcons name="store" size={34} color="black" />)}}></Tab.Screen>
-  </Tab.Navigator>
-  )
-}*/
 
 
 
