@@ -30,7 +30,7 @@ console.log("err clearonboarding", err)
   return (
     <KeyboardAvoidingView behavior="padding" onPress={handlePress}>
       <View style={Styles.continer}>
-        <Text style={{ textAlign: "center", marginTop: 110, fontSize: 40 }}>
+        <Text style={{ textAlign: "center", marginTop: 80, fontSize: 40 }}>
           התחברות
         </Text>
         <TextInput

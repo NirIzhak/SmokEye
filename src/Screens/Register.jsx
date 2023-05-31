@@ -1,4 +1,4 @@
-import {Text,View,StyleSheet,TextInput,Switch,Keyboard,TouchableOpacity,KeyboardAvoidingView} from "react-native";
+import {Text,View,StyleSheet,TextInput,Switch,Keyboard,TouchableOpacity,KeyboardAvoidingView, SafeAreaView} from "react-native";
 import { useContext } from "react";
 import { SmokeyeContext } from "../Context/SmokEyeContext";
 export default function Register() {
@@ -12,13 +12,12 @@ export default function Register() {
   
   return (
       <KeyboardAvoidingView behavior={'padding'} onPress={handlePress} >
-      <View style={styles.container}>
+      <SafeAreaView style={styles.container}>
         <Text
           style={{
             textAlign: "center",
-            marginTop: 10,
             fontSize: 40,
-            marginBottom: 50,
+            marginBottom: 30,
           }}
         >
           הרשמה
@@ -74,7 +73,7 @@ export default function Register() {
             justifyContent: "center",
             alignItems: "center",
             marginTop: 10,
-            marginBottom: 20,
+            marginBottom: 10,
             width: "50%",
             marginLeft: "auto",
             marginRight: "auto",
@@ -94,33 +93,38 @@ export default function Register() {
         <TouchableOpacity onPress={AddClient} style={styles.button}>
           <Text style={{ textAlign: "center" }}>הרשם</Text>
         </TouchableOpacity>
-      </View>
+      </SafeAreaView>
       </KeyboardAvoidingView>
   );
 }
 const styles = StyleSheet.create({
   container: {
-    direction: "rtl",
-    backgroundColor: "#f5f5f5",
     marginHorizontal:20,
-    marginVertical:80
+    marginVertical:20
   },
   title: {
-    textAlign: "left",
+    textAlign: "center",
+    fontSize: 18
   },
   input: {
     flexDirection: "row",
     borderColor: "#8C8A89",
     borderRadius:5,
     borderWidth: 1,
-    marginBottom: 10,
+    marginBottom: 12,
     textAlign: 'right',
+    height: 35,
+    width: '75%',
+    marginLeft: 'auto',
+    marginRight: 'auto'
   },
   button: {
-    backgroundColor: "gray",
+    backgroundColor: "#F39508",
     width: "40%",
     padding: 15,
     borderRadius: 20,
     color: "#fff",
+    marginLeft: 'auto',
+    marginRight: 'auto'
   },
 });

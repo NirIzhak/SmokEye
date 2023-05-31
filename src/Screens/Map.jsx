@@ -4,11 +4,10 @@ import MapView, { Marker } from 'react-native-maps';
 
 export default function Map() {
   return (
-    <SafeAreaView>
-      <Text style={{ textAlign: 'center', fontSize: 40 }}>מפת דיווחים</Text>
+    <View>
       <MapView
         mapType="satellite"
-        style={{ width: '100%', height: 500 }}
+        style={{ width: '100%', height: '100%' }}
         region={{
           latitude: 37.78825,
           longitude: -122.4324,
@@ -45,6 +44,6 @@ export default function Map() {
 
 
       </MapView>
-    </SafeAreaView>
+    </View>
   );
 }

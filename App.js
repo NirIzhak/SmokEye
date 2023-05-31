@@ -109,7 +109,7 @@ const ReasercherAndRegulator = ()=>{
   return(
   <Tab.Navigator>
   <Tab.Screen component={AllReportsStack} name='Reports' options={({route})=>({tabBarLabel: "כל הדיווחים", tabBarActiveTintColor: route.name === 'Reports' ? '#F39508' : 'black' ,headerShown: false,tabBarIcon:()=>(<MaterialCommunityIcons name="store" size={26} color="black" />)})}></Tab.Screen>
-  <Tab.Screen component={Map} name='Map' options={({route})=>({tabBarLabel: "מפה", tabBarActiveTintColor: route.name === 'Map' ? '#F39508' : 'black' ,tabBarIcon:()=>(<MaterialCommunityIcons name="store" size={26} color="black" />)})}></Tab.Screen>
+  <Tab.Screen component={Map} name='Map' options={({route})=>({tabBarLabel: "מפה", tabBarActiveTintColor: route.name === 'Map' ? '#F39508' : 'black', headerTitle: "מפה",tabBarIcon:()=>(<MaterialCommunityIcons name="store" size={26} color="black" />)})}></Tab.Screen>
   <Tab.Screen component={AddNewUser} name='AddNewUser' options={({route})=>({tabBarLabel: "הוספת משתמש", tabBarActiveTintColor: route.name === 'AddNewUser' ? '#F39508' : 'black' ,headerShown: false,tabBarIcon:()=>(<MaterialCommunityIcons name="store" size={26} color="black" />)})}></Tab.Screen>
   <Tab.Screen component={PushNotification} name='PushNotification' options={({route})=>({tabBarLabel: "הודעת פוש", tabBarActiveTintColor: route.name === 'PushNotification' ? '#F39508' : 'black' ,headerShown: false,tabBarIcon:()=>(<MaterialCommunityIcons name="store" size={26} color="black" />)})}></Tab.Screen>
   </Tab.Navigator>

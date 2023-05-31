@@ -50,6 +50,7 @@ export default function AddNewUser() {
             console.log(
               fName, lName, email, password, confirmPassword
             )
+
           }}>
             <Text>הוספה</Text>
           </TouchableOpacity>

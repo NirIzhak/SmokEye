@@ -313,7 +313,6 @@ const styles = StyleSheet.create({
     justifyContent:'center',
     alignItems:'center',
     margin:'auto',
-    direction: 'rtl',
   },
   report_Details:{
     width:'85%',
