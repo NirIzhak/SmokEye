@@ -1,6 +1,7 @@
 import {Text,View,StyleSheet,TextInput,Switch,Keyboard,TouchableOpacity,KeyboardAvoidingView, SafeAreaView} from "react-native";
 import { useContext } from "react";
 import { SmokeyeContext } from "../Context/SmokEyeContext";
+import { Colors } from "../style/AllStyels";
 export default function Register() {
 
   const {setPassword,setConfirmPassword,setName,setEmail,setPhone,setAddress,AddClient,toggleSwitch,smoke,
@@ -67,19 +68,9 @@ export default function Register() {
           onBlur={() => Keyboard.dismiss()}
         />
         <View
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "center",
-            alignItems: "center",
-            marginTop: 10,
-            marginBottom: 10,
-            width: "50%",
-            marginLeft: "auto",
-            marginRight: "auto",
-          }}
+          style={styles.smoke_comtiner}
         >
-          <Text style={{ fontSize: 20 }}> מעשן</Text>
+          <Text style={styles.title}>לא מעשן</Text>
           <Switch
             trackColor={{ false: "#767577", true: "#7CC69E" }}
             thumbColor={smoke ? "#5CEE9F" : "#f4f3f4"}
@@ -88,10 +79,10 @@ export default function Register() {
             value={smoke}
             style={{ margin: 10 }}
           />
-          <Text style={{ fontSize: 20 }}>לא מעשן</Text>
+          <Text style={styles.title}>מעשן</Text>
         </View>
         <TouchableOpacity onPress={AddClient} style={styles.button}>
-          <Text style={{ textAlign: "center" }}>הרשם</Text>
+          <Text style={styles.title}>הרשם</Text>
         </TouchableOpacity>
       </SafeAreaView>
       </KeyboardAvoidingView>
@@ -119,7 +110,7 @@ const styles = StyleSheet.create({
     marginRight: 'auto'
   },
   button: {
-    backgroundColor: "#F39508",
+    backgroundColor:Colors.primary,
     width: "40%",
     padding: 15,
     borderRadius: 20,
@@ -127,4 +118,15 @@ const styles = StyleSheet.create({
     marginLeft: 'auto',
     marginRight: 'auto'
   },
+  smoke_comtiner:{
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 10,
+    marginBottom: 10,
+    width: "50%",
+    marginLeft: "auto",
+    marginRight: "auto"
+  }
 });
