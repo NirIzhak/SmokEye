@@ -2,7 +2,7 @@ import { useContext } from "react";
 import {View,Text,TextInput,TouchableOpacity,Keyboard,StyleSheet,KeyboardAvoidingView} from "react-native";
 import { SmokeyeContext } from "../Context/SmokEyeContext";
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import { Colors, fontSizes } from "../style/AllStyels";
 
 export default function Login({ navigation}) {
   const {
@@ -89,7 +89,7 @@ console.log("err clearonboarding", err)
             navigation.navigate("FastReport");
           }}
         >
-          <Text>כניסה מהירה ללא התחברות</Text>
+          <Text>דיווח מהיר ללא התחברות</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={[Styles.button, Styles.input_btn]}
@@ -118,22 +118,22 @@ const Styles = StyleSheet.create({
     marginTop: 20,
     marginLeft: "auto",
     marginRight: "auto",
-    width: "70%",
+    width: "90%",
   },
   input: {
-    borderColor: "#F39508",
-    fontSize: 24,
+    borderColor: Colors.borderColor,
+    fontSize: fontSizes.XL,
   },
   button: {
-    fontSize: 15,
-    backgroundColor: "#F39508",
-    borderColor: "transparent",
+    fontSize: fontSizes.S,
+    backgroundColor: Colors.primary,
+    borderColor: Colors.transparent,
   },
   googleConection: {
-    borderColor: "#F39508",
+    borderColor: Colors.primary,
   },
   login_btn: {
-    backgroundColor: "#F39508",
+    backgroundColor: Colors.primary,
     alignItems: "center",
     margin: 25,
     width: "30%",
