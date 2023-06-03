@@ -1,11 +1,11 @@
 import {View,Text,TextInput,TouchableOpacity,TouchableWithoutFeedback,Keyboard,Image,Alert,StyleSheet, SafeAreaView} from "react-native";
 import { Dropdown } from 'react-native-element-dropdown';
-import React, { useEffect, useState, useRef, useContext } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import * as Location from "expo-location";
 import * as ImagePicker from "expo-image-picker";
 import { SmokeyeContext } from "../Context/SmokEyeContext";
 import { RadioButton ,DefaultTheme, Provider as PaperProvider} from 'react-native-paper';
-
+import { Colors,fontSizes } from "../style/AllStyels";
 
 
 
@@ -21,6 +21,7 @@ export default function NewReport() {
   const [BusName,setBusName] = useState('');
   const [select,setSelect] = useState(false);
   const {extractStreetName} = useContext(SmokeyeContext);
+
   const theme = {
     ...DefaultTheme,
     roundness: 2,
@@ -128,8 +129,8 @@ export default function NewReport() {
       <Text>בחר את מקום האירוע</Text>
      <Dropdown
       style={styles.dropdown}
-      placeholderStyle={[styles.placeholderStyle]}
-      selectedTextStyle={[styles.selectedTextStyle]}
+      placeholderStyle={[styles.basic_fontSize]}
+      selectedTextStyle={[styles.basic_fontSize]}
       inputSearchStyle={[styles.inputSearchStyle]}
       iconStyle={styles.iconStyle}
       data={data}
@@ -298,8 +299,11 @@ export default function NewReport() {
   );
 }
 const styles = StyleSheet.create({
+  basic_fontSize:{
+    fontSize: fontSizes
+  },
   input_Text:{
-    borderColor: "#8C8A89",
+    borderColor:Colors.borderColor,
     borderWidth:1,
     borderRadius:5,
     padding:5,
@@ -310,14 +314,14 @@ const styles = StyleSheet.create({
     textAlign:"center"
   },
   container:{
+    flex:1,
     justifyContent:'center',
     alignItems:'center',
-    margin:'auto',
+    textAlign: 'right'
   },
   report_Details:{
     width:'85%',
     textAlignVertical: 'top',
-    textAlign: 'right'
   },
   radio_btn: {
     flexDirection: 'row',
@@ -334,29 +338,19 @@ const styles = StyleSheet.create({
   },
   buttonContainer:{
     marginTop:20,
-    backgroundColor: "#F39508",
+    backgroundColor: Colors.primary,
     borderRadius: 5,
     paddingVertical: 10,
     paddingHorizontal: 40
   },
   btn:{
-    color:'white',
-    width:'100%'
+    color:Colors.white,
   },
   img:{
       width: 200,
       height: 200,
       alignSelf: "center",
       marginTop: 10
-  },
-  date:{
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    width: "50%",
-    marginLeft: "auto",
-    marginRight: "auto",
-    marginTop: 40,
   },
   addressContainer: {
     flexDirection: 'row',
@@ -366,10 +360,9 @@ const styles = StyleSheet.create({
   },
   addressInput: {
     borderWidth: 1,
-    borderColor: '#8C8A89',
+    borderColor: Colors.borderColor,
     borderRadius:5,
     padding: 5,
-    textAlign: 'right',
     margin:2
   },
   streetInput: {
@@ -385,17 +378,16 @@ const styles = StyleSheet.create({
   sendReport:{
     borderWidth:1,
     borderStyle:'solid',
-    borderColor:'#F39508',
+    borderColor:Colors.primary,
     marginTop:5,
     paddingHorizontal:50
   },
   report_Bus:{
-    textAlignVertical: 'center',
-    textAlign: 'right'    
+    textAlignVertical: 'center'  
   },
   dropdown: {
     height: 50,
-    backgroundColor: 'white',
+    backgroundColor: Colors.white,
     borderRadius: 5,
     paddingHorizontal: 15,
     shadowColor: '#000',
@@ -416,17 +408,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
-  textItem: {
-    fontSize: 16,
-    textAlign: 'right',
-  },
-  placeholderStyle: {
-    fontSize: 16,
-  },
-  selectedTextStyle: {
-      fontSize: 16,
-      textAlign: 'right',
-  },
   iconStyle: {
     width: 20,
     height: 20,
@@ -434,7 +415,13 @@ const styles = StyleSheet.create({
   inputSearchStyle: {
     height: 40
   },
-  basic_fontSize:{
-    fontSize: 16
-  }
+   /*date:{
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    width: "50%",
+    marginLeft: "auto",
+    marginRight: "auto",
+    marginTop: 40,
+  },*/
 })
