@@ -300,7 +300,7 @@ export default function NewReport() {
 }
 const styles = StyleSheet.create({
   basic_fontSize:{
-    fontSize: fontSizes
+    fontSize: fontSizes.S
   },
   input_Text:{
     borderColor:Colors.borderColor,
