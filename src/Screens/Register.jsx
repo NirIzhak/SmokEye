@@ -1,16 +1,51 @@
-import {Text,View,StyleSheet,TextInput,Switch,Keyboard,TouchableOpacity,KeyboardAvoidingView, SafeAreaView} from "react-native";
-import { useContext } from "react";
+import {Text,View,StyleSheet,TextInput,Switch,Keyboard,TouchableOpacity,KeyboardAvoidingView, SafeAreaView,Image,Animated,Modal} from "react-native";
+import { useContext,useState,useRef,useEffect } from "react";
 import { SmokeyeContext } from "../Context/SmokEyeContext";
 import { Colors } from "../style/AllStyels";
-export default function Register() {
 
+
+export default function Register() {
+  const [visible, setVisible] = useState(false);
   const {setPassword,setConfirmPassword,setName,setEmail,setPhone,setAddress,AddClient,toggleSwitch,smoke,
   } = useContext(SmokeyeContext);
 
   const handlePress = () => {
     Keyboard.dismiss();
   };
-  
+  const ModalPoup = ({visible, children}) => {
+    const [showModal, setShowModal] = useState(visible);
+    const scaleValue = useRef(new Animated.Value(0)).current;
+    useEffect(() => {
+      toggleModal();
+    }, [visible]);
+    const toggleModal = () => {
+      if (visible) {
+        setShowModal(true);
+        Animated.spring(scaleValue, {
+          toValue: 1,
+          duration: 300,
+          useNativeDriver: true,
+        }).start();
+      } else {
+        setTimeout(() => setShowModal(false), 200);
+        Animated.timing(scaleValue, {
+          toValue: 0,
+          duration: 300,
+          useNativeDriver: true,
+        }).start();
+      }
+    };
+    return (
+      <Modal transparent visible={showModal}>
+        <View style={styles.modalBackGround}>
+          <Animated.View
+            style={[styles.modalContainer, {transform: [{scale: scaleValue}]}]}>
+            {children}
+          </Animated.View>
+        </View>
+      </Modal>
+    );
+  };
   return (
       <KeyboardAvoidingView behavior={'padding'} onPress={handlePress} >
       <SafeAreaView style={styles.container}>
@@ -81,9 +116,33 @@ export default function Register() {
           />
           <Text style={styles.title}>מעשן</Text>
         </View>
-        <TouchableOpacity onPress={AddClient} style={styles.button}>
+        <TouchableOpacity onPress={()=>setVisible(true)} style={styles.button}>
           <Text style={styles.title}>הרשם</Text>
         </TouchableOpacity>
+        <ModalPoup visible={visible}>
+        <View style={{alignItems: 'center'}}>
+          <View style={styles.header}>
+            <TouchableOpacity onPress={() => {AddClient();
+              setVisible(false)
+              }}>
+              <Image
+                source={{uri:"https://cdn-icons-png.flaticon.com/512/67/67345.png?w=740&t=st=1685792830~exp=1685793430~hmac=8c346bf78fce79a22309a9833f9ca23399d7d2a51a3a91f450129e146e0acb5f"}}
+                style={{height: 20, width: 20}}
+              />
+            </TouchableOpacity>
+          </View>
+        </View>
+        <View style={{alignItems: 'center'}}>
+          <Image
+            source={{uri:"https://cdn-icons-png.flaticon.com/512/1102/1102052.png?w=740&t=st=1685792426~exp=1685793026~hmac=dc4ad9d28be355423331316bbc9134a769239442102bee59e4438c3d243d7b3c"}}
+            style={{height: 150, width: 150, marginVertical: 10}}
+          />
+        </View>
+
+        <Text style={{marginVertical: 30, fontSize: 20, textAlign: 'center'}}>
+          הרשמתך נקלטה בהצלחה !
+        </Text>
+      </ModalPoup>
       </SafeAreaView>
       </KeyboardAvoidingView>
   );
@@ -128,5 +187,26 @@ const styles = StyleSheet.create({
     width: "50%",
     marginLeft: "auto",
     marginRight: "auto"
-  }
+  },
+  /************* */
+  modalBackGround: {
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.5)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  modalContainer: {
+    width: '80%',
+    backgroundColor: 'white',
+    paddingHorizontal: 20,
+    paddingVertical: 30,
+    borderRadius: 20,
+    elevation: 20,
+  },
+  header: {
+    width: '100%',
+    height: 40,
+    alignItems: 'flex-end',
+    justifyContent: 'center',
+  },
 });
