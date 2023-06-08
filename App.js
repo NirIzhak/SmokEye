@@ -21,6 +21,7 @@ import UpdateItem from './src/Screens/Store2.0/UpdateItem';
 import OnBoarding from './src/Components/OnBoarding';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, {useEffect, useState} from 'react';
+import {base_URL} from './utilis/api'
 //import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 
 //const Tab = createMaterialBottomTabNavigator();
