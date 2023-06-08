@@ -1,0 +1,1 @@
+export const base_URL = "https://smokeye.onrender.com/api"
