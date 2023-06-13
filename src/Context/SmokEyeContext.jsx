@@ -1,5 +1,6 @@
 import { createContext, useState, useEffect } from "react";
 import Users from "../Data/Users.json";
+import { base_URL } from "../../utilis/api";
 
 export const SmokeyeContext = createContext();
 
@@ -23,7 +24,7 @@ export default function SmokeyeContextProvider({ children, navigation }) {
   const [streetNum, SetStreetNum] = useState("");
   const [imageUri, setImageUri] = useState(null);
   const [des, setDes] = useState("");
-
+  const [report,setReport] = useState([]);
   /*All Reports*/
   const [allReports, setAllReports] = useState([]);
   useEffect(() => {
@@ -69,6 +70,20 @@ export default function SmokeyeContextProvider({ children, navigation }) {
     if (isExsist) return isExsist;
     else return undefined;
   };
+   const insertReport= async (email,doc)=>{
+    try{
+      const url =  `${base_URL}/api/reports/AddReport`;
+       const response = await fetch(url,{
+        method:'PUT',
+        headers:{
+          'Content-Type': 'application/json'
+        },
+        body:JSON.stringify(doc)
+       })
+    }catch(err){
+      console.log('err :>> ', err);
+    }
+   }
 
   // //Cheack if regstration corrent
   // const ConfirmRegistration = () => {
@@ -154,6 +169,8 @@ export default function SmokeyeContextProvider({ children, navigation }) {
     SetStreetNum,
     setImageUri,
     setDes,
+    insertReport,
+    setReport,
     smoke,
     email,
     password,
@@ -167,6 +184,7 @@ export default function SmokeyeContextProvider({ children, navigation }) {
     streetNum,
     imageUri,
     des,
+    report,
     currentUser,
     allReports, setAllReports
   };
