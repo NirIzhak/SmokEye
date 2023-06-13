@@ -12,7 +12,7 @@ import { Colors,fontSizes } from "../style/AllStyels";
 export default function NewReport() {
 
 
-  const {currentUser,insertReport,setReport,city, setCity,street, setStreet,streetNum, SetStreetNum,imageUri, setImageUri,des, setDes} = useContext(SmokeyeContext);
+  const {currentUser,insertReport,setReport,report, city, setCity,street, setStreet,streetNum, SetStreetNum,imageUri, setImageUri,des, setDes} = useContext(SmokeyeContext);
   const date = new Date();
   const [location, setLocation] = useState({});
   const [latitude, setLatitude] = useState("");
@@ -258,24 +258,31 @@ export default function NewReport() {
           <View>
             <Text style={styles.sendReport} onPress={()=>{
                 const newReport = {
-                  "description": des,
-                "media": imageUri,
-                "location": [
-                  latitude,
-                  longitude
-                ],
-                "address": street + " " + streetNum + "," + city,
-                "date": date.getDate() +
-                "/" +
-                (date.getMonth() + 1) +
-                "/" +
-                date.getFullYear() + "," + date.getHours().toString().padStart(2, "0") +
-                ":" +
-                date.getMinutes().toString().padStart(2, "0"),
-                "type" : checked,
-                "place" : checked === "Business" ? BusName : value,
+                  "date": date.getDate() +
+                  "/" +
+                  (date.getMonth() + 1) +
+                  "/" +
+                  date.getFullYear(),
 
-                "reporter": currentUser.firstName + " " + currentUser.lastName              }
+                  "type" : checked,
+
+                  "location": [
+                    latitude,
+                    longitude
+                  ],
+
+                  "address": street + " " + streetNum + "," + city,
+
+                  "place" : checked === "Business" ? BusName : value,
+
+
+                "details": des,
+
+
+                "image": imageUri,
+              
+
+                "reporter": currentUser.firstName + " " + currentUser.lastName }
               setReport(newReport);
               insertReport(currentUser.email,report);
             }}>דווח</Text>

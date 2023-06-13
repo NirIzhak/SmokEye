@@ -70,9 +70,11 @@ export default function SmokeyeContextProvider({ children, navigation }) {
     if (isExsist) return isExsist;
     else return undefined;
   };
-   const insertReport= async (email,doc)=>{
+   const insertReport = async (email,doc)=>{
+    console.log(base_URL)
+    console.log(doc)
     try{
-      const url =  `${base_URL}/api/reports/AddReport`;
+      const url =  `${base_URL}/reports/AddReport`;
        const response = await fetch(url,{
         method:'PUT',
         headers:{
