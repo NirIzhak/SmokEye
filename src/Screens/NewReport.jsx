@@ -44,6 +44,38 @@ export default function NewReport() {
   const handlePress = () => {
     Keyboard.dismiss();
   };
+
+   const createReport =()=>{
+
+    let newReport = {
+      "date": date.getDate() +
+      "/" +
+      (date.getMonth() + 1) +
+      "/" +
+      date.getFullYear(),
+
+      "type" : checked,
+
+      "location": [
+        latitude,
+        longitude
+      ],
+
+      "address": street + " " + streetNum + "," + city,
+
+      "place" : checked === "Business" ? BusName : value,
+
+
+    "details": des,
+
+
+    "image": imageUri,
+  
+
+    "reporter": currentUser.firstName + " " + currentUser.lastName }
+    //setReport(newReport);
+    insertReport(currentUser.email,newReport);
+  }
 //Camera
   const openCamera = async () => {
     let permissionResult = await ImagePicker.requestCameraPermissionsAsync();
@@ -256,8 +288,8 @@ export default function NewReport() {
       ) : null}
           </View>
           <View>
-            <Text style={styles.sendReport} onPress={()=>{
-                const newReport = {
+            <Text style={styles.sendReport} onPress={()=>{createReport()
+                /*const newReport = {
                   "date": date.getDate() +
                   "/" +
                   (date.getMonth() + 1) +
@@ -284,7 +316,7 @@ export default function NewReport() {
 
                 "reporter": currentUser.firstName + " " + currentUser.lastName }
               setReport(newReport);
-              insertReport(currentUser.email,report);
+              insertReport(currentUser.email,report);*/
             }}>דווח</Text>
           </View>
         </SafeAreaView>
