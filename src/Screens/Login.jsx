@@ -1,10 +1,10 @@
 import { useContext } from "react";
-import {View,Text,TextInput,TouchableOpacity,Keyboard,StyleSheet,KeyboardAvoidingView} from "react-native";
+import { View, Text, TextInput, TouchableOpacity, Keyboard, StyleSheet, KeyboardAvoidingView } from "react-native";
 import { SmokeyeContext } from "../Context/SmokEyeContext";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Colors, fontSizes } from "../style/AllStyels";
 
-export default function Login({ navigation}) {
+export default function Login({ navigation }) {
   const {
     setEmail,
     setPassword,
@@ -17,15 +17,15 @@ export default function Login({ navigation}) {
     Keyboard.dismiss();
   };
 
-  
-const clearOnboarding = async()=>{
-  try{
-await AsyncStorage.removeItem('@viewedOnboarding');
-console.log("clear onboarding")
-  }catch(err){
-console.log("err clearonboarding", err)
+
+  const clearOnboarding = async () => {
+    try {
+      await AsyncStorage.removeItem('@viewedOnboarding');
+      console.log("clear onboarding")
+    } catch (err) {
+      console.log("err clearonboarding", err)
+    }
   }
-}
 
   return (
     <KeyboardAvoidingView behavior="padding" onPress={handlePress}>
@@ -47,23 +47,23 @@ console.log("err clearonboarding", err)
           style={[Styles.input, Styles.input_btn]}
           onBlur={() => Keyboard.dismiss()}
         />
-        <TouchableOpacity style={{marginTop:10}}><Text style={{textAlign:'center'}}>שכחת סיסמא ? </Text></TouchableOpacity>
+        <TouchableOpacity style={{ marginTop: 10 }}><Text style={{ textAlign: 'center' }}>שכחת סיסמא ? </Text></TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
-            const typerole = ConfirmClient(email, password);
-            if (typerole == undefined) {
+            const user = ConfirmClient(email, password);
+            if (user == undefined) {
               alert("No User");
             } else {
-              setCurrentUser(typerole);
-              if (typerole.role == "User") {
+              setCurrentUser(user);
+              if (user.role == "User") {
                 navigation.navigate("userScreens");
               } else if (
-                typerole.role == "Regulator" ||
-                typerole.role == "Reasercher"
+                user.role == "Regulator" ||
+                user.role == "Reasercher"
                 // typerole.role == "Admin"
               ) {
                 navigation.navigate("adminScreens");
-              } else if (typerole.role == "storeAdmin") {
+              } else if (user.role == "storeAdmin") {
                 navigation.navigate("storeAdmin");
               }
             }
