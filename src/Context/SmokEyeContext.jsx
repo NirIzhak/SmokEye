@@ -147,8 +147,6 @@ export default function SmokeyeContextProvider({ children, navigation }) {
     setClients([...clients, user]);
   };
 
-  //Check Client in Array
-  //const ConfirmClient=()=>{}
 
   const value = {
     setCity,

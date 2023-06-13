@@ -11,6 +11,7 @@ import { Colors,fontSizes } from "../style/AllStyels";
 
 export default function NewReport() {
 
+
   const {currentUser,insertReport,setReport,city, setCity,street, setStreet,streetNum, SetStreetNum,imageUri, setImageUri,des, setDes} = useContext(SmokeyeContext);
   const date = new Date();
   const [location, setLocation] = useState({});
@@ -256,21 +257,6 @@ export default function NewReport() {
           </View>
           <View>
             <Text style={styles.sendReport} onPress={()=>{
-              // console.log("des ===> ",  des);
-              // console.log("time ===> ",  date.getHours().toString().padStart(2, "0") +
-              // ":" +
-              // date.getMinutes().toString().padStart(2, "0"));
-              // console.log("date ===> ",  date.getDate() +
-              //   "/" +
-              //   (date.getMonth() + 1) +
-              //   "/" +
-              //   date.getFullYear());              
-              //   console.log("report on ===> " + checked)
-              //   console.log("StreetName ===> "+ street)
-              //   console.log("StreetNum ===> " + streetNum)
-              //   console.log("city ===> " + city)
-              //   console.log("location ===> " + latitude, longitude)
-              //   console.log("image ===> " + imageUri)
                 const newReport = {
                   "description": des,
                 "media": imageUri,
@@ -288,8 +274,8 @@ export default function NewReport() {
                 date.getMinutes().toString().padStart(2, "0"),
                 "type" : checked,
                 "place" : checked === "Business" ? BusName : value,
-                "reporter":currentUser.firstName + " " + currentUser.lastName
-              }
+
+                "reporter": currentUser.firstName + " " + currentUser.lastName              }
               setReport(newReport);
               insertReport(currentUser.email,report);
             }}>דווח</Text>
