@@ -17,6 +17,7 @@ export default function SmokeyeContextProvider({ children, navigation }) {
   const [smoke, setSmoke] = useState(false);
   const [clients, setClients] = useState([]);
   const [currentUser, setCurrentUser] = useState({});
+  const [userId, setUserId] = useState("");
 
   /*New Report */
   const [city, setCity] = useState("");
@@ -63,12 +64,20 @@ export default function SmokeyeContextProvider({ children, navigation }) {
   };
 
   // chack if the user is exsist
-  const ConfirmClient = (e, p) => {
-    let isExsist = clients.find(
+  const ConfirmClient = async (e, p) => {
+    try {
+      let url = `${base_URL}/users/Login/${e}/${p}`;
+      const res = await fetch(url);
+      let user = await res.json();
+      setCurrentUser(user);
+    } catch (err) {
+      console.log('err :>> ', err);
+    }
+    /*let isExsist = clients.find(
       (item) => item.email == e && item.password == p
     );
     if (isExsist) return isExsist;
-    else return undefined;
+    else return undefined;*/
   };
   const insertReport = async (email, doc) => {
     try {
@@ -82,6 +91,15 @@ export default function SmokeyeContextProvider({ children, navigation }) {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(doc)
+      }).then(async () => {
+        const url = `${base_URL}/reports/email`;
+        const res = await fetch(url, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(email)
+        })
       })
     } catch (err) {
       console.log('err :>> ', err);
