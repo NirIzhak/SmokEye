@@ -11,7 +11,7 @@ import { Colors,fontSizes } from "../style/AllStyels";
 
 export default function NewReport() {
 
-  const {city, setCity,street, setStreet,streetNum, SetStreetNum,imageUri, setImageUri,des, setDes} = useContext(SmokeyeContext);
+  const {currentUser,insertReport,setReport,city, setCity,street, setStreet,streetNum, SetStreetNum,imageUri, setImageUri,des, setDes} = useContext(SmokeyeContext);
   const date = new Date();
   const [location, setLocation] = useState({});
   const [latitude, setLatitude] = useState("");
@@ -287,9 +287,11 @@ export default function NewReport() {
                 ":" +
                 date.getMinutes().toString().padStart(2, "0"),
                 "type" : checked,
-                "place" : checked === "Business" ? BusName : value
+                "place" : checked === "Business" ? BusName : value,
+                "reporter":currentUser.firstName + " " + currentUser.lastName
               }
-              console.log(newReport)
+              setReport(newReport);
+              insertReport(currentUser.email,report);
             }}>דווח</Text>
           </View>
         </SafeAreaView>
