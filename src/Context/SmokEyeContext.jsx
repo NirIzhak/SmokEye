@@ -81,14 +81,14 @@ export default function SmokeyeContextProvider({ children, navigation }) {
   };
   const insertReport = async (email, doc) => {
     try {
-      if (!email || !doc)
-        return;
-      console.log('email :>> ', email);
+      if (!email || !doc) return;
+      if (doc.date == null) return;
+      console.log("email :>> ", email);
       const url = `${base_URL}/reports/AddReport`;
       const response = await fetch(url, {
-        method: 'PUT',
+        method: "PUT",
         headers: {
-          'Content-Type': 'application/json'
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(doc)
       }).then(async () => {
@@ -100,11 +100,11 @@ export default function SmokeyeContextProvider({ children, navigation }) {
           },
           body: JSON.stringify(email)
         })
-      })
+      });
     } catch (err) {
-      console.log('err :>> ', err);
+      console.log("err :>> ", err);
     }
-  }
+  };
 
   // //Cheack if regstration corrent
   // const ConfirmRegistration = () => {
@@ -168,7 +168,6 @@ export default function SmokeyeContextProvider({ children, navigation }) {
     setClients([...clients, user]);
   };
 
-
   const value = {
     setCity,
     toggleSwitch,
@@ -205,7 +204,8 @@ export default function SmokeyeContextProvider({ children, navigation }) {
     des,
     report,
     currentUser,
-    allReports, setAllReports
+    allReports,
+    setAllReports,
   };
   return (
     <SmokeyeContext.Provider value={value}>{children}</SmokeyeContext.Provider>
