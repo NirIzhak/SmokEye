@@ -71,16 +71,16 @@ export default function SmokeyeContextProvider({ children, navigation }) {
     else return undefined;
   };
    const insertReport = async (email,doc)=>{
-    console.log(base_URL)
-    console.log(doc)
     try{
+      console.log('email :>> ', email);
+      await setReport(doc);
       const url =  `${base_URL}/reports/AddReport`;
        const response = await fetch(url,{
         method:'PUT',
         headers:{
           'Content-Type': 'application/json'
         },
-        body:JSON.stringify(doc)
+        body:JSON.stringify(report)
        })
     }catch(err){
       console.log('err :>> ', err);
