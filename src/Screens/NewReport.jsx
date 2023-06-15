@@ -46,7 +46,6 @@ export default function NewReport() {
   };
 
   const createReport = () => {
-
     setReport({
       date: `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`,
       type: checked,
@@ -197,9 +196,7 @@ export default function NewReport() {
       <TouchableWithoutFeedback onPress={handlePress}>
         <PaperProvider theme={theme}>
           <SafeAreaView style={styles.container}>
-            <Text style={[styles.title]}>
-              על מה הדיווח?
-            </Text>
+            <Text style={[styles.title]}> על מה הדיווח?</Text>
             <View style={styles.radio_btn}>
               <View style={styles.radioButtonContainer}>
                 <RadioButton.Android
@@ -222,9 +219,7 @@ export default function NewReport() {
             <View>
               {select ? ViewBus() : ViewPrivate()}
             </View>
-            <Text style={[styles.title]}>
-              פרט בקצרה על המקרה
-            </Text>
+            <Text style={[styles.title]}> פרט בקצרה על המקרה </Text>
             <TextInput
               placeholder="לדוגמא: עסק שמוכר סיגריות שנראות באופן גלוי"
               onBlur={handlePress}
@@ -284,34 +279,6 @@ export default function NewReport() {
             <View>
               <Text style={styles.sendReport} onPress={() => {
                 createReport()
-                /*const newReport = {
-                  "date": date.getDate() +
-                  "/" +
-                  (date.getMonth() + 1) +
-                  "/" +
-                  date.getFullYear(),
-
-                  "type" : checked,
-
-                  "location": [
-                    latitude,
-                    longitude
-                  ],
-
-                  "address": street + " " + streetNum + "," + city,
-
-                  "place" : checked === "Business" ? BusName : value,
-
-
-                "details": des,
-
-
-                "image": imageUri,
-              
-
-                "reporter": currentUser.firstName + " " + currentUser.lastName }
-              setReport(newReport);
-              insertReport(currentUser.email,report);*/
               }}>דווח</Text>
             </View>
           </SafeAreaView>
