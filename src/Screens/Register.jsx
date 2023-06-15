@@ -58,6 +58,7 @@ export default function Register() {
       role: "client",
       smoke: smoke,
       imag: "",
+      reports: [],
       isActive: isActive
     })
     if (!singalUser) return;
