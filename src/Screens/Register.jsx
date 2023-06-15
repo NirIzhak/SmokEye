@@ -45,6 +45,7 @@ export default function Register() {
 
   const AddClient = () => {
     console.log('hiiiiiii :>> ');
+    console.log('byeeeeee :>> ');
     setVisible(true)
     setisActive(true);
     setSingalUser({
