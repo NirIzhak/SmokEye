@@ -1,18 +1,14 @@
-import {Text,View,StyleSheet,TextInput,Switch,Keyboard,TouchableOpacity,KeyboardAvoidingView, SafeAreaView,Image,Animated,Modal} from "react-native";
-import { useContext,useState,useRef,useEffect } from "react";
+import { Text, View, StyleSheet, TextInput, Switch, Keyboard, TouchableOpacity, KeyboardAvoidingView, SafeAreaView, Image, Animated, Modal } from "react-native";
+import { useContext, useState, useRef, useEffect } from "react";
 import { SmokeyeContext } from "../Context/SmokEyeContext";
 import { Colors } from "../style/AllStyels";
 
 
 export default function Register() {
   const [visible, setVisible] = useState(false);
-  const {setPassword,setConfirmPassword,setName,setEmail,setPhone,setAddress,AddClient,toggleSwitch,smoke,
-  } = useContext(SmokeyeContext);
+  const { email, password, phone, address, isActive, setisActive, setPassword, setConfirmPassword, setFirstName, setlastName, setEmail, setPhone, setAddress, toggleSwitch, smoke, setSingalUser, singalUser, insertNewUser, firstName, lastName } = useContext(SmokeyeContext);
 
-  const handlePress = () => {
-    Keyboard.dismiss();
-  };
-  const ModalPoup = ({visible, children}) => {
+  const ModalPoup = ({ visible, children }) => {
     const [showModal, setShowModal] = useState(visible);
     const scaleValue = useRef(new Animated.Value(0)).current;
     useEffect(() => {
@@ -39,30 +35,58 @@ export default function Register() {
       <Modal transparent visible={showModal}>
         <View style={styles.modalBackGround}>
           <Animated.View
-            style={[styles.modalContainer, {transform: [{scale: scaleValue}]}]}>
+            style={[styles.modalContainer, { transform: [{ scale: scaleValue }] }]}>
             {children}
           </Animated.View>
         </View>
       </Modal>
     );
   };
+
+  const AddClient = () => {
+    console.log('hiiiiiii :>> ');
+    setVisible(true)
+    setisActive(true);
+    setSingalUser({
+      firstName: `${firstName}`,
+      lastName: `${lastName}`,
+      email: `${email}`,
+      password: `${password}`,
+      phone: `${phone}`,
+      address: `${address}`,
+      role: "client",
+      smoke: smoke,
+      imag: "",
+      isActive: isActive
+    })
+    if (!singalUser) return;
+    insertNewUser(singalUser)
+  }
+  useEffect(() => {
+
+  })
+
+  const handlePress = () => {
+    Keyboard.dismiss();
+  };
+
+
   return (
-      <KeyboardAvoidingView behavior={'padding'} onPress={handlePress} >
+    <KeyboardAvoidingView behavior={'padding'} onPress={handlePress} >
       <SafeAreaView style={styles.container}>
-        <Text
-          style={{
-            textAlign: "center",
-            fontSize: 40,
-            marginBottom: 30,
-          }}
-        >
-          הרשמה
-        </Text>
-        <Text style={styles.title}>שם</Text>
+        <Text style={styles.h1_title}>הרשמה</Text>
+        <Text style={styles.title}>שם פרטי</Text>
         <TextInput
           style={styles.input}
-          placeholder="שם"
-          onChangeText={(text) => setName(text)}
+          placeholder="שם פרטי"
+          onChangeText={(text) => setFirstName(text)}
+          onBlur={() => Keyboard.dismiss()}
+        />
+        <Text style={styles.title}>שם משפחה</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="שם משפחה"
+          onChangeText={(text) => setlastName(text)}
           onBlur={() => Keyboard.dismiss()}
         />
         <Text style={styles.title}>Email</Text>
@@ -116,50 +140,53 @@ export default function Register() {
           />
           <Text style={styles.title}>מעשן</Text>
         </View>
-        <TouchableOpacity onPress={()=>setVisible(true)} style={styles.button}>
+        <TouchableOpacity onPress={AddClient} style={styles.button}>
           <Text style={styles.title}>הרשם</Text>
         </TouchableOpacity>
         <ModalPoup visible={visible}>
-        <View style={{alignItems: 'center'}}>
-          <View style={styles.header}>
-            <TouchableOpacity onPress={() => {AddClient();
-              setVisible(false)
-              }}>
-              <Image
-                source={{uri:"https://cdn-icons-png.flaticon.com/512/67/67345.png?w=740&t=st=1685792830~exp=1685793430~hmac=8c346bf78fce79a22309a9833f9ca23399d7d2a51a3a91f450129e146e0acb5f"}}
-                style={{height: 20, width: 20}}
-              />
-            </TouchableOpacity>
+          <View style={{ alignItems: 'center' }}>
+            <View style={styles.header}>
+              <TouchableOpacity onPress={() => { setVisible(false) }}>
+                <Image
+                  source={{ uri: "https://cdn-icons-png.flaticon.com/512/67/67345.png?w=740&t=st=1685792830~exp=1685793430~hmac=8c346bf78fce79a22309a9833f9ca23399d7d2a51a3a91f450129e146e0acb5f" }}
+                  style={styles.x_logo}
+                />
+              </TouchableOpacity>
+            </View>
           </View>
-        </View>
-        <View style={{alignItems: 'center'}}>
-          <Image
-            source={{uri:"https://cdn-icons-png.flaticon.com/512/1102/1102052.png?w=740&t=st=1685792426~exp=1685793026~hmac=dc4ad9d28be355423331316bbc9134a769239442102bee59e4438c3d243d7b3c"}}
-            style={{height: 150, width: 150, marginVertical: 10}}
-          />
-        </View>
+          <View style={{ alignItems: 'center' }}>
+            <Image
+              source={{ uri: "https://cdn-icons-png.flaticon.com/512/1102/1102052.png?w=740&t=st=1685792426~exp=1685793026~hmac=dc4ad9d28be355423331316bbc9134a769239442102bee59e4438c3d243d7b3c" }}
+              style={styles.success_logo}
+            />
+          </View>
 
-        <Text style={{marginVertical: 30, fontSize: 20, textAlign: 'center'}}>
-          הרשמתך נקלטה בהצלחה !
-        </Text>
-      </ModalPoup>
+          <Text style={styles.popUp_text}>
+            הרשמתך נקלטה בהצלחה !
+          </Text>
+        </ModalPoup>
       </SafeAreaView>
-      </KeyboardAvoidingView>
+    </KeyboardAvoidingView>
   );
 }
 const styles = StyleSheet.create({
   container: {
-    marginHorizontal:20,
-    marginVertical:20
+    marginHorizontal: 20,
+    marginVertical: 20
   },
   title: {
     textAlign: "center",
     fontSize: 18
   },
+  h1_title: {
+    textAlign: "center",
+    fontSize: 40,
+    marginBottom: 30,
+  },
   input: {
     flexDirection: "row",
     borderColor: "#8C8A89",
-    borderRadius:5,
+    borderRadius: 5,
     borderWidth: 1,
     marginBottom: 12,
     textAlign: 'right',
@@ -169,7 +196,7 @@ const styles = StyleSheet.create({
     marginRight: 'auto'
   },
   button: {
-    backgroundColor:Colors.primary,
+    backgroundColor: Colors.primary,
     width: "40%",
     padding: 15,
     borderRadius: 20,
@@ -177,7 +204,7 @@ const styles = StyleSheet.create({
     marginLeft: 'auto',
     marginRight: 'auto'
   },
-  smoke_comtiner:{
+  smoke_comtiner: {
     display: "flex",
     flexDirection: "row",
     justifyContent: "center",
@@ -209,4 +236,18 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
     justifyContent: 'center',
   },
+  popUp_text: {
+    marginVertical: 30,
+    fontSize: 20,
+    textAlign: 'center'
+  },
+  x_logo: {
+    height: 20,
+    width: 20
+  },
+  success_logo: {
+    height: 150,
+    width: 150,
+    marginVertical: 10
+  }
 });
