@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView, StyleSheet, TextInput, TouchableOpacity, Button } from 'react-native'
+import { View, Text, Button } from 'react-native'
 import { useState, useEffect, useRef } from 'react'
 import * as Device from 'expo-device';
 import * as Notifications from 'expo-notifications';
@@ -100,22 +100,3 @@ export default function PushNotification() {
   )
 };
 
-
-/*const styles = StyleSheet.create({
-  title: {
-    textAlign: "center",
-    fontSize: 18
-  },
-  input: {
-    flexDirection: "row",
-    borderColor: "#8C8A89",
-    borderRadius: 5,
-    borderWidth: 1,
-    marginBottom: 12,
-    textAlign: 'right',
-    height: 35,
-    width: '75%',
-    marginLeft: 'auto',
-    marginRight: 'auto'
-  },
-});*/
