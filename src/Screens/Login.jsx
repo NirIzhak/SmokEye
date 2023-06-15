@@ -27,6 +27,28 @@ export default function Login({ navigation }) {
     }
   }
 
+  const Validuser = async (e, p) => {
+    let user = await ConfirmClient(e, p);
+    //console.log('user :>> ', user);
+    /*if (user == undefined) {
+      alert("No User");
+    } else {
+      setCurrentUser(user);
+      if (user.role == "User") {
+        navigation.navigate("userScreens");
+      } else if (
+        user.role == "Regulator" ||
+        user.role == "Reasercher"
+        // typerole.role == "Admin"
+      ) {
+        navigation.navigate("adminScreens");
+      } else if (user.role == "storeAdmin") {
+        navigation.navigate("storeAdmin");
+      }
+    }*/
+
+  }
+
   return (
     <KeyboardAvoidingView behavior="padding" onPress={handlePress}>
       <View style={Styles.continer}>
@@ -50,25 +72,23 @@ export default function Login({ navigation }) {
         <TouchableOpacity style={{ marginTop: 10 }}><Text style={{ textAlign: 'center' }}>שכחת סיסמא ? </Text></TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
-                            navigation.navigate("adminScreens");
-
-            // //const user = ConfirmClient(email, password);
-            // if (user == undefined) {
-            //   alert("No User");
-            // } else {
-            //   setCurrentUser(user);
-            //   if (user.role == "User") {
-            //     navigation.navigate("userScreens");
-            //   } else if (
-            //     user.role == "Regulator" ||
-            //     user.role == "Reasercher"
-            //     // typerole.role == "Admin"
-            //   ) {
-            //     navigation.navigate("adminScreens");
-            //   } else if (user.role == "storeAdmin") {
-            //     navigation.navigate("storeAdmin");
-            //   }
-            // }
+            const user = ConfirmClient(email, password);
+            if (user == undefined) {
+              alert("No User");
+            } else {
+              setCurrentUser(user);
+              if (user.role == "User") {
+                navigation.navigate("userScreens");
+              } else if (
+                user.role == "Regulator" ||
+                user.role == "Reasercher"
+                // typerole.role == "Admin"
+              ) {
+                navigation.navigate("adminScreens");
+              } else if (user.role == "storeAdmin") {
+                navigation.navigate("storeAdmin");
+              }
+            }
           }}
           style={Styles.login_btn}
         >

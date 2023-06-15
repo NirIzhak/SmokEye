@@ -10,14 +10,16 @@ export default function SmokeyeContextProvider({ children, navigation }) {
   const [password, setPassword] = useState("");
 
   /*Register Values*/
-  const [name, setName] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setlastName] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
   const [smoke, setSmoke] = useState(false);
   const [clients, setClients] = useState([]);
+  const [singalUser, setSingalUser] = useState({})
   const [currentUser, setCurrentUser] = useState({});
-  const [userId, setUserId] = useState("");
+  const [isActive, setisActive] = useState(true);
 
   /*New Report */
   const [city, setCity] = useState("");
@@ -28,28 +30,7 @@ export default function SmokeyeContextProvider({ children, navigation }) {
   const [report, setReport] = useState([]);
   /*All Reports*/
   const [allReports, setAllReports] = useState([]);
-  useEffect(() => {
-    setAllReports([
-      {
-        id: 654321,
-        description: "עישון במקום לא חוקי",
-        media:
-          "https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=922&q=80",
-        location: [32.0853, 34.7818],
-        address: "רוטשילד 17, תל אביב",
-        date: "05/01/2023 09:45",
-      },
-      {
-        id: 89685468,
-        description: "חנות שמוכרת סיגריות לקטינים",
-        media:
-          "https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=922&q=80",
-        location: [32.0853, 34.7818],
-        address: "הירדן 98, רמת גן",
-        date: "07/01/2023 19:46",
-      },
-    ]);
-  }, []);
+
 
   // try to get users
   const dataFetch = async () => {
@@ -63,25 +44,8 @@ export default function SmokeyeContextProvider({ children, navigation }) {
     dataFetch();
   };
 
-  // chack if the user is exsist
-  const ConfirmClient = async (e, p) => {
-    try {
-      let url = `${base_URL}/users/Login/${e}/${p}`;
-      const res = await fetch(url);
-      let user = await res.json();
-      setCurrentUser(user);
-    } catch (err) {
-      console.log('err :>> ', err);
-    }
-    /*let isExsist = clients.find(
-      (item) => item.email == e && item.password == p
-    );
-    if (isExsist) return isExsist;
-    else return undefined;*/
-  };
   const insertReport = async (email, doc) => {
     try {
-      if (!email || !doc) return;
       if (doc.date == null) return;
       console.log("email :>> ", email);
       const url = `${base_URL}/reports/AddReport`;
@@ -106,15 +70,56 @@ export default function SmokeyeContextProvider({ children, navigation }) {
     }
   };
 
-  // //Cheack if regstration corrent
-  // const ConfirmRegistration = () => {
-  //   if (email != null || email != undefined &
-  //     password != null || password != undefined &
-  //     password === confirmPassword &
-  //     name != null || name != undefined) {
-  //     return true;
-  //   }
-  // }
+
+  //Add Client to clients Array
+  const insertNewUser = async (user) => {
+    try {
+      const url = `${base_URL}/users/Register`;
+      console.log('url :>> ', url);
+      const res = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(user)
+      })
+
+    } catch (err) {
+      console.log('err :>> ', err);
+    }
+    setSingalUser({});
+  };
+  //Cheack if regstration corrent//
+
+  // chack if the user is exsist
+  const ConfirmClient = async (e, p) => {
+    try {
+      console.log('hi :>> ', e, p);
+      let url1 = `${base_URL}/users/FindbyEmail`;
+      console.log('url1 :>> ', url1);
+      const res = await fetch(url1, {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(e)
+      });
+      //let url2 = `${base_URL}/users/Login`;
+      let user = await res.json();
+      console.log('user :>> ', res);
+      /*const result = await fetch(url2, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(user.password, p)
+      })
+      if (result) { return user; }
+      else { return undefined }*/
+    } catch (err) {
+      console.log('err :>> ', err);
+    }
+  };
 
   const extractStreetName = (inputString) => {
     const firstSpaceIndex = inputString.indexOf(" ");
@@ -156,25 +161,15 @@ export default function SmokeyeContextProvider({ children, navigation }) {
   //change the state of smokeking status
   const toggleSwitch = () => setSmoke((previousState) => !previousState);
 
-  //Add Client to clients Array
-  const AddClient = () => {
-    let user = {
-      name,
-      email,
-      phone,
-      address,
-      smoke,
-    };
-    setClients([...clients, user]);
-  };
+
 
   const value = {
     setCity,
     toggleSwitch,
-    AddClient,
     setEmail,
     setPassword,
-    setName,
+    setFirstName,
+    setlastName,
     setConfirmPassword,
     setPhone,
     setAddress,
@@ -189,10 +184,16 @@ export default function SmokeyeContextProvider({ children, navigation }) {
     setDes,
     insertReport,
     setReport,
+    setSingalUser,
+    insertNewUser,
+    setisActive,
+    isActive,
+    firstName,
+    lastName,
+    singalUser,
     smoke,
     email,
     password,
-    name,
     confirmPassword,
     phone,
     address,
