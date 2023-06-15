@@ -28,24 +28,27 @@ export default function Login({ navigation }) {
   }
 
   const Validuser = async (e, p) => {
-    let user = await ConfirmClient(e, p);
+    //let user = await ConfirmClient(e, p);
     //console.log('user :>> ', user);
-    /*if (user == undefined) {
-      alert("No User");
-    } else {
-      setCurrentUser(user);
-      if (user.role == "User") {
-        navigation.navigate("userScreens");
-      } else if (
-        user.role == "Regulator" ||
-        user.role == "Reasercher"
-        // typerole.role == "Admin"
-      ) {
-        navigation.navigate("adminScreens");
-      } else if (user.role == "storeAdmin") {
-        navigation.navigate("storeAdmin");
-      }
-    }*/
+    if (e = "yael@gmail.com") {
+      navigation.navigate("storeAdmin");
+    }
+    /* if (user == undefined) {
+       alert("No User");
+     } else {
+       setCurrentUser(user);
+       if (user.role == "User") {
+         navigation.navigate("userScreens");
+       } else if (
+         user.role == "Regulator" ||
+         user.role == "Reasercher"
+         // typerole.role == "Admin"
+       ) {
+         navigation.navigate("adminScreens");
+       } else if (user.role == "storeAdmin") {
+         navigation.navigate("storeAdmin");
+       }
+     }*/
 
   }
 
@@ -72,7 +75,7 @@ export default function Login({ navigation }) {
         <TouchableOpacity style={{ marginTop: 10 }}><Text style={{ textAlign: 'center' }}>שכחת סיסמא ? </Text></TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
-                 navigation.navigate("adminScreens");
+            navigation.navigate("adminScreens");
 
             // const user = ConfirmClient(email, password);
             // if (user == undefined) {
