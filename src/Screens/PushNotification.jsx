@@ -101,7 +101,7 @@ export default function PushNotification() {
 };
 
 
-const styles = StyleSheet.create({
+/*const styles = StyleSheet.create({
   title: {
     textAlign: "center",
     fontSize: 18
@@ -118,4 +118,4 @@ const styles = StyleSheet.create({
     marginLeft: 'auto',
     marginRight: 'auto'
   },
-});
+});*/
