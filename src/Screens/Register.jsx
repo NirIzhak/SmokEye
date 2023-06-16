@@ -5,8 +5,8 @@ import { Colors } from "../style/AllStyels";
 
 
 export default function Register() {
-  const [visible, setVisible] = useState(false);
-  const { email, password, phone, address, isActive, setisActive, setPassword, setConfirmPassword, setFirstName, setlastName, setEmail, setPhone, setAddress, toggleSwitch, smoke, setSingalUser, singalUser, insertNewUser, firstName, lastName } = useContext(SmokeyeContext);
+
+  const { visible, setVisible, email, password, phone, address, isActive, setisActive, setPassword, setConfirmPassword, setFirstName, setlastName, setEmail, setPhone, setAddress, toggleSwitch, smoke, setSingalUser, singalUser, insertNewUser, firstName, lastName } = useContext(SmokeyeContext);
 
   const ModalPoup = ({ visible, children }) => {
     const [showModal, setShowModal] = useState(visible);
@@ -46,7 +46,6 @@ export default function Register() {
   const AddClient = async () => {
     console.log('hiiiiiii :>> ');
     console.log('byeeeeee :>> ');
-    await setVisible(true)
     await setisActive(true);
     await setSingalUser({
       firstName: `${firstName}`,
