@@ -43,12 +43,12 @@ export default function Register() {
     );
   };
 
-  const AddClient = () => {
+  const AddClient = async () => {
     console.log('hiiiiiii :>> ');
     console.log('byeeeeee :>> ');
-    setVisible(true)
-    setisActive(true);
-    setSingalUser({
+    await setVisible(true)
+    await setisActive(true);
+    await setSingalUser({
       firstName: `${firstName}`,
       lastName: `${lastName}`,
       email: `${email}`,
@@ -62,11 +62,9 @@ export default function Register() {
       isActive: isActive
     })
     if (!singalUser) return;
-    insertNewUser(singalUser)
+    await insertNewUser(singalUser)
   }
-  useEffect(() => {
 
-  })
 
   const handlePress = () => {
     Keyboard.dismiss();
