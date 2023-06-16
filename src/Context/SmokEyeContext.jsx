@@ -100,7 +100,7 @@ export default function SmokeyeContextProvider({ children, navigation }) {
       const url = `${base_URL}/users/Register`;
       console.log('url :>> ', url);
       const res = await fetch(url, {
-        method: "POST",
+        method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
