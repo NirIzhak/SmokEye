@@ -20,6 +20,7 @@ export default function SmokeyeContextProvider({ children, navigation }) {
   const [singalUser, setSingalUser] = useState({})
   const [currentUser, setCurrentUser] = useState({});
   const [isActive, setisActive] = useState(true);
+  const [visible, setVisible] = useState(false);
 
   /*New Report */
   const [city, setCity] = useState("");
@@ -107,13 +108,13 @@ export default function SmokeyeContextProvider({ children, navigation }) {
         body: JSON.stringify(user)
       })
       if (!res.ok) {
-        throw new Error('Request failed with status ' + res.status);
+        throw new Error('Request failed with status ' + res.status());
       }
-      else { alert(`המשתמש (${user.firstName + " " + user.lastName}) התווסף בהצלחה, תפקידו - ${user.role}`) }
+      else { setVisible(true); }
     } catch (err) {
       console.log('err :>> ', err);
     }
-    setSingalUser({});
+    setSingalUser();
   };
   //Cheack if regstration corrent//
 
@@ -218,6 +219,8 @@ export default function SmokeyeContextProvider({ children, navigation }) {
     setisActive,
     setCurrentLocation,
     setAllReports,
+    setVisible,
+    visible,
     currentLocation,
     isActive,
     firstName,
