@@ -57,7 +57,7 @@ export default function Register() {
       address: `${address}`,
       role: "client",
       smoke: smoke,
-      imag: "",
+      image: "",
       reports: [],
       isActive: isActive
     })
