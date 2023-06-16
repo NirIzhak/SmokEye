@@ -1,25 +1,53 @@
-import { View, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, Keyboard, Image, Alert, StyleSheet, SafeAreaView } from "react-native";
-import { Dropdown } from 'react-native-element-dropdown';
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+  Keyboard,
+  Image,
+  Alert,
+  StyleSheet,
+  SafeAreaView,
+} from "react-native";
+import { Dropdown } from "react-native-element-dropdown";
 import React, { useEffect, useState, useContext } from "react";
 import * as Location from "expo-location";
 import * as ImagePicker from "expo-image-picker";
 import { SmokeyeContext } from "../Context/SmokEyeContext";
-import { RadioButton, DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
+import {
+  RadioButton,
+  DefaultTheme,
+  Provider as PaperProvider,
+} from "react-native-paper";
 import { Colors, fontSizes } from "../style/AllStyels";
 
-
-
 export default function NewReport() {
-
-
-  const { currentUser, insertReport, setReport, report, city, setCity, street, setStreet, streetNum, SetStreetNum, imageUri, setImageUri, des, setDes } = useContext(SmokeyeContext);
+  const {
+    currentUser,
+    insertReport,
+    setReport,
+    report,
+    city,
+    setCity,
+    street,
+    setStreet,
+    streetNum,
+    SetStreetNum,
+    imageUri,
+    setImageUri,
+    des,
+    setDes,
+    setCurrentLocation,
+    location,
+    latitude,
+    longitude,
+  } = useContext(SmokeyeContext);
   const date = new Date();
-  const [location, setLocation] = useState({});
-  const [latitude, setLatitude] = useState("");
-  const [longitude, setLongitude] = useState("");
-  const [checked, setChecked] = useState('Business');
+
+  const [checked, setChecked] = useState("Business");
   const [value, setValue] = useState(null);
-  const [BusName, setBusName] = useState('');
+  const [BusName, setBusName] = useState("");
   const [select, setSelect] = useState(false);
   const { extractStreetName } = useContext(SmokeyeContext);
 
@@ -28,18 +56,18 @@ export default function NewReport() {
     roundness: 2,
     colors: {
       ...DefaultTheme.colors,
-      primary: '#F39508',
-      accent: '#f1c40f',
-    }
-  }
+      primary: "#F39508",
+      accent: "#f1c40f",
+    },
+  };
   const data = [
-    { label: 'מסעדה', value: 'Resturant' },
-    { label: 'קניון', value: 'Mall' },
-    { label: 'קולנוע', value: 'Cinema' },
-    { label: 'פארק שעשועים', value: 'Park' },
-    { label: 'תאטרון', value: 'Theater' },
-    { label: 'אולם הופעות', value: 'Hall' },
-  ]
+    { label: "מסעדה", value: "Resturant" },
+    { label: "קניון", value: "Mall" },
+    { label: "קולנוע", value: "Cinema" },
+    { label: "פארק שעשועים", value: "Park" },
+    { label: "תאטרון", value: "Theater" },
+    { label: "אולם הופעות", value: "Hall" },
+  ];
 
   const handlePress = () => {
     Keyboard.dismiss();
@@ -51,23 +79,22 @@ export default function NewReport() {
       type: checked,
       location: [
         latitude,
-        longitude
+        longitude,
       ],
       address: `${street} ${streetNum}, ${city}`,
       place: checked === "Business" ? BusName : value,
       details: des,
       image: imageUri,
-      reporter: `${currentUser.firstName} ${currentUser.lastName}`
+      reporter: currentUser.firstName
+        ? `${currentUser.firstName} ${currentUser.lastName}`
+        : "Anonymous",
     });
-
-  }
+  };
 
   useEffect(() => {
-    if (!report)
-      return;
+    if (!report) return;
     insertReport(currentUser.email, report);
-  }, [report])
-
+  }, [report]);
 
   //Camera
   const openCamera = async () => {
@@ -101,53 +128,64 @@ export default function NewReport() {
     }
   };
   const createTwoButtonAlert = () =>
-    Alert.alert('הוספת תמונה', 'בחר אחת מן האופציות', [
+    Alert.alert("הוספת תמונה", "בחר אחת מן האופציות", [
       {
-        text: 'העלאת תמונה מהאלבום',
+        text: "העלאת תמונה מהאלבום",
         onPress: () => handleChooseImage(),
       },
-      { text: 'העלאת תמונה חדשה מהמצלמה', onPress: () => openCamera() },
+      { text: "העלאת תמונה חדשה מהמצלמה", onPress: () => openCamera() },
     ]);
   //location
   const GetAddress = async () => {
     try {
-      const response = await fetch(`https://api.tomtom.com/search/2/reverseGeocode/${latitude},${longitude}.json?&key=RjOFc93hAGcOpbjZ0SnOV4TIzDTP1mz9`, {
-        headers: {
-          Accept: "*/*"
+      const response = await fetch(
+        `https://api.tomtom.com/search/2/reverseGeocode/${latitude},${longitude}.json?&key=RjOFc93hAGcOpbjZ0SnOV4TIzDTP1mz9`,
+        {
+          headers: {
+            Accept: "*/*",
+          },
         }
-      });
+      );
       const result = await response.json();
-      console.log(result)
-      if (result.addresses[0].address.municipality == "" || result.addresses[0].address.street == "" || result.addresses[0].address.streetNumber == "") {
-        alert("לא היה ניתן למצוא את המיקום שלך, אנא מלא את פרטי המיקום באופן ידני")
-      }
-      else {
+      console.log(result);
+      if (
+        result.addresses[0].address.municipality == "" ||
+        result.addresses[0].address.street == "" ||
+        result.addresses[0].address.streetNumber == ""
+      ) {
+        alert(
+          "לא היה ניתן למצוא את המיקום שלך, אנא מלא את פרטי המיקום באופן ידני"
+        );
+      } else {
         setCity(result.addresses[0].address.municipality);
         setStreet(extractStreetName(result.addresses[0].address.street));
-        SetStreetNum(result.addresses[0].address.streetNumber)
+        SetStreetNum(result.addresses[0].address.streetNumber);
       }
     } catch (error) {
       console.error(error);
     }
   };
 
-  useEffect(() => {
-    const getPermissions = async () => {
-      let { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== "granted") {
-        console.log("Not Granted");
-        return;
-      }
+  // useEffect(() => {
+  //   const getPermissions = async () => {
+  //     let { status } = await Location.requestForegroundPermissionsAsync();
+  //     if (status !== "granted") {
+  //       console.log("Not Granted");
+  //       return;
+  //     }
 
-      let currentLocation = await Location.getCurrentPositionAsync({});
-      setLocation(currentLocation);
-      console.log("Location:");
-      console.log(currentLocation);
-      setLatitude(currentLocation.coords.latitude);
-      setLongitude(currentLocation.coords.longitude);
-    };
-    getPermissions();
-  }, []);
+  //     let currentLocation = await Location.getCurrentPositionAsync({});
+  //     setLocation(currentLocation);
+  //     console.log("Location:");
+  //     console.log(currentLocation);
+  //     setLatitude(currentLocation.coords.latitude);
+  //     setLongitude(currentLocation.coords.longitude);
+  //     console.log([currentLocation.coords.latitude , currentLocation.coords.longitude])
+  //     setCurrentLocation([currentLocation.coords.latitude , currentLocation.coords.longitude])
+
+  //   };
+  //   getPermissions();
+  // }, []);
 
   const ViewBus = () => {
     return (
@@ -167,29 +205,31 @@ export default function NewReport() {
           placeholder="בחר מקום"
           searchPlaceholder="חפש כאן..."
           value={value}
-          onChange={item => {
+          onChange={(item) => {
             setValue(item.value);
           }}
         />
       </>
-    )
-  }
+    );
+  };
   const ViewPrivate = () => {
     return (
       <>
         <Text>הוסיפו את שם העסק</Text>
-        <TextInput style={[styles.report_Bus, styles.input_Text]} onChangeText={(text) => setBusName(text)}></TextInput>
+        <TextInput
+          style={[styles.report_Bus, styles.input_Text]}
+          onChangeText={(text) => setBusName(text)}
+        ></TextInput>
       </>
-    )
-  }
+    );
+  };
   useEffect(() => {
-    if (checked == 'Business') {
+    if (checked == "Business") {
       setSelect(false);
-    }
-    else {
+    } else {
       setSelect(true);
     }
-  })
+  });
 
   return (
     <>
@@ -201,24 +241,24 @@ export default function NewReport() {
               <View style={styles.radioButtonContainer}>
                 <RadioButton.Android
                   value="Business"
-                  status={checked === 'Business' ? 'checked' : 'unchecked'}
-                  onPress={() => setChecked('Business')}
+                  status={checked === "Business" ? "checked" : "unchecked"}
+                  onPress={() => setChecked("Business")}
                   color={theme.colors.primary}
                 />
-                <Text style={styles.radioButtonText}>עסק בו הסיגריות בגלוי</Text>
+                <Text style={styles.radioButtonText}>
+                  עסק בו הסיגריות בגלוי
+                </Text>
               </View>
               <View style={styles.radioButtonContainer}>
                 <RadioButton.Android
                   value="Private"
-                  status={checked === 'Private' ? 'checked' : 'unchecked'}
-                  onPress={() => setChecked('Private')}
+                  status={checked === "Private" ? "checked" : "unchecked"}
+                  onPress={() => setChecked("Private")}
                 />
                 <Text style={styles.radioButtonText}>עישון במקום לא חוקי</Text>
               </View>
             </View>
-            <View>
-              {select ? ViewBus() : ViewPrivate()}
-            </View>
+            <View>{select ? ViewBus() : ViewPrivate()}</View>
             <Text style={[styles.title]}> פרט בקצרה על המקרה </Text>
             <TextInput
               placeholder="לדוגמא: עסק שמוכר סיגריות שנראות באופן גלוי"
@@ -226,11 +266,19 @@ export default function NewReport() {
               onChangeText={(text) => setDes(text)}
               style={[styles.report_Details, styles.input_Text]}
             />
-            <TouchableOpacity onPress={createTwoButtonAlert} style={styles.buttonContainer} >
-              {imageUri ? <Text style={[styles.btn]}>החלף תמונה</Text> : <Text style={[styles.btn]}>בחר תמונה</Text>}
+            <TouchableOpacity
+              onPress={createTwoButtonAlert}
+              style={styles.buttonContainer}
+            >
+              {imageUri ? (
+                <Text style={[styles.btn]}>החלף תמונה</Text>
+              ) : (
+                <Text style={[styles.btn]}>בחר תמונה</Text>
+              )}
             </TouchableOpacity>
             {imageUri && (
-              <Image source={{ uri: imageUri }} style={styles.img} />)}
+              <Image source={{ uri: imageUri }} style={styles.img} />
+            )}
             {/* <View style={styles.date}>
             <View>
               <Text style={styles.title}>תאריך</Text>
@@ -271,15 +319,23 @@ export default function NewReport() {
             </View>
             <View>
               {latitude && longitude ? (
-                <TouchableOpacity onPress={GetAddress} style={styles.buttonContainer}>
+                <TouchableOpacity
+                  onPress={GetAddress}
+                  style={styles.buttonContainer}
+                >
                   <Text style={styles.btn}>מצא אותי !</Text>
                 </TouchableOpacity>
               ) : null}
             </View>
             <View>
-              <Text style={styles.sendReport} onPress={() => {
-                createReport()
-              }}>דווח</Text>
+              <Text
+                style={styles.sendReport}
+                onPress={() => {
+                  createReport();
+                }}
+              >
+                דווח
+              </Text>
             </View>
           </SafeAreaView>
         </PaperProvider>
@@ -289,7 +345,7 @@ export default function NewReport() {
 }
 const styles = StyleSheet.create({
   basic_fontSize: {
-    fontSize: fontSizes.S
+    fontSize: fontSizes.S,
   },
   input_Text: {
     borderColor: Colors.borderColor,
@@ -300,26 +356,26 @@ const styles = StyleSheet.create({
   title: {
     marginBottom: 10,
     marginTop: 50,
-    textAlign: "center"
+    textAlign: "center",
   },
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    textAlign: 'right'
+    justifyContent: "center",
+    alignItems: "center",
+    textAlign: "right",
   },
   report_Details: {
-    width: '85%',
-    textAlignVertical: 'top',
+    width: "85%",
+    textAlignVertical: "top",
   },
   radio_btn: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
+    flexDirection: "row",
+    justifyContent: "space-around",
     marginBottom: 20,
   },
   radioButtonContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     marginRight: 10,
   },
   radioButtonText: {
@@ -330,7 +386,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.primary,
     borderRadius: 5,
     paddingVertical: 10,
-    paddingHorizontal: 40
+    paddingHorizontal: 40,
   },
   btn: {
     color: Colors.white,
@@ -339,11 +395,11 @@ const styles = StyleSheet.create({
     width: 200,
     height: 200,
     alignSelf: "center",
-    marginTop: 10
+    marginTop: 10,
   },
   addressContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
     marginHorizontal: 5,
     marginBottom: 20,
   },
@@ -352,34 +408,34 @@ const styles = StyleSheet.create({
     borderColor: Colors.borderColor,
     borderRadius: 5,
     padding: 5,
-    margin: 2
+    margin: 2,
   },
   streetInput: {
-    width: '40%',
+    width: "40%",
   },
   streetNumInput: {
-    textAlign: 'center',
-    width: '15%',
+    textAlign: "center",
+    width: "15%",
   },
   cityInput: {
-    width: '30%',
+    width: "30%",
   },
   sendReport: {
     borderWidth: 1,
-    borderStyle: 'solid',
+    borderStyle: "solid",
     borderColor: Colors.primary,
     marginTop: 5,
-    paddingHorizontal: 50
+    paddingHorizontal: 50,
   },
   report_Bus: {
-    textAlignVertical: 'center'
+    textAlignVertical: "center",
   },
   dropdown: {
     height: 50,
     backgroundColor: Colors.white,
     borderRadius: 5,
     paddingHorizontal: 15,
-    shadowColor: '#000',
+    shadowColor: "#000",
     shadowOffset: {
       width: 0,
       height: 1,
@@ -393,16 +449,16 @@ const styles = StyleSheet.create({
   },
   item: {
     padding: 17,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
   iconStyle: {
     width: 20,
     height: 20,
   },
   inputSearchStyle: {
-    height: 40
+    height: 40,
   },
   /*date:{
    display: "flex",
@@ -413,4 +469,4 @@ const styles = StyleSheet.create({
    marginRight: "auto",
    marginTop: 40,
  },*/
-})
+});

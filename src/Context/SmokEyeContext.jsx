@@ -28,8 +28,31 @@ export default function SmokeyeContextProvider({ children, navigation }) {
   const [imageUri, setImageUri] = useState(null);
   const [des, setDes] = useState("");
   const [report, setReport] = useState([]);
+  const [location, setLocation] = useState({});
+  const [latitude, setLatitude] = useState("");
+  const [longitude, setLongitude] = useState("");
+
+
   /*All Reports*/
   const [allReports, setAllReports] = useState([]);
+
+  const [currentLocation, setCurrentLocation] = useState([]);
+
+  const GetReports = async()=>{
+    try{
+      let res = await fetch(`${base_URL}/reports`);
+      let data = await res.json();
+      setAllReports(data);
+    }catch(err){
+      console.log(err)
+    }
+  }
+
+  useEffect(()=>{
+    GetReports();
+  },
+  [])
+
 
 
   // try to get users
@@ -164,6 +187,9 @@ export default function SmokeyeContextProvider({ children, navigation }) {
 
 
   const value = {
+    location, setLocation,
+    latitude, setLatitude,
+    longitude, setLongitude,
     setCity,
     toggleSwitch,
     setEmail,
@@ -187,6 +213,9 @@ export default function SmokeyeContextProvider({ children, navigation }) {
     setSingalUser,
     insertNewUser,
     setisActive,
+    setCurrentLocation,
+    setAllReports,
+    currentLocation,
     isActive,
     firstName,
     lastName,
@@ -206,7 +235,6 @@ export default function SmokeyeContextProvider({ children, navigation }) {
     report,
     currentUser,
     allReports,
-    setAllReports,
   };
   return (
     <SmokeyeContext.Provider value={value}>{children}</SmokeyeContext.Provider>

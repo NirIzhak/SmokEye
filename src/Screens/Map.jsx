@@ -1,21 +1,33 @@
 import { View, Text, SafeAreaView } from 'react-native';
-import React from 'react';
+import React, { useContext } from 'react';
 import MapView, { Marker } from 'react-native-maps';
+import { SmokeyeContext } from '../Context/SmokEyeContext';
 
 export default function Map() {
+  const {allReports, currentLocation} = useContext(SmokeyeContext);
+  const reportsData = allReports.map(({_id, location, type, details})=>({
+   _id,
+   coordinate:{
+    latitude: location[0],
+    longitude: location[1],
+  },
+   title: type == "Private" ? "אדם פרטי" : "עסק" ,
+   description: details 
+  }))
+
   return (
     <View>
       <MapView
         mapType="satellite"
         style={{ width: '100%', height: '100%' }}
         region={{
-          latitude: 37.78825,
-          longitude: -122.4324,
+          latitude: currentLocation[0],
+          longitude: currentLocation[1],
           latitudeDelta: 0.015,
           longitudeDelta: 0.0121,
         }}
       >
-        <Marker
+        {/* <Marker
           coordinate={{
             latitude: 37.78825,
             longitude: -122.4324,
@@ -30,17 +42,17 @@ export default function Map() {
           }}
           title="אחר"
           description="בן אדם מעשן בקניון סגור"
-        />
+        /> */}
 
 {/* to many markers */}
-{/* {markers.map(marker => (
+  {reportsData.map(marker => (
           <Marker
-            key={marker.id}
+            key={marker._id}
             coordinate={marker.coordinate}
             title={marker.title}
             description={marker.description}
           />
-        ))} */}
+        ))}  
 
 
       </MapView>

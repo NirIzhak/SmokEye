@@ -1,8 +1,10 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { View, Text, TextInput, TouchableOpacity, Keyboard, StyleSheet, KeyboardAvoidingView } from "react-native";
 import { SmokeyeContext } from "../Context/SmokEyeContext";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Colors, fontSizes } from "../style/AllStyels";
+import * as Location from "expo-location";
+
 
 export default function Login({ navigation }) {
   const {
@@ -12,11 +14,32 @@ export default function Login({ navigation }) {
     email,
     password,
     setCurrentUser,
+    setLocation,
+     setLatitude,
+     setLongitude,
+     setCurrentLocation
   } = useContext(SmokeyeContext);
   const handlePress = () => {
     Keyboard.dismiss();
   };
 
+
+  useEffect(() => {
+    const getPermissions = async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== "granted") {
+        console.log("Not Granted");
+        return;
+      }
+
+      let currentLocation = await Location.getCurrentPositionAsync({});
+      setLocation(currentLocation);
+      setLatitude(currentLocation.coords.latitude);
+      setLongitude(currentLocation.coords.longitude);
+      setCurrentLocation([currentLocation.coords.latitude , currentLocation.coords.longitude])
+    };
+    getPermissions();
+  }, []);
 
   const clearOnboarding = async () => {
     try {
@@ -75,7 +98,7 @@ export default function Login({ navigation }) {
         <TouchableOpacity style={{ marginTop: 10 }}><Text style={{ textAlign: 'center' }}>שכחת סיסמא ? </Text></TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate("adminScreens");
+             navigation.navigate("adminScreens");
 
             // const user = ConfirmClient(email, password);
             // if (user == undefined) {
