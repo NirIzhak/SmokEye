@@ -38,20 +38,20 @@ export default function SmokeyeContextProvider({ children, navigation }) {
 
   const [currentLocation, setCurrentLocation] = useState([]);
 
-  const GetReports = async()=>{
-    try{
+  const GetReports = async () => {
+    try {
       let res = await fetch(`${base_URL}/reports`);
       let data = await res.json();
       setAllReports(data);
-    }catch(err){
+    } catch (err) {
       console.log(err)
     }
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     GetReports();
   },
-  [])
+    [])
 
 
 
@@ -106,7 +106,10 @@ export default function SmokeyeContextProvider({ children, navigation }) {
         },
         body: JSON.stringify(user)
       })
-
+      if (!res.ok) {
+        throw new Error('Request failed with status ' + res.status);
+      }
+      else { alert(`המשתמש (${user.firstName + " " + user.lastName}) התווסף בהצלחה, תפקידו - ${user.role}`) }
     } catch (err) {
       console.log('err :>> ', err);
     }
