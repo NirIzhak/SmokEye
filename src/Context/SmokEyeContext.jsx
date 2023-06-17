@@ -122,27 +122,19 @@ export default function SmokeyeContextProvider({ children, navigation }) {
   const ConfirmClient = async (e, p) => {
     try {
       console.log('hi :>> ', e, p);
-      let url1 = `${base_URL}/users/FindbyEmail`;
-      console.log('url1 :>> ', url1);
-      const res = await fetch(url1, {
+      let url = `${base_URL}/users/Login`;
+      console.log('url1 :>> ', url);
+      const res = await fetch(url, {
         method: 'POST',
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(e)
+        body: JSON.stringify(e, p)
       });
-      //let url2 = `${base_URL}/users/Login`;
       let user = await res.json();
-      console.log('user :>> ', res);
-      /*const result = await fetch(url2, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(user.password, p)
-      })
-      if (result) { return user; }
-      else { return undefined }*/
+      console.log('user1 :>> ', user);
+      if (!user) { throw new Error('Request failed with status ' + res.status()); }
+      else { return user; }
     } catch (err) {
       console.log('err :>> ', err);
     }
