@@ -124,19 +124,17 @@ export default function SmokeyeContextProvider({ children, navigation }) {
       console.log('hi :>> ', e, p);
       let url = `${base_URL}/users/Login`;
       console.log('url :>> ', url);
-      const res = await fetch(url, {
+      const response = await fetch(url, {
         method: 'POST',
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(e, p)
+        body: JSON.stringify({ email: e, password: p })
       });
 
-      await res.json();
-
-
-      /*if (!user) { throw new Error('Request failed with status ' + res.status()); }
-      else { return user; }*/
+      let user = await response.json();
+      if (!user) { alert('Request failed with status ' + res.status()) }
+      else { setSingalUser(user); console.log('user2 :>> ', singalUser); }
     } catch (err) {
       console.log('err :>> ', err);
     }
