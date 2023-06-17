@@ -30,6 +30,7 @@ const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
 
+
 export default function App() {
   // user see onboarding or not
   const [viewedOnboarding, setViewedOnboarding] = useState(false);
