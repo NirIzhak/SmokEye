@@ -15,9 +15,9 @@ export default function Login({ navigation }) {
     password,
     setCurrentUser,
     setLocation,
-     setLatitude,
-     setLongitude,
-     setCurrentLocation
+    setLatitude,
+    setLongitude,
+    setCurrentLocation
   } = useContext(SmokeyeContext);
   const handlePress = () => {
     Keyboard.dismiss();
@@ -36,7 +36,7 @@ export default function Login({ navigation }) {
       setLocation(currentLocation);
       setLatitude(currentLocation.coords.latitude);
       setLongitude(currentLocation.coords.longitude);
-      setCurrentLocation([currentLocation.coords.latitude , currentLocation.coords.longitude])
+      setCurrentLocation([currentLocation.coords.latitude, currentLocation.coords.longitude])
     };
     getPermissions();
   }, []);
@@ -51,11 +51,11 @@ export default function Login({ navigation }) {
   }
 
   const Validuser = async (e, p) => {
-    //let user = await ConfirmClient(e, p);
-    //console.log('user :>> ', user);
-    if (e = "yael@gmail.com") {
+    let user = await ConfirmClient(e, p);
+    console.log('user2 :>> ', user);
+    /*if (e = "yael@gmail.com") {
       navigation.navigate("storeAdmin");
-    }
+    }*/
     /* if (user == undefined) {
        alert("No User");
      } else {
@@ -98,7 +98,8 @@ export default function Login({ navigation }) {
         <TouchableOpacity style={{ marginTop: 10 }}><Text style={{ textAlign: 'center' }}>שכחת סיסמא ? </Text></TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
-             navigation.navigate("adminScreens");
+            Validuser(email, password);
+            //navigation.navigate("adminScreens");
 
             // const user = ConfirmClient(email, password);
             // if (user == undefined) {
