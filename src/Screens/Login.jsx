@@ -1,30 +1,16 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { View, Text, TextInput, TouchableOpacity, Keyboard, StyleSheet, KeyboardAvoidingView } from "react-native";
 import { SmokeyeContext } from "../Context/SmokEyeContext";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Colors, fontSizes } from "../style/AllStyels";
 import * as Location from "expo-location";
-
+import Profile from "../Components/Profile";
 
 export default function Login({ navigation }) {
-  const {
-    setEmail,
-    setPassword,
-    ConfirmClient,
-    email,
-    password,
-    setCurrentUser,
-    setSingalUser,
-    singalUser,
-    setLocation,
-    setLatitude,
-    setLongitude,
-    setCurrentLocation
-  } = useContext(SmokeyeContext);
+  const { setEmail, setPassword, ConfirmClient, email, password, currentUser, setLocation, setLatitude, setLongitude, setCurrentLocation, setCurrentUser } = useContext(SmokeyeContext);
   const handlePress = () => {
     Keyboard.dismiss();
   };
-
 
   useEffect(() => {
     const getPermissions = async () => {
@@ -51,29 +37,27 @@ export default function Login({ navigation }) {
       console.log("err clearonboarding", err)
     }
   }
-
+  // chack who is the current user and his role
   const Validuser = async (e, p) => {
-    console.log('Validuser function :>> ');
     await ConfirmClient(e, p);
-    if (!singalUser) {
-      alert("No User");
-    } else {
-      //setCurrentUser(user);
-      if (singalUser.role == "client") {
-        navigation.navigate("userScreens");
-      } else if (
-        singalUser.role == "Regulator" ||
-        singalUser.role == "Reasercher"
-        // typerole.role == "Admin"
-      ) {
-        navigation.navigate("adminScreens");
-      } else if (singalUser.role == "storeAdmin") {
-        navigation.navigate("storeAdmin");
-      }
-      setSingalUser({})
+    if (currentUser.role == "client") {
+      navigation.navigate("userScreens");
+    } else if (
+      currentUser.role == "Regulator" ||
+      currentUser.role == "Reasercher"
+    ) {
+      navigation.navigate("adminScreens");
+    } else if (currentUser.role == "storeAdmin") {
+      navigation.navigate("storeAdmin");
     }
 
   }
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      setCurrentUser({});
+    });
+    return unsubscribe;
+  }, [navigation]);
 
   return (
     <KeyboardAvoidingView behavior="padding" onPress={handlePress}>
@@ -97,30 +81,8 @@ export default function Login({ navigation }) {
         />
         <TouchableOpacity style={{ marginTop: 10 }}><Text style={{ textAlign: 'center' }}>שכחת סיסמא ? </Text></TouchableOpacity>
         <TouchableOpacity
-          onPress={() => {
-            Validuser(email, password);
-            //navigation.navigate("adminScreens");
-
-            // const user = ConfirmClient(email, password);
-            // if (user == undefined) {
-            //   alert("No User");
-            // } else {
-            //   setCurrentUser(user);
-            //   if (user.role == "User") {
-            //     navigation.navigate("userScreens");
-            //   } else if (
-            //     user.role == "Regulator" ||
-            //     user.role == "Reasercher"
-            //     // typerole.role == "Admin"
-            //   ) {
-            //     navigation.navigate("adminScreens");
-            //   } else if (user.role == "storeAdmin") {
-            //     navigation.navigate("storeAdmin");
-            //   }
-            // }
-          }}
-          style={Styles.login_btn}
-        >
+          onPress={() => { Validuser(email, password); }}
+          style={Styles.login_btn}>
           <Text>כניסה</Text>
         </TouchableOpacity>
         <TouchableOpacity
