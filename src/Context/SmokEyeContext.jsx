@@ -17,7 +17,6 @@ export default function SmokeyeContextProvider({ children, navigation }) {
   const [address, setAddress] = useState("");
   const [smoke, setSmoke] = useState(false);
   const [clients, setClients] = useState([]);
-  const [singalUser, setSingalUser] = useState({})
   const [currentUser, setCurrentUser] = useState({});
   const [isActive, setisActive] = useState(true);
   const [visible, setVisible] = useState(false);
@@ -67,7 +66,7 @@ export default function SmokeyeContextProvider({ children, navigation }) {
   const LoadUsers = () => {
     dataFetch();
   };
-
+  //to do
   const insertReport = async (email, doc) => {
     try {
       if (doc.date == null) return;
@@ -114,16 +113,14 @@ export default function SmokeyeContextProvider({ children, navigation }) {
     } catch (err) {
       console.log('err :>> ', err);
     }
-    setSingalUser();
+    //setCurrentUser();
   };
   //Cheack if regstration corrent//
 
   // chack if the user is exsist
   const ConfirmClient = async (e, p) => {
     try {
-      console.log('hi :>> ', e, p);
       let url = `${base_URL}/users/Login`;
-      console.log('url :>> ', url);
       const response = await fetch(url, {
         method: 'POST',
         headers: {
@@ -131,13 +128,19 @@ export default function SmokeyeContextProvider({ children, navigation }) {
         },
         body: JSON.stringify({ email: e, password: p })
       });
-
-      let user = await response.json();
-      if (!user) { alert('Request failed with status ' + res.status()) }
-      else { setSingalUser(user); console.log('user2 :>> ', singalUser); }
+      if (response.ok) {
+        let user = await response.json();
+        setCurrentUser(user);
+        console.log('currentUser :>> ', currentUser);
+      }
+      else {
+        let error = await response.text();
+        throw new Error(error);
+      }
     } catch (err) {
-      console.log('err :>> ', err);
+      alert(err)
     }
+
   };
 
   const extractStreetName = (inputString) => {
@@ -148,30 +151,6 @@ export default function SmokeyeContextProvider({ children, navigation }) {
     return inputString;
   };
 
-  // chack who is the current user and his role
-  const cheackUser = () => {
-    // const typerole = ConfirmClient(email, password);
-    // if(typerole == undefined){
-    //     alert("No User")
-    // }
-    // else{
-    //     setCurrentUser(typerole);
-    //   if(typerole.role == "User"){
-    //       navigation.navigate("userScreens")
-    //       alert("user")
-    //   }
-    //   else if(typerole.role == "Admin"){
-    //       //navigation.navigate("adminScreens")
-    //       alert("admin")
-    //   }
-    //   else if(typerole.role == "Regulator"){
-    //       alert("regulator")
-    //   }
-    //   else if(typerole.role == "Reasercher"){
-    //       alert("reasercher")
-    //   }
-    // }
-  };
 
   useEffect(() => {
     LoadUsers();
@@ -180,12 +159,13 @@ export default function SmokeyeContextProvider({ children, navigation }) {
   //change the state of smokeking status
   const toggleSwitch = () => setSmoke((previousState) => !previousState);
 
-
-
   const value = {
-    location, setLocation,
-    latitude, setLatitude,
-    longitude, setLongitude,
+    location,
+    latitude,
+    longitude,
+    setLatitude,
+    setLongitude,
+    setLocation,
     setCity,
     toggleSwitch,
     setEmail,
@@ -198,7 +178,6 @@ export default function SmokeyeContextProvider({ children, navigation }) {
     setSmoke,
     ConfirmClient,
     setCurrentUser,
-    cheackUser,
     extractStreetName,
     setStreet,
     SetStreetNum,
@@ -206,7 +185,6 @@ export default function SmokeyeContextProvider({ children, navigation }) {
     setDes,
     insertReport,
     setReport,
-    setSingalUser,
     insertNewUser,
     setisActive,
     setCurrentLocation,
@@ -217,7 +195,6 @@ export default function SmokeyeContextProvider({ children, navigation }) {
     isActive,
     firstName,
     lastName,
-    singalUser,
     smoke,
     email,
     password,
