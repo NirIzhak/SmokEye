@@ -15,6 +15,7 @@ export default function Map() {
    description: details 
   }))
 
+
   return (
     <View>
       <MapView
