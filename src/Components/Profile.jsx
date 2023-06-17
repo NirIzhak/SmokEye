@@ -1,32 +1,27 @@
-import {
-  View,
-  Text,
-  Image,
-  TouchableOpacity,
-  Button,
-  SafeAreaView,
-  StyleSheet,
-} from "react-native";
+import { View, Text, Button, SafeAreaView, StyleSheet } from "react-native";
 import React, { useContext } from "react";
 import { SmokeyeContext } from "../Context/SmokEyeContext";
 import { Avatar } from "@react-native-material/core";
 
-export default function Profile() {
-  const { currentUser } = useContext(SmokeyeContext);
-const fullname = currentUser.firstName+" "+currentUser.lastName;
+export default function Profile({ route }) {
+  //const { currentUser } = useContext(SmokeyeContext);
+  //const { firstName, lastName, role, image, reports } = route.params || {};
+  const fullname = "משה ליאון";//currentUser.firstName + " " + currentUser.lastName;
+  const image = "";
+  //{currentUser.reports.length}
   return (
     <SafeAreaView style={styles.continer}>
       <View style={styles.profileView}>
         <View style={styles.avatar}>
-          {currentUser.image ? (
-            <Avatar image={{ uri: `${currentUser.image}` }} size={100} />
+          {image ? (
+            <Avatar image={{ uri: `${image}` }} size={100} />
           ) : (
             <Avatar label={fullname} size={100} color="#F39508" />
           )}
         </View>
         <View>
           <Text style={styles.title_conteiner}>
-            {currentUser.firstName} {currentUser.lastName}
+            {fullname}
           </Text>
         </View>
       </View>
@@ -34,7 +29,7 @@ const fullname = currentUser.firstName+" "+currentUser.lastName;
 
       <View style={styles.points}>
         <View style={styles.reports}>
-          <Text style={styles.nums}>{currentUser.Reports.length}</Text>
+          <Text style={styles.nums}>2</Text>
           <Text>reports</Text>
         </View>
       </View>
@@ -43,9 +38,9 @@ const fullname = currentUser.firstName+" "+currentUser.lastName;
   );
 }
 const styles = StyleSheet.create({
-  continer:{
-    marginVertical:50,
-    
+  continer: {
+    marginVertical: 50,
+
   },
   profileView: {
     alignItems: "center",
@@ -58,7 +53,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   btn_edit: {
-    marginTop:5
+    marginTop: 5
   },
   avatar: {
     //marginTop: 25,
@@ -71,12 +66,12 @@ const styles = StyleSheet.create({
     marginLeft: "auto",
     margin: 15,
   },
-  points:{
+  points: {
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'space-evenly',
-    },
-    reports:{
-      alignItems: 'center',
-    },
+  },
+  reports: {
+    alignItems: 'center',
+  },
 });
