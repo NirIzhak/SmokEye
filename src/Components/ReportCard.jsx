@@ -1,7 +1,7 @@
 import { View, Text, Image, TouchableOpacity,StyleSheet,Pressable,Button  } from 'react-native'
 import React from 'react'
 
-export default function ReportCard({id, description, media, location, address, date, navigation}) {
+export default function ReportCard({id, details, image, location, address, date, navigation}) {
 
   const dateArr = date.split(" ");
   /*{ uri: media }*/
@@ -23,14 +23,14 @@ export default function ReportCard({id, description, media, location, address, d
         </Text>
       <Text style={styles.text_field}>
         <Text style={styles.text_bold}>תיאור : </Text>
-        <Text>{description}</Text>
+        <Text>{details}</Text>
         </Text>
         <View style={styles.btn}>
         <Button
           title='פרטים מלאים'
           color='#F39508'
           onPress={() => {
-          navigation.navigate("fullReport", { id, description, media, location, address, date });
+          navigation.navigate("fullReport", { id, details, image, location, address, date });
      }}
    >
    </Button >
