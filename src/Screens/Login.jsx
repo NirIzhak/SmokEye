@@ -14,6 +14,8 @@ export default function Login({ navigation }) {
     email,
     password,
     setCurrentUser,
+    setSingalUser,
+    singalUser,
     setLocation,
     setLatitude,
     setLongitude,
@@ -51,28 +53,25 @@ export default function Login({ navigation }) {
   }
 
   const Validuser = async (e, p) => {
-    console.log('hi :>> ');
-    let user = await ConfirmClient(e, p);
-    console.log('user2 :>> ', user);
-    /*if (e = "yael@gmail.com") {
-      navigation.navigate("storeAdmin");
-    }*/
-    /* if (user == undefined) {
-       alert("No User");
-     } else {
-       setCurrentUser(user);
-       if (user.role == "User") {
-         navigation.navigate("userScreens");
-       } else if (
-         user.role == "Regulator" ||
-         user.role == "Reasercher"
-         // typerole.role == "Admin"
-       ) {
-         navigation.navigate("adminScreens");
-       } else if (user.role == "storeAdmin") {
-         navigation.navigate("storeAdmin");
-       }
-     }*/
+    console.log('Validuser function :>> ');
+    await ConfirmClient(e, p);
+    if (!singalUser) {
+      alert("No User");
+    } else {
+      //setCurrentUser(user);
+      if (singalUser.role == "client") {
+        navigation.navigate("userScreens");
+      } else if (
+        singalUser.role == "Regulator" ||
+        singalUser.role == "Reasercher"
+        // typerole.role == "Admin"
+      ) {
+        navigation.navigate("adminScreens");
+      } else if (singalUser.role == "storeAdmin") {
+        navigation.navigate("storeAdmin");
+      }
+      setSingalUser({})
+    }
 
   }
 
