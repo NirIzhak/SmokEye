@@ -51,6 +51,7 @@ export default function Login({ navigation }) {
   }
 
   const Validuser = async (e, p) => {
+    console.log('hi :>> ');
     let user = await ConfirmClient(e, p);
     console.log('user2 :>> ', user);
     /*if (e = "yael@gmail.com") {
