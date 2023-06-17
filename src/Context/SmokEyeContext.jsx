@@ -123,7 +123,7 @@ export default function SmokeyeContextProvider({ children, navigation }) {
     try {
       console.log('hi :>> ', e, p);
       let url = `${base_URL}/users/Login`;
-      console.log('url1 :>> ', url);
+      console.log('url :>> ', url);
       const res = await fetch(url, {
         method: 'POST',
         headers: {
@@ -131,10 +131,12 @@ export default function SmokeyeContextProvider({ children, navigation }) {
         },
         body: JSON.stringify(e, p)
       });
-      let user = await res.json();
-      console.log('user1 :>> ', user);
-      if (!user) { throw new Error('Request failed with status ' + res.status()); }
-      else { return user; }
+
+      await res.json();
+
+
+      /*if (!user) { throw new Error('Request failed with status ' + res.status()); }
+      else { return user; }*/
     } catch (err) {
       console.log('err :>> ', err);
     }
