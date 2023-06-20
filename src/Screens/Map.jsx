@@ -19,7 +19,7 @@ export default function Map() {
   return (
     <View>
       <MapView
-        mapType="satellite"
+        mapType="standard"
         style={{ width: '100%', height: '100%' }}
         region={{
           latitude: currentLocation[0],
