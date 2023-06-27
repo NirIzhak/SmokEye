@@ -39,25 +39,19 @@ export default function Login({ navigation }) {
   }
   // chack who is the current user and his role
   const Validuser = async (e, p) => {
-    await ConfirmClient(e, p);
-    if (currentUser.role == "client") {
+    let user = await ConfirmClient(e, p);
+    setCurrentUser(user);
+    if (user.role == "client") {
       navigation.navigate("userScreens");
     } else if (
-      currentUser.role == "Regulator" ||
-      currentUser.role == "Reasercher"
+      user.role == "Regulator" ||
+      user.role == "Reasercher"
     ) {
       navigation.navigate("adminScreens");
-    } else if (currentUser.role == "storeAdmin") {
+    } else if (user.role == "storeAdmin") {
       navigation.navigate("storeAdmin");
     }
-
   }
-  useEffect(() => {
-    const unsubscribe = navigation.addListener('focus', () => {
-      setCurrentUser({});
-    });
-    return unsubscribe;
-  }, [navigation]);
 
   return (
     <KeyboardAvoidingView behavior="padding" onPress={handlePress}>

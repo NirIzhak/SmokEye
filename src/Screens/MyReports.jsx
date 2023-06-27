@@ -5,6 +5,7 @@ import ReportCard from "../Components/ReportCard";
 
 export default function MyReports({navigation}) {
   const { currentUser } = useContext(SmokeyeContext);
+  console.log(currentUser.reports.length)
 
   return (
     <View style={styles.continer} >
@@ -12,15 +13,15 @@ export default function MyReports({navigation}) {
         הדיווחים שלי
       </Text>
       <Text style={[styles.secondary_title,styles.title]}>סה"כ - 
-      {currentUser.Reports.length}</Text>
-      <FlatList
+      {currentUser.reports.length}</Text>
+      {/* <FlatList
         data={currentUser.Reports}
         renderItem={({ item }) => (
           <ReportCard {...item} navigation={navigation}  />
         )}
         keyExtractor={(item) => item.id}
         style={styles.continer_table}
-      />
+      /> */}
     </View>
   );
 }

@@ -130,17 +130,14 @@ export default function SmokeyeContextProvider({ children, navigation }) {
       });
       if (response.ok) {
         let user = await response.json();
-        setCurrentUser(user);
-        console.log('currentUser :>> ', currentUser);
-      }
-      else {
+        return user;
+      } else {
         let error = await response.text();
         throw new Error(error);
       }
     } catch (err) {
       alert(err)
     }
-
   };
 
   const extractStreetName = (inputString) => {
