@@ -24,6 +24,7 @@ import { Colors, fontSizes } from "../style/AllStyels";
 
 export default function NewReport() {
   const {
+    ImageUploader,
     currentUser,
     insertReport,
     setReport,
@@ -73,22 +74,23 @@ export default function NewReport() {
     Keyboard.dismiss();
   };
 
-  const createReport = () => {
-    setReport({
-      date: `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`,
-      type: checked,
-      location: [
-        latitude,
-        longitude,
-      ],
-      address: `${street} ${streetNum}, ${city}`,
-      place: checked === "Business" ? BusName : value,
-      details: des,
-      image: imageUri,
-      reporter: currentUser.firstName
-        ? `${currentUser.firstName} ${currentUser.lastName}`
-        : "Anonymous",
-    });
+  const createReport = async() => {
+    await ImageUploader(imageUri)
+    // setReport({
+    //   date: `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`,
+    //   type: checked,
+    //   location: [
+    //     latitude,
+    //     longitude,
+    //   ],
+    //   address: `${street} ${streetNum}, ${city}`,
+    //   place: checked === "Business" ? BusName : value,
+    //   details: des,
+    //   image: imageUri,
+    //   reporter: currentUser.firstName
+    //     ? `${currentUser.firstName} ${currentUser.lastName}`
+    //     : "Anonymous",
+    // });
   };
 
   useEffect(() => {

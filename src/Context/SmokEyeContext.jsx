@@ -32,7 +32,6 @@ export default function SmokeyeContextProvider({ children, navigation }) {
   const [latitude, setLatitude] = useState("");
   const [longitude, setLongitude] = useState("");
 
-
   /*All Reports*/
   const [allReports, setAllReports] = useState([]);
 
@@ -44,15 +43,13 @@ export default function SmokeyeContextProvider({ children, navigation }) {
       let data = await res.json();
       setAllReports(data);
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
-  }
+  };
 
   useEffect(() => {
     GetReports();
-  },[allReports])
-
-
+  }, [allReports]);
 
   // try to get users
   const dataFetch = async () => {
@@ -69,23 +66,22 @@ export default function SmokeyeContextProvider({ children, navigation }) {
   const insertReport = async (email, doc) => {
     try {
       if (doc.date == null) return;
-      console.log("email :>> ", email);
       const url = `${base_URL}/reports/AddReport`;
       const response = await fetch(url, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(doc)
+        body: JSON.stringify(doc),
       }).then(async () => {
         const url = `${base_URL}/reports/email`;
         const res = await fetch(url, {
-          method: 'GET',
+          method: "GET",
           headers: {
-            'Content-Type': 'application/json'
+            "Content-Type": "application/json",
           },
-          body: JSON.stringify(email)
-        })
+          body: JSON.stringify(email),
+        });
       });
     } catch (err) {
       console.log("err :>> ", err);
@@ -93,24 +89,55 @@ export default function SmokeyeContextProvider({ children, navigation }) {
   };
 
 
+  ///////////////////////////////////////////////////  NOT WORKING!!!!!!
+  const ImageUploader = async (uri) => {
+    console.log(uri);
+    try {
+      const formData = new FormData();
+      formData.append("image", {
+        uri: uri,
+        type: "image",
+      });
+      let url = `https://smokeye.onrender.com/uploadImage`;
+      let res = await fetch(url, {
+        headers: {
+          'Content-Type': 'multipart/form-data' // Modify content type to indicate form data
+        },
+        method: "POST",
+        body: formData,
+      });
+      let responseText = await res.text(); // Get the response as text
+      console.log(responseText); // Log the response
+  
+      let data = JSON.parse(responseText); // Attempt to parse the response as JSON
+      console.log(data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  
+  
+  
+
   //Add Client to clients Array
   const insertNewUser = async (user) => {
     try {
       const url = `${base_URL}/users/Register`;
-      console.log('url :>> ', url);
+      console.log("url :>> ", url);
       const res = await fetch(url, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(user)
-      })
+        body: JSON.stringify(user),
+      });
       if (!res.ok) {
-        throw new Error('Request failed with status ' + res.status());
+        throw new Error("Request failed with status " + res.status());
+      } else {
+        setVisible(true);
       }
-      else { setVisible(true); }
     } catch (err) {
-      console.log('err :>> ', err);
+      console.log("err :>> ", err);
     }
     //setCurrentUser();
   };
@@ -121,11 +148,11 @@ export default function SmokeyeContextProvider({ children, navigation }) {
     try {
       let url = `${base_URL}/users/Login`;
       const response = await fetch(url, {
-        method: 'POST',
+        method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email: e, password: p })
+        body: JSON.stringify({ email: e, password: p }),
       });
       if (response.ok) {
         let user = await response.json();
@@ -135,7 +162,7 @@ export default function SmokeyeContextProvider({ children, navigation }) {
         throw new Error(error);
       }
     } catch (err) {
-      alert("שם משתמש או סיסמא לא תקינים")
+      alert("שם משתמש או סיסמא לא תקינים");
     }
   };
 
@@ -146,7 +173,6 @@ export default function SmokeyeContextProvider({ children, navigation }) {
     }
     return inputString;
   };
-
 
   useEffect(() => {
     LoadUsers();
@@ -186,6 +212,7 @@ export default function SmokeyeContextProvider({ children, navigation }) {
     setCurrentLocation,
     setAllReports,
     setVisible,
+    ImageUploader,
     visible,
     currentLocation,
     isActive,
