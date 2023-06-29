@@ -4,8 +4,9 @@ import { SmokeyeContext } from "../Context/SmokEyeContext";
 import ReportCard from "../Components/ReportCard";
 
 export default function MyReports({navigation}) {
-  const { currentUser } = useContext(SmokeyeContext);
-  console.log(currentUser.reports.length)
+  const { currentUser, allReports } = useContext(SmokeyeContext);
+  const reports = allReports.filter((r)=> r.reporter == `${currentUser.firstName} ${currentUser.lastName}`)
+
 
   return (
     <View style={styles.continer} >
@@ -13,15 +14,15 @@ export default function MyReports({navigation}) {
         הדיווחים שלי
       </Text>
       <Text style={[styles.secondary_title,styles.title]}>סה"כ - 
-      {currentUser.reports.length}</Text>
-      {/* <FlatList
-        data={currentUser.Reports}
+      {reports.length}</Text>
+       <FlatList
+        data={reports}
         renderItem={({ item }) => (
           <ReportCard {...item} navigation={navigation}  />
         )}
         keyExtractor={(item) => item.id}
         style={styles.continer_table}
-      /> */}
+      /> 
     </View>
   );
 }

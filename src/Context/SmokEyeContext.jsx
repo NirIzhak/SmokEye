@@ -50,8 +50,7 @@ export default function SmokeyeContextProvider({ children, navigation }) {
 
   useEffect(() => {
     GetReports();
-  },
-    [])
+  },[allReports])
 
 
 
@@ -136,7 +135,7 @@ export default function SmokeyeContextProvider({ children, navigation }) {
         throw new Error(error);
       }
     } catch (err) {
-      alert(err)
+      alert("שם משתמש או סיסמא לא תקינים")
     }
   };
 

@@ -4,7 +4,7 @@ import { SmokeyeContext } from "../Context/SmokEyeContext";
 import { Colors } from "../style/AllStyels";
 
 
-export default function Register() {
+export default function Register({ navigation }) {
 
   const { visible, setVisible, email, password, phone, address, isActive, setisActive, setPassword, setConfirmPassword, setFirstName, setlastName, setEmail, setPhone, setAddress, toggleSwitch, smoke, currentUser, insertNewUser, firstName, lastName, setCurrentUser } = useContext(SmokeyeContext);
 
@@ -60,6 +60,7 @@ export default function Register() {
     })
     if (!currentUser) return;
     await insertNewUser(currentUser)
+    navigation.navigate("Login");
   }
 
   const handlePress = () => {

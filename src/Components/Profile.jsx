@@ -4,12 +4,12 @@ import { SmokeyeContext } from "../Context/SmokEyeContext";
 import { Avatar } from "@react-native-material/core";
 
 export default function Profile({ route }) {
-  const { currentUser } = useContext(SmokeyeContext);
+  const { currentUser, allReports } = useContext(SmokeyeContext);
   //const { firstName, lastName, role, image, reports } = route.params || {};
   const fullname = currentUser.firstName + " " + currentUser.lastName;//currentUser.firstName + " " + currentUser.lastName;
   const image = image == null ? "" : currentUser.image;
-  const reports  = currentUser.reports.length;
-  console.log(reports)
+  const reports = allReports.filter((r)=> r.reporter == `${currentUser.firstName} ${currentUser.lastName}`)
+  
   //{currentUser.reports.length}
   return (
     <SafeAreaView style={styles.continer}>
@@ -30,7 +30,7 @@ export default function Profile({ route }) {
       <View style={styles.line}></View>
       <View style={styles.points}>
         <View style={styles.reports}>
-          <Text style={styles.nums}>{reports}</Text>
+          <Text style={styles.nums}>{reports.length}</Text>
           <Text>reports</Text>
         </View>
       </View>
