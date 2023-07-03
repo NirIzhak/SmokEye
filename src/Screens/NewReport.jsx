@@ -75,22 +75,22 @@ export default function NewReport() {
   };
 
   const createReport = async() => {
-    await ImageUploader(imageUri)
-    // setReport({
-    //   date: `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`,
-    //   type: checked,
-    //   location: [
-    //     latitude,
-    //     longitude,
-    //   ],
-    //   address: `${street} ${streetNum}, ${city}`,
-    //   place: checked === "Business" ? BusName : value,
-    //   details: des,
-    //   image: imageUri,
-    //   reporter: currentUser.firstName
-    //     ? `${currentUser.firstName} ${currentUser.lastName}`
-    //     : "Anonymous",
-    // });
+    const imageLink = await ImageUploader(imageUri)
+    setReport({
+      date: `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`,
+      type: checked,
+      location: [
+        latitude,
+        longitude,
+      ],
+      address: `${street} ${streetNum}, ${city}`,
+      place: checked === "Business" ? BusName : value,
+      details: des,
+      image: imageLink,
+      reporter: currentUser.firstName
+        ? `${currentUser.firstName} ${currentUser.lastName}`
+        : "Anonymous",
+    });
   };
 
   useEffect(() => {
@@ -107,10 +107,10 @@ export default function NewReport() {
       return;
     }
 
-    let pickerResult = await ImagePicker.launchCameraAsync();
+    let pickerResult = await ImagePicker.launchCameraAsync({base64:true});
 
     if (!pickerResult.cancelled) {
-      setImageUri(pickerResult.uri);
+      await setImageUri(pickerResult.assets[0].base64);
     }
   };
 
@@ -123,10 +123,10 @@ export default function NewReport() {
       return;
     }
 
-    let pickerResult = await ImagePicker.launchImageLibraryAsync();
+    let pickerResult = await ImagePicker.launchImageLibraryAsync({base64:true});
 
     if (!pickerResult.cancelled) {
-      setImageUri(pickerResult.uri);
+      setImageUri(pickerResult.assets[0].base64);
     }
   };
   const createTwoButtonAlert = () =>
@@ -279,7 +279,7 @@ export default function NewReport() {
               )}
             </TouchableOpacity>
             {imageUri && (
-              <Image source={{ uri: imageUri }} style={styles.img} />
+              <Image source={{ uri: `data:image/jpg;base64,${imageUri}` }} style={styles.img} />
             )}
             {/* <View style={styles.date}>
             <View>
