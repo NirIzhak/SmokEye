@@ -19,6 +19,8 @@ import OnBoarding from './src/Components/OnBoarding';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, {useEffect, useState} from 'react';
 import APIContextProvider from './src/Context/APIContext';
+import UserInfo from './src/Screens/UserInfo';
+import StoreInfo from './src/Screens/StoreInfo';
 //import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 
 //const Tab = createMaterialBottomTabNavigator();
@@ -60,6 +62,8 @@ export default function App() {
           <Stack.Screen name="FastReport" component={NotRegisteresUser} options={{ headerShown: false }} />
           <Stack.Screen name="userScreens" component={UserTab} options={{ headerShown: false }} />
           <Stack.Screen name="adminScreens" component={ReasercherAndRegulator} options={{ headerShown: false }} />
+          <Stack.Screen name="userInfo" component={UserInfo} options={{ headerShown: false }} />
+          <Stack.Screen name="storeInfo" component={StoreInfo} options={{ headerShown: false }} />
         </Stack.Navigator>
       </NavigationContainer>
     </SmokeyeContextProvider>
