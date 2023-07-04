@@ -66,22 +66,15 @@ export default function SmokeyeContextProvider({ children, navigation }) {
 
 
 
-  ///////////////////////////////////////////////////  NOT WORKING!!!!!!
+  // upload image and get image url
   const ImageUploader = async (uri) => {
-    console.log(uri);
     try {
-      const formData = new FormData();
-      formData.append("image", {
-        uri: uri,
-        type: "image",
-      });
-      let url = `https://smokeye.onrender.com/uploadImage`;
-      let res = await fetch(url, {
-        headers: {
-          'Content-Type': 'multipart/form-data' // Modify content type to indicate form data
-        },
+      const response = await fetch(`${base_URL}/upload`, {
         method: "POST",
-        body: formData,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ image: uri }),
       });
       let responseText = await res.text(); // Get the response as text
       console.log(responseText); // Log the response
@@ -90,10 +83,18 @@ export default function SmokeyeContextProvider({ children, navigation }) {
       console.log(data);
     } catch (err) {
       console.log(err);
-    }
-  };
 
-
+      if (!response.ok) {
+        throw new Error("Failed to upload image");
+      }
+      try {
+        const data = await response.json();
+        return data.secure_url;
+      } catch (error) {
+        console.log(error);
+      }
+    };
+  }
 
 
   //Add Client to clients Array
