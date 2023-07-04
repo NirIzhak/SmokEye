@@ -9,19 +9,16 @@ import SmokeyeContextProvider from './src/Context/SmokEyeContext';
 import NewReport from './src/Screens/NewReport';
 import Info from './src/Screens/Info';
 import AllReports from './src/Screens/AllReports';
-import Store from './src/Screens/Store2.0/Store';
 import Profile from './src/Components/Profile';
 import MyReports from './src/Screens/MyReports';
 import FullReport from './src/Screens/FullReport';
 import Map from './src/Screens/Map';
 import AddNewUser from './src/Screens/AddNewUser';
 import PushNotification from './src/Screens/PushNotification';
-import AddItem from './src/Screens/Store2.0/AddItem';
-import UpdateItem from './src/Screens/Store2.0/UpdateItem';
 import OnBoarding from './src/Components/OnBoarding';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, {useEffect, useState} from 'react';
-import {base_URL} from './utilis/api'
+import APIContextProvider from './src/Context/APIContext';
 //import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 
 //const Tab = createMaterialBottomTabNavigator();
@@ -54,6 +51,7 @@ export default function App() {
 
   // if user saw the onboarding, he will go to login, else to see the onboarding
   return viewedOnboarding ? (
+    <APIContextProvider>
     <SmokeyeContextProvider>
       <NavigationContainer>
         <Stack.Navigator>
@@ -65,6 +63,7 @@ export default function App() {
         </Stack.Navigator>
       </NavigationContainer>
     </SmokeyeContextProvider>
+    </APIContextProvider>
   ) : (
       <OnBoarding change={setViewedOnboarding} value={viewedOnboarding} />
   );
