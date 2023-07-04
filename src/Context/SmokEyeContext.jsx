@@ -63,30 +63,7 @@ export default function SmokeyeContextProvider({ children, navigation }) {
     dataFetch();
   };
   //to do
-  const insertReport = async (email, doc) => {
-    try {
-      if (doc.date == null) return;
-      const url = `${base_URL}/reports/AddReport`;
-      const response = await fetch(url, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(doc),
-      }).then(async () => {
-        const url = `${base_URL}/reports/email`;
-        const res = await fetch(url, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(email),
-        });
-      });
-    } catch (err) {
-      console.log("err :>> ", err);
-    }
-  };
+
 
 
   ///////////////////////////////////////////////////  NOT WORKING!!!!!!
@@ -108,16 +85,16 @@ export default function SmokeyeContextProvider({ children, navigation }) {
       });
       let responseText = await res.text(); // Get the response as text
       console.log(responseText); // Log the response
-  
+
       let data = JSON.parse(responseText); // Attempt to parse the response as JSON
       console.log(data);
     } catch (err) {
       console.log(err);
     }
   };
-  
-  
-  
+
+
+
 
   //Add Client to clients Array
   const insertNewUser = async (user) => {
@@ -205,7 +182,6 @@ export default function SmokeyeContextProvider({ children, navigation }) {
     SetStreetNum,
     setImageUri,
     setDes,
-    insertReport,
     setReport,
     insertNewUser,
     setisActive,
