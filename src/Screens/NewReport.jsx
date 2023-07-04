@@ -65,26 +65,27 @@ export default function NewReport() {
 
   const createReport = async () => {
     const imageLink = await ImageUploader(imageUri)
-    setReport({
-      date: `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`,
-      type: checked,
-      location: [
+    await setReport({
+      "date": `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`,
+      "type": checked,
+      "location": [
         latitude,
         longitude,
       ],
-      address: `${street} ${streetNum}, ${city}`,
-      place: checked === "Business" ? BusName : value,
-      details: des,
-      image: imageLink,
-      reporter: currentUser.firstName
+      "address": [{ street: `${street}` }]` ${streetNum}, ${city}`,
+      "place": checked === "Business" ? BusName : value,
+      "details": des,
+      "image": imageLink,
+      "reporter": currentUser.firstName
         ? `${currentUser.firstName} ${currentUser.lastName}`
         : "Anonymous",
     });
+    await setReport({})
   };
 
   useEffect(() => {
     if (!report) return;
-    InsertReport(report, "ma@gmail.com");
+    InsertReport(report, "m@gmail.com");
   }, [report]);
 
   //Camera
