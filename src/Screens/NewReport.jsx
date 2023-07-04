@@ -1,32 +1,20 @@
 import {
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  TouchableWithoutFeedback,
-  Keyboard,
-  Image,
-  Alert,
-  StyleSheet,
-  SafeAreaView,
+  View, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, Keyboard, Image, Alert, StyleSheet, SafeAreaView,
 } from "react-native";
 import { Dropdown } from "react-native-element-dropdown";
 import React, { useEffect, useState, useContext } from "react";
 import * as Location from "expo-location";
 import * as ImagePicker from "expo-image-picker";
 import { SmokeyeContext } from "../Context/SmokEyeContext";
-import {
-  RadioButton,
-  DefaultTheme,
-  Provider as PaperProvider,
-} from "react-native-paper";
+import { APIContext } from "../Context/APIContext";
+import { RadioButton, DefaultTheme, Provider as PaperProvider } from "react-native-paper";
 import { Colors, fontSizes } from "../style/AllStyels";
+
 
 export default function NewReport() {
   const {
     ImageUploader,
     currentUser,
-    insertReport,
     setReport,
     report,
     city,
@@ -44,6 +32,7 @@ export default function NewReport() {
     latitude,
     longitude,
   } = useContext(SmokeyeContext);
+  const { InsertReport } = useContext(APIContext)
   const date = new Date();
 
   const [checked, setChecked] = useState("Business");
@@ -74,28 +63,28 @@ export default function NewReport() {
     Keyboard.dismiss();
   };
 
-  const createReport = async() => {
+  const createReport = async () => {
     await ImageUploader(imageUri)
-    // setReport({
-    //   date: `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`,
-    //   type: checked,
-    //   location: [
-    //     latitude,
-    //     longitude,
-    //   ],
-    //   address: `${street} ${streetNum}, ${city}`,
-    //   place: checked === "Business" ? BusName : value,
-    //   details: des,
-    //   image: imageUri,
-    //   reporter: currentUser.firstName
-    //     ? `${currentUser.firstName} ${currentUser.lastName}`
-    //     : "Anonymous",
-    // });
+    setReport({
+      date: `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`,
+      type: checked,
+      location: [
+        latitude,
+        longitude,
+      ],
+      address: `${street} ${streetNum}, ${city}`,
+      place: checked === "Business" ? BusName : value,
+      details: des,
+      image: imageUri,
+      reporter: currentUser.firstName
+        ? `${currentUser.firstName} ${currentUser.lastName}`
+        : "Anonymous",
+    });
   };
 
   useEffect(() => {
     if (!report) return;
-    insertReport(currentUser.email, report);
+    InsertReport(report, "ma@gmail.com");
   }, [report]);
 
   //Camera
