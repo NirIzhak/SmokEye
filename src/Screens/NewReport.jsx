@@ -271,26 +271,6 @@ export default function NewReport() {
             {imageUri && (
               <Image source={{ uri: `data:image/jpg;base64,${imageUri}` }} style={styles.img} />
             )}
-            {/* <View style={styles.date}>
-            <View>
-              <Text style={styles.title}>תאריך</Text>
-              <Text style={styles.title}>
-                {date.getDate() +
-                  "/" +
-                  (date.getMonth() + 1) +
-                  "/" +
-                  date.getFullYear()}
-              </Text>
-            </View>
-            <View>
-              <Text style={styles.title}>שעה</Text>
-              <Text style={styles.title}>
-                {date.getHours().toString().padStart(2, "0") +
-                  ":" +
-                  date.getMinutes().toString().padStart(2, "0")}
-              </Text>
-            </View>
-          </View> */}
             <Text style={styles.title}>פרטי מיקום:</Text>
             <View style={styles.addressContainer}>
               <TextInput
@@ -452,13 +432,4 @@ const styles = StyleSheet.create({
   inputSearchStyle: {
     height: 40,
   },
-  /*date:{
-   display: "flex",
-   flexDirection: "row",
-   justifyContent: "space-between",
-   width: "50%",
-   marginLeft: "auto",
-   marginRight: "auto",
-   marginTop: 40,
- },*/
 });
