@@ -1,30 +1,19 @@
 import { View, Text, SafeAreaView } from "react-native";
-import React from "react";
+import React, { useContext } from "react";
 import Accordion from "../Components/Accordion";
+import { SmokeyeContext } from "../Context/SmokEyeContext";
+
 
 export default function StoreInfo() {
-  const data = [
-    {
-      title: "Accordion 1",
-      content: "ניסיון",
-    },
-    {
-      title: "Accordion 2",
-      content:
-        "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    },
-    {
-      title: "Accordion 3",
-      content:
-        "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
-    },
-  ];
+  const {infoData} = useContext(SmokeyeContext);
+  const businessData = infoData[0].business;
+  
   return (
     <SafeAreaView>
       <Text style={{ textAlign: "center", fontSize: 40 }}>
         מידע לעסק
       </Text>
-      {data.map((item, index) => (
+      {businessData.map((item, index) => (
         <Accordion key={index} title={item.title} content={item.content} />
       ))}
     </SafeAreaView>

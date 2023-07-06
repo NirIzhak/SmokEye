@@ -1,30 +1,18 @@
 import { View, Text, SafeAreaView } from "react-native";
-import React from "react";
+import React, { useContext } from "react";
 import Accordion from "../Components/Accordion";
+import { SmokeyeContext } from "../Context/SmokEyeContext";
 
 export default function UserInfo() {
-  const data = [
-    {
-      title: "Accordion 1",
-      content: "ניסיון",
-    },
-    {
-      title: "Accordion 2",
-      content:
-        "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    },
-    {
-      title: "Accordion 3",
-      content:
-        "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
-    },
-  ];
+  const {infoData} = useContext(SmokeyeContext);
+  const personData = infoData[0].person;
+
   return (
     <SafeAreaView>
       <Text style={{ textAlign: "center", fontSize: 40 }}>
         מידע למשתמש
       </Text>
-      {data.map((item, index) => (
+      {personData.map((item, index) => (
         <Accordion key={index} title={item.title} content={item.content} />
       ))}
     </SafeAreaView>
