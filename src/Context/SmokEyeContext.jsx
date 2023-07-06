@@ -113,7 +113,7 @@ export default function SmokeyeContextProvider({ children, navigation }) {
 
   useEffect(()=>{
     GetInfo();
-  },[])
+  },[infoData])
 
 
   //Add Client to clients Array
