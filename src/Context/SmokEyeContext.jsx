@@ -69,7 +69,6 @@ export default function SmokeyeContextProvider({ children, navigation }) {
   // upload image and get image url
   const ImageUploader = async (uri) => {
     try {
-      console.log('ImageUploader 1 :>> ');
       const response = await fetch(`${base_URL}/upload`, {
         method: "POST",
         headers: {
@@ -81,22 +80,11 @@ export default function SmokeyeContextProvider({ children, navigation }) {
         throw new Error("Failed to upload image");
       }
       else {
-        console.log('ImageUploader 2 :>> ');
-        let responseText = await response.text(); // Get the response as text
-        console.log(responseText); // Log the response
-        let data = JSON.parse(responseText); // Attempt to parse the response as JSON
-        console.log(data);
-        const d = await response.json();
+        const data = await response.json();
         return data.secure_url;
       }
     } catch (err) {
       console.log(err);
-      /*try {
-        const data = await response.json();
-        return data.secure_url;
-      } catch (error) {
-        console.log(error);
-      }*/
     };
   }
 

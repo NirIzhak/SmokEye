@@ -18,10 +18,11 @@ export default function APIContextProvider({ children }) {
                 body: JSON.stringify({
                     date: doc.date,
                     type: doc.type,
+                    location: doc.location,
                     address: doc.address,
                     place: doc.place,
                     details: doc.details,
-                    image: "",
+                    image: doc.image,
                     reporter: "Anonymous",
                     email: email
                 }),

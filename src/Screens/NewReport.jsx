@@ -62,8 +62,8 @@ export default function NewReport() {
   };
 
   const createReport = async () => {
-    const imageLink = await ImageUploader(imageUri)
-    await setReport({
+    const imageLink = await ImageUploader(imageUri);
+      await setReport({
       date: `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`,
       type: checked,
       location: [
