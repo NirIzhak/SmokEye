@@ -15,8 +15,6 @@ export default function NewReport() {
   const {
     ImageUploader,
     currentUser,
-    setReport,
-    report,
     city,
     setCity,
     street,
@@ -32,7 +30,7 @@ export default function NewReport() {
     latitude,
     longitude,
   } = useContext(SmokeyeContext);
-  const { InsertReport } = useContext(APIContext)
+  const { setReport, report, InsertReport } = useContext(APIContext)
   const date = new Date();
 
   const [checked, setChecked] = useState("Business");
@@ -66,21 +64,20 @@ export default function NewReport() {
   const createReport = async () => {
     const imageLink = await ImageUploader(imageUri)
     await setReport({
-      "date": `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`,
-      "type": checked,
-      "location": [
+      date: `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`,
+      type: checked,
+      location: [
         latitude,
         longitude,
       ],
-      "address": [{ street: `${street}` }]` ${streetNum}, ${city}`,
-      "place": checked === "Business" ? BusName : value,
-      "details": des,
-      "image": imageLink,
-      "reporter": currentUser.firstName
-        ? `${currentUser.firstName} ${currentUser.lastName}`
-        : "Anonymous",
+      address: [{ street: street, streetNum: streetNum, city: city }],
+      place: checked === "Business" ? BusName : value,
+      details: des,
+      image: imageLink,
+      reporter: "Anonymous"
     });
     await setReport({})
+    console.log('bye :>> ');
   };
 
   useEffect(() => {
