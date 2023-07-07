@@ -35,6 +35,7 @@ export default function SmokeyeContextProvider({ children, navigation }) {
   const [allReports, setAllReports] = useState([]);
 
   const [currentLocation, setCurrentLocation] = useState([]);
+  const [infoData, setInfoData] = useState([]);
 
   const GetReports = async () => {
     try {
@@ -98,6 +99,22 @@ export default function SmokeyeContextProvider({ children, navigation }) {
       }*/
     };
   }
+
+
+
+  const GetInfo = async()=>{
+    try{
+      let res = await fetch(`${base_URL}/info`);
+      let data = await res.json();
+      setInfoData(data);
+    }catch(err){
+      console.log(err)
+    }
+  }
+
+  useEffect(()=>{
+    GetInfo();
+  },[infoData])
 
 
   //Add Client to clients Array
@@ -176,6 +193,7 @@ export default function SmokeyeContextProvider({ children, navigation }) {
     setFirstName,
     setlastName,
     setConfirmPassword,
+    setInfoData,
     setPhone,
     setAddress,
     setSmoke,
@@ -192,6 +210,7 @@ export default function SmokeyeContextProvider({ children, navigation }) {
     setAllReports,
     setVisible,
     ImageUploader,
+    infoData,
     visible,
     currentLocation,
     isActive,

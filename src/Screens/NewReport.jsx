@@ -1,5 +1,5 @@
 import {
-  View, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, Keyboard, Image, Alert, StyleSheet, SafeAreaView,
+  View, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, Keyboard, Image, Alert, StyleSheet, SafeAreaView,ScrollView
 } from "react-native";
 import { Dropdown } from "react-native-element-dropdown";
 import React, { useEffect, useState, useContext } from "react";
@@ -222,9 +222,10 @@ export default function NewReport() {
 
   return (
     <>
+    <ScrollView>
       <TouchableWithoutFeedback onPress={handlePress}>
         <PaperProvider theme={theme}>
-          <SafeAreaView style={styles.container}>
+          <View style={styles.container}>
             <Text style={[styles.title]}> על מה הדיווח?</Text>
             <View style={styles.radio_btn}>
               <View style={styles.radioButtonContainer}>
@@ -268,26 +269,6 @@ export default function NewReport() {
             {imageUri && (
               <Image source={{ uri: `data:image/jpg;base64,${imageUri}` }} style={styles.img} />
             )}
-            {/* <View style={styles.date}>
-            <View>
-              <Text style={styles.title}>תאריך</Text>
-              <Text style={styles.title}>
-                {date.getDate() +
-                  "/" +
-                  (date.getMonth() + 1) +
-                  "/" +
-                  date.getFullYear()}
-              </Text>
-            </View>
-            <View>
-              <Text style={styles.title}>שעה</Text>
-              <Text style={styles.title}>
-                {date.getHours().toString().padStart(2, "0") +
-                  ":" +
-                  date.getMinutes().toString().padStart(2, "0")}
-              </Text>
-            </View>
-          </View> */}
             <Text style={styles.title}>פרטי מיקום:</Text>
             <View style={styles.addressContainer}>
               <TextInput
@@ -326,9 +307,10 @@ export default function NewReport() {
                 דווח
               </Text>
             </View>
-          </SafeAreaView>
+          </View>
         </PaperProvider>
       </TouchableWithoutFeedback>
+      </ScrollView>
     </>
   );
 }
@@ -449,13 +431,4 @@ const styles = StyleSheet.create({
   inputSearchStyle: {
     height: 40,
   },
-  /*date:{
-   display: "flex",
-   flexDirection: "row",
-   justifyContent: "space-between",
-   width: "50%",
-   marginLeft: "auto",
-   marginRight: "auto",
-   marginTop: 40,
- },*/
 });
