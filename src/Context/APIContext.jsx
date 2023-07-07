@@ -3,18 +3,28 @@ import { base_URL } from "../../utilis/api";
 export const APIContext = createContext();
 
 export default function APIContextProvider({ children }) {
+    const [report, setReport] = useState({});
     const InsertReport = async (doc, email) => {
-        console.log('hi InsertReport :>> ', doc.date, email);
+        console.log('hi InsertReport :>> ', doc, email);
         try {
-            console.log('InsertReport :>> ');
-            if (doc.date == null) return;
+            console.log('InsertReport :>> ', doc.date);
+            if (doc.date == null) { return; }
             const url = `${base_URL}/reports/AddReport`;
             const response = await fetch(url, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ report: doc, email: email }),
+                body: JSON.stringify({
+                    date: doc.date,
+                    type: doc.type,
+                    address: doc.address,
+                    place: doc.place,
+                    details: doc.details,
+                    image: "",
+                    reporter: "Anonymous",
+                    email: email
+                }),
             });
             if (response.ok) {
                 alert("דיווח נשלח בהצלחה!");
@@ -26,7 +36,9 @@ export default function APIContextProvider({ children }) {
     };
 
     const value = {
-        InsertReport
+        InsertReport,
+        report,
+        setReport
     }
     return (
         <APIContext.Provider value={value}>
