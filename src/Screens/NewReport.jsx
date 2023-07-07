@@ -61,6 +61,7 @@ export default function NewReport() {
     Keyboard.dismiss();
   };
 
+
   const createReport = async () => {
     const imageLink = await ImageUploader(imageUri);
       await setReport({
@@ -74,7 +75,7 @@ export default function NewReport() {
       place: checked === "Business" ? BusName : value,
       details: des,
       image: imageLink,
-      reporter: "Anonymous"
+      reporter: currentUser.firstName != undefined ? `${currentUser.firstName + " " + currentUser.lastName}` : "Anonymous"
     });
     await setReport({})
     console.log('bye :>> ');
@@ -274,16 +275,19 @@ export default function NewReport() {
               <TextInput
                 placeholder="שם הרחוב"
                 defaultValue={street}
+                onChangeText={(text) => setStreet(text)}
                 style={[styles.addressInput, styles.streetInput]}
               />
               <TextInput
                 placeholder="מספר"
                 defaultValue={streetNum}
+                onChangeText={(text) => SetStreetNum(text)}
                 style={[styles.addressInput, styles.streetNumInput]}
               />
               <TextInput
                 placeholder="עיר"
                 defaultValue={city}
+                onChangeText={(text) => setCity(text)}
                 style={[styles.addressInput, styles.cityInput]}
               />
             </View>

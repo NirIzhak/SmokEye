@@ -23,7 +23,7 @@ export default function APIContextProvider({ children }) {
                     place: doc.place,
                     details: doc.details,
                     image: doc.image,
-                    reporter: "Anonymous",
+                    reporter: doc.reporter == "Anonymous" ? "Anonymous": doc.reporter,
                     email: email
                 }),
             });
