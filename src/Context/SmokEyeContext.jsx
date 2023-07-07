@@ -27,7 +27,6 @@ export default function SmokeyeContextProvider({ children, navigation }) {
   const [streetNum, SetStreetNum] = useState("");
   const [imageUri, setImageUri] = useState(null);
   const [des, setDes] = useState("");
-  const [report, setReport] = useState([]);
   const [location, setLocation] = useState({});
   const [latitude, setLatitude] = useState("");
   const [longitude, setLongitude] = useState("");
@@ -86,15 +85,17 @@ export default function SmokeyeContextProvider({ children, navigation }) {
         console.log(responseText); // Log the response
         let data = JSON.parse(responseText); // Attempt to parse the response as JSON
         console.log(data);
+        const d = await response.json();
+        return data.secure_url;
       }
     } catch (err) {
       console.log(err);
-      try {
+      /*try {
         const data = await response.json();
         return data.secure_url;
       } catch (error) {
         console.log(error);
-      }
+      }*/
     };
   }
 
@@ -185,7 +186,6 @@ export default function SmokeyeContextProvider({ children, navigation }) {
     SetStreetNum,
     setImageUri,
     setDes,
-    setReport,
     insertNewUser,
     setisActive,
     setCurrentLocation,
@@ -209,7 +209,6 @@ export default function SmokeyeContextProvider({ children, navigation }) {
     streetNum,
     imageUri,
     des,
-    report,
     currentUser,
     allReports,
   };
