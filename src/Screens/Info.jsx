@@ -20,7 +20,7 @@ export default function Info({ navigation }) {
           navigation.navigate("storeInfo");
         }}
       >
-        <Text style={{textAlign: "center"}}>חנות</Text>
+        <Text style={{textAlign: "center"}}>עסק</Text>
       </TouchableOpacity>
     </View>
   );

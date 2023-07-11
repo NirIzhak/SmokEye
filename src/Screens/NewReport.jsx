@@ -65,7 +65,7 @@ export default function NewReport() {
   const createReport = async () => {
     const imageLink = await ImageUploader(imageUri);
       await setReport({
-      date: `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`,
+      date: `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`,
       type: checked,
       location: [
         latitude,
@@ -83,7 +83,7 @@ export default function NewReport() {
 
   useEffect(() => {
     if (!report) return;
-    InsertReport(report, "m@gmail.com");
+    currentUser.email == undefined ? InsertReport(report, "") : InsertReport(report, currentUser.email) ;
   }, [report]);
 
   //Camera
@@ -95,7 +95,7 @@ export default function NewReport() {
       return;
     }
 
-    let pickerResult = await ImagePicker.launchCameraAsync({ base64: true });
+    let pickerResult = await ImagePicker.launchCameraAsync({ base64: true, quality: 1.0 });
 
     if (!pickerResult.cancelled) {
       await setImageUri(pickerResult.assets[0].base64);
@@ -111,7 +111,7 @@ export default function NewReport() {
       return;
     }
 
-    let pickerResult = await ImagePicker.launchImageLibraryAsync({ base64: true });
+    let pickerResult = await ImagePicker.launchImageLibraryAsync({ base64: true,  quality: 1.0 });
 
     if (!pickerResult.cancelled) {
       setImageUri(pickerResult.assets[0].base64);
