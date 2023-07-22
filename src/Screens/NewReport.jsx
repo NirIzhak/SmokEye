@@ -312,28 +312,6 @@ export default function NewReport() {
             </View>
           </PaperProvider>
         </TouchableWithoutFeedback>
-        <ModalPoup visible={visible}>
-          <View style={{ alignItems: 'center' }}>
-            <View style={styles.header}>
-              <TouchableOpacity onPress={ReturnTologinScreen}>
-                <Image
-                  source={{ uri: "https://cdn-icons-png.flaticon.com/512/67/67345.png?w=740&t=st=1685792830~exp=1685793430~hmac=8c346bf78fce79a22309a9833f9ca23399d7d2a51a3a91f450129e146e0acb5f" }}
-                  style={styles.x_logo}
-                />
-              </TouchableOpacity>
-            </View>
-          </View>
-          <View style={{ alignItems: 'center' }}>
-            <Image
-              source={{ uri: "https://cdn-icons-png.flaticon.com/512/1102/1102052.png?w=740&t=st=1685792426~exp=1685793026~hmac=dc4ad9d28be355423331316bbc9134a769239442102bee59e4438c3d243d7b3c" }}
-              style={styles.success_logo}
-            />
-          </View>
-
-          <Text style={styles.popUp_text}>
-            דיווח נשלח בהצלחה !
-          </Text>
-        </ModalPoup>
       </ScrollView>
     </>
   );
