@@ -5,9 +5,12 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Colors, fontSizes } from "../style/AllStyels";
 import * as Location from "expo-location";
 import Profile from "../Components/Profile";
+import { APIContext } from "../Context/APIContext";
 
 export default function Login({ navigation }) {
-  const { setEmail, setPassword, ConfirmClient, email, password, currentUser, setLocation, setLatitude, setLongitude, setCurrentLocation, setCurrentUser } = useContext(SmokeyeContext);
+  const { setEmail, setPassword, email, password, setLocation, setLatitude, setLongitude, setCurrentLocation } = useContext(SmokeyeContext);
+  const { ConfirmClient, currentUser } = useContext(APIContext);
+
   const handlePress = () => {
     Keyboard.dismiss();
   };
@@ -39,16 +42,16 @@ export default function Login({ navigation }) {
   }
   // chack who is the current user and his role
   const Validuser = async (e, p) => {
-    let user = await ConfirmClient(e, p);
-    setCurrentUser(user);
-    if (user.role == "client") {
+    await ConfirmClient(e, p);
+    console.log('currentUser :>> ', currentUser);
+    if (currentUser.role == "client") {
       navigation.navigate("userScreens");
     } else if (
-      user.role == "Regulator" ||
-      user.role == "Reasercher"
+      currentUser.role == "Regulator" ||
+      currentUser.role == "Reasercher"
     ) {
       navigation.navigate("adminScreens");
-    } else if (user.role == "storeAdmin") {
+    } else if (currentUser.user.role == "storeAdmin") {
       navigation.navigate("storeAdmin");
     }
   }
