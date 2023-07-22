@@ -47,6 +47,7 @@ export default function NewReport() {
 
   const createReport = async () => {
     const imageLink = await ImageUploader(imageUri);
+    // add get location from address! ----- IMPORTENT
     await setReport({
       date: `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`,
       type: `${checked}`,
@@ -137,28 +138,6 @@ export default function NewReport() {
     }
   };
 
-
-  // useEffect(() => {
-  //   const getPermissions = async () => {
-  //     let { status } = await Location.requestForegroundPermissionsAsync();
-  //     if (status !== "granted") {
-  //       console.log("Not Granted");
-  //       return;
-  //     }
-
-  //     let currentLocation = await Location.getCurrentPositionAsync({});
-  //     setLocation(currentLocation);
-  //     console.log("Location:");
-  //     console.log(currentLocation);
-  //     setLatitude(currentLocation.coords.latitude);
-  //     setLongitude(currentLocation.coords.longitude);
-  //     console.log([currentLocation.coords.latitude , currentLocation.coords.longitude])
-  //     setCurrentLocation([currentLocation.coords.latitude , currentLocation.coords.longitude])
-
-  //   };
-  //   getPermissions();
-  // }, []);
-
   const ViewBus = () => {
     return (
       <>
@@ -246,11 +225,11 @@ export default function NewReport() {
                 {imageUri ? (
                   <Text style={[styles.btn]}>החלף תמונה</Text>
                 ) : (
-                  <Text style={[styles.btn]}>בחר תמונה</Text>
+                  <Text style={[styles.btn]}>העלאת תמונה</Text>
                 )}
               </TouchableOpacity>
               {imageUri && (
-                <Image source={{ uri: `data:image/jpg;base64,${imageUri}` }} style={styles.img} />
+                <Text>נבחרה תמונה!</Text>
               )}
               <Text style={styles.title}>פרטי מיקום:</Text>
               <View style={styles.addressContainer}>
