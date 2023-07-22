@@ -7,13 +7,13 @@ import * as Location from "expo-location";
 import * as ImagePicker from "expo-image-picker";
 import { SmokeyeContext } from "../Context/SmokEyeContext";
 import { APIContext } from "../Context/APIContext";
-import { RadioButton, DefaultTheme, Provider as PaperProvider } from "react-native-paper";
+import { RadioButton, Provider as PaperProvider } from "react-native-paper";
+import { theme } from "../style/AllStyels";
 import { Colors, fontSizes } from "../style/AllStyels";
 
 
 export default function NewReport() {
   const {
-    ImageUploader,
     city,
     setCity,
     street,
@@ -29,32 +29,16 @@ export default function NewReport() {
     latitude,
     longitude,
   } = useContext(SmokeyeContext);
-  const { setReport, report, InsertReport, currentUser } = useContext(APIContext)
+  const { ImageUploader, setReport, report, InsertReport, currentUser } = useContext(APIContext)
   const date = new Date();
 
   const [checked, setChecked] = useState("Business");
   const [value, setValue] = useState(null);
   const [BusName, setBusName] = useState("");
   const [select, setSelect] = useState(false);
-  const { extractStreetName } = useContext(SmokeyeContext);
+  const { extractStreetName, data } = useContext(SmokeyeContext);
 
-  const theme = {
-    ...DefaultTheme,
-    roundness: 2,
-    colors: {
-      ...DefaultTheme.colors,
-      primary: "#F39508",
-      accent: "#f1c40f",
-    },
-  };
-  const data = [
-    { label: "מסעדה", value: "מסעדה" },
-    { label: "קניון", value: "קניון" },
-    { label: "קולנוע", value: "אולם קולנוע" },
-    { label: "פארק שעשועים", value: "פארק" },
-    { label: "תאטרון", value: "תאטרון" },
-    { label: "אולם הופעות", value: "אולם הופעות" },
-  ];
+
 
   const handlePress = () => {
     Keyboard.dismiss();
@@ -70,7 +54,7 @@ export default function NewReport() {
         `${latitude}`,
         `${longitude}`,
       ],
-      address: { street: `${street}`, streetNum: `${streetNum}`, city: `${city}` },
+      address: [{ street: `${street}`, streetNum: `${streetNum}`, city: `${city}` }],
       place: checked === "Business" ? `${BusName}` : `${value}`,
       details: `${des}`,
       image: `${imageLink}`,
