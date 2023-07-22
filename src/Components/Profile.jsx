@@ -6,10 +6,10 @@ import { APIContext } from "../Context/APIContext";
 
 export default function Profile() {
   const { currentUser, allReports } = useContext(APIContext);
-  const fullname = currentUser.firstName + " " + currentUser.lastName;//currentUser.firstName + " " + currentUser.lastName;
+  const fullname = currentUser.firstName + " " + currentUser.lastName; //currentUser.firstName + " " + currentUser.lastName;
   const amountReports = allReports.length;
-  const image = image == null ? "" : currentUser.img;
-  console.log('currentUser.img :>> ', currentUser.firstName);
+  const image = currentUser.image || null;
+  console.log(image);
 
   //{currentUser.reports.length}
   return (
@@ -23,9 +23,7 @@ export default function Profile() {
           )}
         </View>
         <View>
-          <Text style={styles.title_conteiner}>
-            {fullname}
-          </Text>
+          <Text style={styles.title_conteiner}>{fullname}</Text>
         </View>
       </View>
       <View style={styles.line}></View>
@@ -35,14 +33,17 @@ export default function Profile() {
           <Text>סך הכל דיווחים קיימים</Text>
         </View>
       </View>
-      <Button title="עריכת פרטים" color="#F39508" style={styles.btn_edit}></Button>
+      <Button
+        title="עריכת פרטים"
+        color="#F39508"
+        style={styles.btn_edit}
+      ></Button>
     </SafeAreaView>
   );
 }
 const styles = StyleSheet.create({
   continer: {
     marginVertical: 50,
-
   },
   profileView: {
     alignItems: "center",
@@ -55,7 +56,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   btn_edit: {
-    marginTop: 5
+    marginTop: 5,
   },
   avatar: {
     //marginTop: 25,
@@ -69,11 +70,11 @@ const styles = StyleSheet.create({
     margin: 15,
   },
   points: {
-    alignItems: 'center',
-    flexDirection: 'row',
-    justifyContent: 'space-evenly',
+    alignItems: "center",
+    flexDirection: "row",
+    justifyContent: "space-evenly",
   },
   reports: {
-    alignItems: 'center',
+    alignItems: "center",
   },
 });
