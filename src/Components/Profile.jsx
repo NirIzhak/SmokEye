@@ -8,8 +8,8 @@ export default function Profile() {
   const { currentUser, allReports } = useContext(APIContext);
   const fullname = currentUser.firstName + " " + currentUser.lastName;//currentUser.firstName + " " + currentUser.lastName;
   const amountReports = allReports.length;
-  const image = image == null ? "" : currentUser.image;
-
+  const image = image == null ? "" : currentUser.img;
+  console.log('currentUser.img :>> ', currentUser.firstName);
 
   //{currentUser.reports.length}
   return (
