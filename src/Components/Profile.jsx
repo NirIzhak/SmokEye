@@ -2,14 +2,15 @@ import { View, Text, Button, SafeAreaView, StyleSheet } from "react-native";
 import React, { useContext } from "react";
 import { SmokeyeContext } from "../Context/SmokEyeContext";
 import { Avatar } from "@react-native-material/core";
+import { APIContext } from "../Context/APIContext";
 
-export default function Profile({ route }) {
-  const { currentUser, allReports } = useContext(SmokeyeContext);
-  //const { firstName, lastName, role, image, reports } = route.params || {};
+export default function Profile() {
+  const { currentUser, allReports } = useContext(APIContext);
   const fullname = currentUser.firstName + " " + currentUser.lastName;//currentUser.firstName + " " + currentUser.lastName;
+  const amountReports = allReports.length;
   const image = image == null ? "" : currentUser.image;
-  const reports = allReports.filter((r)=> r.reporter == `${currentUser.firstName} ${currentUser.lastName}`)
-  
+
+
   //{currentUser.reports.length}
   return (
     <SafeAreaView style={styles.continer}>
@@ -30,8 +31,8 @@ export default function Profile({ route }) {
       <View style={styles.line}></View>
       <View style={styles.points}>
         <View style={styles.reports}>
-          <Text style={styles.nums}>{reports.length}</Text>
-          <Text>reports</Text>
+          <Text style={styles.nums}>{amountReports}</Text>
+          <Text>סך הכל דיווחים קיימים</Text>
         </View>
       </View>
       <Button title="עריכת פרטים" color="#F39508" style={styles.btn_edit}></Button>
