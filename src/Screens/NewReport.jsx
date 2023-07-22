@@ -1,5 +1,5 @@
 import {
-  View, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, Keyboard, Image, Alert, StyleSheet, SafeAreaView,ScrollView
+  View, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, Keyboard, Image, Alert, StyleSheet, SafeAreaView, ScrollView
 } from "react-native";
 import { Dropdown } from "react-native-element-dropdown";
 import React, { useEffect, useState, useContext } from "react";
@@ -14,7 +14,6 @@ import { Colors, fontSizes } from "../style/AllStyels";
 export default function NewReport() {
   const {
     ImageUploader,
-    currentUser,
     city,
     setCity,
     street,
@@ -30,7 +29,7 @@ export default function NewReport() {
     latitude,
     longitude,
   } = useContext(SmokeyeContext);
-  const { setReport, report, InsertReport } = useContext(APIContext)
+  const { setReport, report, InsertReport, currentUser } = useContext(APIContext)
   const date = new Date();
 
   const [checked, setChecked] = useState("Business");
@@ -49,12 +48,12 @@ export default function NewReport() {
     },
   };
   const data = [
-    { label: "מסעדה", value: "Resturant" },
-    { label: "קניון", value: "Mall" },
-    { label: "קולנוע", value: "Cinema" },
-    { label: "פארק שעשועים", value: "Park" },
-    { label: "תאטרון", value: "Theater" },
-    { label: "אולם הופעות", value: "Hall" },
+    { label: "מסעדה", value: "מסעדה" },
+    { label: "קניון", value: "קניון" },
+    { label: "קולנוע", value: "אולם קולנוע" },
+    { label: "פארק שעשועים", value: "פארק" },
+    { label: "תאטרון", value: "תאטרון" },
+    { label: "אולם הופעות", value: "אולם הופעות" },
   ];
 
   const handlePress = () => {
@@ -64,26 +63,25 @@ export default function NewReport() {
 
   const createReport = async () => {
     const imageLink = await ImageUploader(imageUri);
-      await setReport({
+    await setReport({
       date: `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`,
-      type: checked,
+      type: `${checked}`,
       location: [
-        latitude,
-        longitude,
+        `${latitude}`,
+        `${longitude}`,
       ],
-      address: [{ street: street, streetNum: streetNum, city: city }],
-      place: checked === "Business" ? BusName : value,
-      details: des,
-      image: imageLink,
-      reporter: currentUser.firstName != undefined ? `${currentUser.firstName + " " + currentUser.lastName}` : "Anonymous"
+      address: { street: `${street}`, streetNum: `${streetNum}`, city: `${city}` },
+      place: checked === "Business" ? `${BusName}` : `${value}`,
+      details: `${des}`,
+      image: `${imageLink}`,
+
     });
-    await setReport({})
     console.log('bye :>> ');
   };
 
   useEffect(() => {
     if (!report) return;
-    InsertReport(report, "m@gmail.com");
+    InsertReport(report, currentUser.email);
   }, [report]);
 
   //Camera
@@ -156,6 +154,7 @@ export default function NewReport() {
     }
   };
 
+
   // useEffect(() => {
   //   const getPermissions = async () => {
   //     let { status } = await Location.requestForegroundPermissionsAsync();
@@ -223,97 +222,119 @@ export default function NewReport() {
 
   return (
     <>
-    <ScrollView>
-      <TouchableWithoutFeedback onPress={handlePress}>
-        <PaperProvider theme={theme}>
-          <View style={styles.container}>
-            <Text style={[styles.title]}> על מה הדיווח?</Text>
-            <View style={styles.radio_btn}>
-              <View style={styles.radioButtonContainer}>
-                <RadioButton.Android
-                  value="Business"
-                  status={checked === "Business" ? "checked" : "unchecked"}
-                  onPress={() => setChecked("Business")}
-                  color={theme.colors.primary}
+      <ScrollView>
+        <TouchableWithoutFeedback onPress={handlePress}>
+          <PaperProvider theme={theme}>
+            <View style={styles.container}>
+              <Text style={[styles.title]}> על מה הדיווח?</Text>
+              <View style={styles.radio_btn}>
+                <View style={styles.radioButtonContainer}>
+                  <RadioButton.Android
+                    value="Business"
+                    status={checked === "Business" ? "checked" : "unchecked"}
+                    onPress={() => setChecked("Business")}
+                    color={theme.colors.primary}
+                  />
+                  <Text style={styles.radioButtonText}>
+                    עסק בו הסיגריות בגלוי
+                  </Text>
+                </View>
+                <View style={styles.radioButtonContainer}>
+                  <RadioButton.Android
+                    value="Private"
+                    status={checked === "Private" ? "checked" : "unchecked"}
+                    onPress={() => setChecked("Private")}
+                  />
+                  <Text style={styles.radioButtonText}>עישון במקום לא חוקי</Text>
+                </View>
+              </View>
+              <View>{select ? ViewBus() : ViewPrivate()}</View>
+              <Text style={[styles.title]}> פרט בקצרה על המקרה </Text>
+              <TextInput
+                placeholder="לדוגמא: עסק שמוכר סיגריות שנראות באופן גלוי"
+                onBlur={handlePress}
+                onChangeText={(text) => setDes(text)}
+                style={[styles.report_Details, styles.input_Text]}
+              />
+              <TouchableOpacity
+                onPress={createTwoButtonAlert}
+                style={styles.buttonContainer}
+              >
+                {imageUri ? (
+                  <Text style={[styles.btn]}>החלף תמונה</Text>
+                ) : (
+                  <Text style={[styles.btn]}>בחר תמונה</Text>
+                )}
+              </TouchableOpacity>
+              {imageUri && (
+                <Image source={{ uri: `data:image/jpg;base64,${imageUri}` }} style={styles.img} />
+              )}
+              <Text style={styles.title}>פרטי מיקום:</Text>
+              <View style={styles.addressContainer}>
+                <TextInput
+                  placeholder="שם הרחוב"
+                  defaultValue={street}
+                  onChangeText={(text) => setStreet(text)}
+                  style={[styles.addressInput, styles.streetInput]}
                 />
-                <Text style={styles.radioButtonText}>
-                  עסק בו הסיגריות בגלוי
+                <TextInput
+                  placeholder="מספר"
+                  defaultValue={streetNum}
+                  onChangeText={(text) => SetStreetNum(text)}
+                  style={[styles.addressInput, styles.streetNumInput]}
+                />
+                <TextInput
+                  placeholder="עיר"
+                  defaultValue={city}
+                  onChangeText={(text) => setCity(text)}
+                  style={[styles.addressInput, styles.cityInput]}
+                />
+              </View>
+              <View>
+                {latitude && longitude ? (
+                  <TouchableOpacity
+                    onPress={GetAddress}
+                    style={styles.buttonContainer}
+                  >
+                    <Text style={styles.btn}>מצא אותי !</Text>
+                  </TouchableOpacity>
+                ) : null}
+              </View>
+              <View>
+                <Text
+                  style={styles.sendReport}
+                  onPress={() => {
+                    createReport();
+                  }}
+                >
+                  דווח
                 </Text>
               </View>
-              <View style={styles.radioButtonContainer}>
-                <RadioButton.Android
-                  value="Private"
-                  status={checked === "Private" ? "checked" : "unchecked"}
-                  onPress={() => setChecked("Private")}
+            </View>
+          </PaperProvider>
+        </TouchableWithoutFeedback>
+        <ModalPoup visible={visible}>
+          <View style={{ alignItems: 'center' }}>
+            <View style={styles.header}>
+              <TouchableOpacity onPress={ReturnTologinScreen}>
+                <Image
+                  source={{ uri: "https://cdn-icons-png.flaticon.com/512/67/67345.png?w=740&t=st=1685792830~exp=1685793430~hmac=8c346bf78fce79a22309a9833f9ca23399d7d2a51a3a91f450129e146e0acb5f" }}
+                  style={styles.x_logo}
                 />
-                <Text style={styles.radioButtonText}>עישון במקום לא חוקי</Text>
-              </View>
-            </View>
-            <View>{select ? ViewBus() : ViewPrivate()}</View>
-            <Text style={[styles.title]}> פרט בקצרה על המקרה </Text>
-            <TextInput
-              placeholder="לדוגמא: עסק שמוכר סיגריות שנראות באופן גלוי"
-              onBlur={handlePress}
-              onChangeText={(text) => setDes(text)}
-              style={[styles.report_Details, styles.input_Text]}
-            />
-            <TouchableOpacity
-              onPress={createTwoButtonAlert}
-              style={styles.buttonContainer}
-            >
-              {imageUri ? (
-                <Text style={[styles.btn]}>החלף תמונה</Text>
-              ) : (
-                <Text style={[styles.btn]}>בחר תמונה</Text>
-              )}
-            </TouchableOpacity>
-            {imageUri && (
-              <Image source={{ uri: `data:image/jpg;base64,${imageUri}` }} style={styles.img} />
-            )}
-            <Text style={styles.title}>פרטי מיקום:</Text>
-            <View style={styles.addressContainer}>
-              <TextInput
-                placeholder="שם הרחוב"
-                defaultValue={street}
-                onChangeText={(text) => setStreet(text)}
-                style={[styles.addressInput, styles.streetInput]}
-              />
-              <TextInput
-                placeholder="מספר"
-                defaultValue={streetNum}
-                onChangeText={(text) => SetStreetNum(text)}
-                style={[styles.addressInput, styles.streetNumInput]}
-              />
-              <TextInput
-                placeholder="עיר"
-                defaultValue={city}
-                onChangeText={(text) => setCity(text)}
-                style={[styles.addressInput, styles.cityInput]}
-              />
-            </View>
-            <View>
-              {latitude && longitude ? (
-                <TouchableOpacity
-                  onPress={GetAddress}
-                  style={styles.buttonContainer}
-                >
-                  <Text style={styles.btn}>מצא אותי !</Text>
-                </TouchableOpacity>
-              ) : null}
-            </View>
-            <View>
-              <Text
-                style={styles.sendReport}
-                onPress={() => {
-                  createReport();
-                }}
-              >
-                דווח
-              </Text>
+              </TouchableOpacity>
             </View>
           </View>
-        </PaperProvider>
-      </TouchableWithoutFeedback>
+          <View style={{ alignItems: 'center' }}>
+            <Image
+              source={{ uri: "https://cdn-icons-png.flaticon.com/512/1102/1102052.png?w=740&t=st=1685792426~exp=1685793026~hmac=dc4ad9d28be355423331316bbc9134a769239442102bee59e4438c3d243d7b3c" }}
+              style={styles.success_logo}
+            />
+          </View>
+
+          <Text style={styles.popUp_text}>
+            דיווח נשלח בהצלחה !
+          </Text>
+        </ModalPoup>
       </ScrollView>
     </>
   );
