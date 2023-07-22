@@ -9,7 +9,7 @@ import { launchImageLibrary } from 'react-native-image-picker';
 export default function Register({ navigation }) {
   const [tempUser, setTempuser] = useState();
   const [photo, setPhoto] = useState(null);
-  const { email, password, phone, address, isActive, setisActive, setPassword, setConfirmPassword, setFirstName, setlastName, setEmail, setPhone, setAddress, toggleSwitch, smoke, firstName, lastName, ImageUploader } = useContext(SmokeyeContext);
+  const { email, password, phone, address, isActive, setisActive, setPassword, setConfirmPassword, setFirstName, setlastName, setEmail, setPhone, setAddress, toggleSwitch, smoke, firstName, lastName } = useContext(SmokeyeContext);
   const { visible, setVisible, InsertNewUser } = useContext(APIContext);
 
 
