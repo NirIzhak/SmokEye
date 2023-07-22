@@ -1,10 +1,10 @@
 import { View, Text, SafeAreaView } from "react-native";
 import React, { useContext } from "react";
 import Accordion from "../Components/Accordion";
-import { SmokeyeContext } from "../Context/SmokEyeContext";
+import { APIContext } from "../Context/APIContext";
 
 export default function UserInfo() {
-  const {infoData} = useContext(SmokeyeContext);
+  const { infoData } = useContext(APIContext);
   const personData = infoData[0].person;
 
   return (
