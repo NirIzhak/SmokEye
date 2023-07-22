@@ -1,13 +1,19 @@
-import { Text, View, StyleSheet, TextInput, Switch, Keyboard, TouchableOpacity, KeyboardAvoidingView, SafeAreaView, Image, Animated, Modal } from "react-native";
+import { Text, View, StyleSheet, TextInput, Switch, TouchableOpacity, SafeAreaView, Image, Animated, Modal, Button } from "react-native";
 import { useContext, useState, useRef, useEffect } from "react";
 import { SmokeyeContext } from "../Context/SmokEyeContext";
 import { Colors } from "../style/AllStyels";
+import { APIContext } from "../Context/APIContext";
+import { launchImageLibrary } from 'react-native-image-picker';
 
 
 export default function Register({ navigation }) {
+  const [tempUser, setTempuser] = useState();
+  const [photo, setPhoto] = useState(null);
+  const { email, password, phone, address, isActive, setisActive, setPassword, setConfirmPassword, setFirstName, setlastName, setEmail, setPhone, setAddress, toggleSwitch, smoke, firstName, lastName, ImageUploader } = useContext(SmokeyeContext);
+  const { visible, setVisible, InsertNewUser } = useContext(APIContext);
 
-  const { visible, setVisible, email, password, phone, address, isActive, setisActive, setPassword, setConfirmPassword, setFirstName, setlastName, setEmail, setPhone, setAddress, toggleSwitch, smoke, currentUser, insertNewUser, firstName, lastName, setCurrentUser } = useContext(SmokeyeContext);
 
+  /************************* */
   const ModalPoup = ({ visible, children }) => {
     const [showModal, setShowModal] = useState(visible);
     const scaleValue = useRef(new Animated.Value(0)).current;
@@ -45,7 +51,7 @@ export default function Register({ navigation }) {
 
   const AddClient = async () => {
     await setisActive(true);
-    await setCurrentUser({
+    setTempuser({
       firstName: `${firstName}`,
       lastName: `${lastName}`,
       email: `${email}`,
@@ -58,112 +64,111 @@ export default function Register({ navigation }) {
       reports: [],
       isActive: isActive
     })
-    if (!currentUser) return;
-    await insertNewUser(currentUser)
-    navigation.navigate("Login");
-  }
-
-  const handlePress = () => {
-    Keyboard.dismiss();
   };
-
+  const ReturnTologinScreen = () => {
+    navigation.navigate("Login");
+    setVisible(false);
+  }
+  useEffect(() => {
+    if (!tempUser) return;
+    else {
+      console.log('tempUser :>> ', tempUser);
+      InsertNewUser(tempUser);
+      setTempuser();
+    }
+  }, [tempUser])
+  /*const handlePress = () => {
+    Keyboard.dismiss();
+  };*/
 
   return (
-    <KeyboardAvoidingView behavior={'padding'} onPress={handlePress} >
-      <SafeAreaView style={styles.container}>
-        <Text style={styles.h1_title}>הרשמה</Text>
-        <Text style={styles.title}>שם פרטי</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="שם פרטי"
-          onChangeText={(text) => setFirstName(text)}
-          onBlur={() => Keyboard.dismiss()}
-        />
-        <Text style={styles.title}>שם משפחה</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="שם משפחה"
-          onChangeText={(text) => setlastName(text)}
-          onBlur={() => Keyboard.dismiss()}
-        />
-        <Text style={styles.title}>Email</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="מייל"
-          onChangeText={(text) => setEmail(text)}
-          onBlur={() => Keyboard.dismiss()}
-          keyboardType="email-address"
-        />
-        <Text style={styles.title}>סיסמא</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="סיסמא"
-          onChangeText={(text) => setPassword(text)}
-          onBlur={() => Keyboard.dismiss()}
-        />
-        <Text style={styles.title}>אמת סיסמא</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="אמת סיסמא"
-          onChangeText={(text) => setConfirmPassword(text)}
-          onBlur={() => Keyboard.dismiss()}
-        />
-        <Text style={styles.title}>מספר טלפון</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="פלאפון"
-          onChangeText={(text) => setPhone(text)}
-          onBlur={() => Keyboard.dismiss()}
-          keyboardType="phone-pad"
-        />
-        <Text style={styles.title}>כתובת</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="כתובת"
-          onChangeText={(text) => setAddress(text)}
-          onBlur={() => Keyboard.dismiss()}
-        />
-        <View
-          style={styles.smoke_comtiner}
-        >
-          <Text style={styles.title}>לא מעשן</Text>
-          <Switch
-            trackColor={{ false: "#767577", true: "#7CC69E" }}
-            thumbColor={smoke ? "#5CEE9F" : "#f4f3f4"}
-            ios_backgroundColor="#3e3e3e"
-            onValueChange={toggleSwitch}
-            value={smoke}
-            style={{ margin: 10 }}
-          />
-          <Text style={styles.title}>מעשן</Text>
-        </View>
-        <TouchableOpacity onPress={AddClient} style={styles.button}>
-          <Text style={styles.title}>הרשם</Text>
-        </TouchableOpacity>
-        <ModalPoup visible={visible}>
-          <View style={{ alignItems: 'center' }}>
-            <View style={styles.header}>
-              <TouchableOpacity onPress={() => { setVisible(false) }}>
-                <Image
-                  source={{ uri: "https://cdn-icons-png.flaticon.com/512/67/67345.png?w=740&t=st=1685792830~exp=1685793430~hmac=8c346bf78fce79a22309a9833f9ca23399d7d2a51a3a91f450129e146e0acb5f" }}
-                  style={styles.x_logo}
-                />
-              </TouchableOpacity>
-            </View>
-          </View>
-          <View style={{ alignItems: 'center' }}>
-            <Image
-              source={{ uri: "https://cdn-icons-png.flaticon.com/512/1102/1102052.png?w=740&t=st=1685792426~exp=1685793026~hmac=dc4ad9d28be355423331316bbc9134a769239442102bee59e4438c3d243d7b3c" }}
-              style={styles.success_logo}
-            />
-          </View>
+    <SafeAreaView style={styles.container}>
+      <Text style={styles.h1_title}>הרשמה</Text>
+      <Text style={styles.title}>שם פרטי</Text>
+      <TextInput
+        style={styles.input}
+        placeholder="שם פרטי"
+        onChangeText={(text) => setFirstName(text)}
 
-          <Text style={styles.popUp_text}>
-            הרשמתך נקלטה בהצלחה !
-          </Text>
-        </ModalPoup>
-      </SafeAreaView>
-    </KeyboardAvoidingView>
+      />
+      <Text style={styles.title}>שם משפחה</Text>
+      <TextInput
+        style={styles.input}
+        placeholder="שם משפחה"
+        onChangeText={(text) => setlastName(text)}
+      />
+      <Text style={styles.title}>Email</Text>
+      <TextInput
+        style={styles.input}
+        placeholder="מייל"
+        onChangeText={(text) => setEmail(text)}
+        keyboardType="email-address"
+      />
+      <Text style={styles.title}>סיסמא</Text>
+      <TextInput
+        style={styles.input}
+        placeholder="סיסמא"
+        onChangeText={(text) => setPassword(text)}
+      />
+      <Text style={styles.title}>אמת סיסמא</Text>
+      <TextInput
+        style={styles.input}
+        placeholder="אמת סיסמא"
+        onChangeText={(text) => setConfirmPassword(text)}
+      />
+      <Text style={styles.title}>מספר טלפון</Text>
+      <TextInput
+        style={styles.input}
+        placeholder="פלאפון"
+        onChangeText={(text) => setPhone(text)}
+        keyboardType="phone-pad"
+      />
+      <Text style={styles.title}>כתובת</Text>
+      <TextInput
+        style={styles.input}
+        placeholder="כתובת"
+        onChangeText={(text) => setAddress(text)}
+      />
+      <View
+        style={styles.smoke_comtiner}
+      >
+        <Text style={styles.title}>לא מעשן</Text>
+        <Switch
+          trackColor={{ false: "#767577", true: "#7CC69E" }}
+          thumbColor={smoke ? "#5CEE9F" : "#f4f3f4"}
+          ios_backgroundColor="#3e3e3e"
+          onValueChange={toggleSwitch}
+          value={smoke}
+          style={{ margin: 10 }}
+        />
+        <Text style={styles.title}>מעשן</Text>
+      </View>
+      <TouchableOpacity onPress={AddClient} style={styles.button}>
+        <Text style={styles.title}>הרשם</Text>
+      </TouchableOpacity>
+      <ModalPoup visible={visible}>
+        <View style={{ alignItems: 'center' }}>
+          <View style={styles.header}>
+            <TouchableOpacity onPress={ReturnTologinScreen}>
+              <Image
+                source={{ uri: "https://cdn-icons-png.flaticon.com/512/67/67345.png?w=740&t=st=1685792830~exp=1685793430~hmac=8c346bf78fce79a22309a9833f9ca23399d7d2a51a3a91f450129e146e0acb5f" }}
+                style={styles.x_logo}
+              />
+            </TouchableOpacity>
+          </View>
+        </View>
+        <View style={{ alignItems: 'center' }}>
+          <Image
+            source={{ uri: "https://cdn-icons-png.flaticon.com/512/1102/1102052.png?w=740&t=st=1685792426~exp=1685793026~hmac=dc4ad9d28be355423331316bbc9134a769239442102bee59e4438c3d243d7b3c" }}
+            style={styles.success_logo}
+          />
+        </View>
+
+        <Text style={styles.popUp_text}>
+          הרשמתך נקלטה בהצלחה !
+        </Text>
+      </ModalPoup>
+    </SafeAreaView>
   );
 }
 const styles = StyleSheet.create({
