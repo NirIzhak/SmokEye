@@ -3,7 +3,7 @@ import React from 'react'
 
 export default function ReportCard({ date, type, address, place, details, image, navigation }) {
 
-  let a = address.street + " " + address.streetNum + " " + address.city;
+  let a = address[0].street + " " + address[0].streetNum + " " + address[0].city;
   const dateArr = date.split(" ");
   /*{ uri: media }*/
   /* <Image source={media ? {uri:media} : {uri:'https://wallpapercave.com/wp/wp6681156.jpg'}} style={styles.img} />*/
@@ -36,7 +36,7 @@ export default function ReportCard({ date, type, address, place, details, image,
             title='פרטים מלאים'
             color='#F39508'
             onPress={() => {
-              navigation.navigate("fullReport", { date, type, address, place, image });
+              navigation.navigate("fullReport", { date, type, address, place, details, image });
             }}
           >
           </Button >
