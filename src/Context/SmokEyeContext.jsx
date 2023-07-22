@@ -17,9 +17,7 @@ export default function SmokeyeContextProvider({ children, navigation }) {
   const [address, setAddress] = useState("");
   const [smoke, setSmoke] = useState(false);
   const [clients, setClients] = useState([]);
-  const [currentUser, setCurrentUser] = useState({});
   const [isActive, setisActive] = useState(true);
-  const [visible, setVisible] = useState(false);
 
   /*New Report */
   const [city, setCity] = useState("");
@@ -32,24 +30,24 @@ export default function SmokeyeContextProvider({ children, navigation }) {
   const [longitude, setLongitude] = useState("");
 
   /*All Reports*/
-  const [allReports, setAllReports] = useState([]);
+  /*const [allReports, setAllReports] = useState([]);*/
 
   const [currentLocation, setCurrentLocation] = useState([]);
   const [infoData, setInfoData] = useState([]);
 
-  const GetReports = async () => {
-    try {
-      let res = await fetch(`${base_URL}/reports`);
-      let data = await res.json();
-      setAllReports(data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  useEffect(() => {
-    GetReports();
-  }, [allReports]);
+  /*  const GetReports = async () => {
+      try {
+        let res = await fetch(`${base_URL}/reports`);
+        let data = await res.json();
+        setAllReports(data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+  
+    useEffect(() => {
+      GetReports();
+    }, [allReports]);*/
 
   // try to get users
   const dataFetch = async () => {
@@ -90,67 +88,24 @@ export default function SmokeyeContextProvider({ children, navigation }) {
 
 
 
-  const GetInfo = async()=>{
-    try{
+  const GetInfo = async () => {
+    try {
       let res = await fetch(`${base_URL}/info`);
       let data = await res.json();
       setInfoData(data);
-    }catch(err){
+    } catch (err) {
       console.log(err)
     }
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     GetInfo();
-  },[infoData])
+  }, [infoData])
 
 
-  //Add Client to clients Array
-  const insertNewUser = async (user) => {
-    try {
-      const url = `${base_URL}/users/Register`;
-      console.log("url :>> ", url);
-      const res = await fetch(url, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(user),
-      });
-      if (!res.ok) {
-        throw new Error("Request failed with status " + res.status());
-      } else {
-        setVisible(true);
-      }
-    } catch (err) {
-      console.log("err :>> ", err);
-    }
-    //setCurrentUser();
-  };
   //Cheack if regstration corrent//
 
-  // chack if the user is exsist
-  const ConfirmClient = async (e, p) => {
-    try {
-      let url = `${base_URL}/users/Login`;
-      const response = await fetch(url, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email: e, password: p }),
-      });
-      if (response.ok) {
-        let user = await response.json();
-        return user;
-      } else {
-        let error = await response.text();
-        throw new Error(error);
-      }
-    } catch (err) {
-      alert("שם משתמש או סיסמא לא תקינים");
-    }
-  };
+
 
   const extractStreetName = (inputString) => {
     const firstSpaceIndex = inputString.indexOf(" ");
@@ -185,21 +140,15 @@ export default function SmokeyeContextProvider({ children, navigation }) {
     setPhone,
     setAddress,
     setSmoke,
-    ConfirmClient,
-    setCurrentUser,
     extractStreetName,
     setStreet,
     SetStreetNum,
     setImageUri,
     setDes,
-    insertNewUser,
     setisActive,
     setCurrentLocation,
-    setAllReports,
-    setVisible,
     ImageUploader,
     infoData,
-    visible,
     currentLocation,
     isActive,
     firstName,
@@ -216,8 +165,6 @@ export default function SmokeyeContextProvider({ children, navigation }) {
     streetNum,
     imageUri,
     des,
-    currentUser,
-    allReports,
   };
   return (
     <SmokeyeContext.Provider value={value}>{children}</SmokeyeContext.Provider>
