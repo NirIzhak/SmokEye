@@ -46,22 +46,21 @@ export default function NewReport() {
 
 
   const createReport = async () => {
+    const locationFromAddress = await GetLocationByAddress(street, streetNum, city);
     const imageLink = await ImageUploader(imageUri);
     // add get location from address! ----- IMPORTENT
     await setReport({
       date: `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`,
       type: `${checked}`,
       location: [
-        `${latitude}`,
-        `${longitude}`,
+        `${locationFromAddress.lat || latitude}`,
+        `${locationFromAddress.lon || longitude}`,
       ],
       address: [{ street: `${street}`, streetNum: `${streetNum}`, city: `${city}` }],
       place: checked === "Business" ? `${BusName}` : `${value}`,
       details: `${des}`,
       image: `${imageLink}`,
-
     });
-    console.log('bye :>> ');
   };
   useEffect(() => {
     if (!report) return;
@@ -137,6 +136,20 @@ export default function NewReport() {
       console.error(error);
     }
   };
+
+
+  const GetLocationByAddress = async(street, num, city)=>{
+    try{
+      let res = await fetch(`https://api.tomtom.com/search/2/structuredGeocode.json?key=RjOFc93hAGcOpbjZ0SnOV4TIzDTP1mz9&countryCode=IL&limit=10&ofss=0&streetNumber=${num}&streetName=${street}&municipality=${city}`);
+      let data = await res.json();
+      return{
+        lon: data.results[0].position.lon,
+        lat: data.results[0].position.lat
+      }
+    }catch(err){
+      console.log(err)
+    }
+  }
 
   const ViewBus = () => {
     return (
