@@ -56,6 +56,9 @@ export default function APIContextProvider({ children }) {
         console.log('hi InsertReport :>> ', doc, email);
         try {
             if (doc.date == null) { return; }
+            let dateString = doc.date;
+            let dateParts = dateString.split("/");
+            let formattedDate = `${dateParts[1]}/${dateParts[0]}/${dateParts[2]}`;
             const url = `${base_URL}/reports/AddReport`;
             const response = await fetch(url, {
                 method: "PUT",
@@ -63,7 +66,7 @@ export default function APIContextProvider({ children }) {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
-                    date: doc.date,
+                    date: formattedDate,
                     type: doc.type,
                     location: doc.location,
                     address: doc.address,
@@ -73,9 +76,7 @@ export default function APIContextProvider({ children }) {
                     email: email
                 }),
             });
-            if (response.ok) {
-                alert("דיווח נשלח בהצלחה!");
-            }
+            alert("דיווח נשלח בהצלחה!");
         } catch (err) {
             console.log("err :>> ", err);
         }

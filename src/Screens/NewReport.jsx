@@ -78,7 +78,6 @@ export default function NewReport() {
     });
     console.log('bye :>> ');
   };
-
   useEffect(() => {
     if (!report) return;
     InsertReport(report, currentUser.email);
@@ -93,7 +92,7 @@ export default function NewReport() {
       return;
     }
 
-    let pickerResult = await ImagePicker.launchCameraAsync({ base64: true });
+    let pickerResult = await ImagePicker.launchCameraAsync({ base64: true, quality: 1.0 });
 
     if (!pickerResult.cancelled) {
       await setImageUri(pickerResult.assets[0].base64);
@@ -109,7 +108,7 @@ export default function NewReport() {
       return;
     }
 
-    let pickerResult = await ImagePicker.launchImageLibraryAsync({ base64: true });
+    let pickerResult = await ImagePicker.launchImageLibraryAsync({ base64: true, quality: 1.0 });
 
     if (!pickerResult.cancelled) {
       setImageUri(pickerResult.assets[0].base64);

@@ -7,6 +7,7 @@ export default function ReportCard({ date, type, address, place, details, image,
   const dateArr = date.split(" ");
   /*{ uri: media }*/
   /* <Image source={media ? {uri:media} : {uri:'https://wallpapercave.com/wp/wp6681156.jpg'}} style={styles.img} />*/
+
   return (
     <View style={styles.continer}>
       <View style={styles.text_continer}>
