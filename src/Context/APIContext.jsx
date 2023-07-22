@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
 import { base_URL } from "../../utilis/api";
 export const APIContext = createContext();
 
@@ -7,6 +7,7 @@ export default function APIContextProvider({ children }) {
     const [currentUser, setCurrentUser] = useState({});
     const [allReports, setAllReports] = useState([]);
     const [visible, setVisible] = useState(false);
+    const [infoData, setInfoData] = useState([]);
 
     //Add Client to clients Array
     const InsertNewUser = async (user) => {
@@ -85,7 +86,6 @@ export default function APIContextProvider({ children }) {
 
     const ShowMyReports = async (email) => {
         try {
-            console.log('ShowMyReports :>> ', email);
             const url = `${base_URL}/reports/ShowMyReports`;
             const response = await fetch(url, {
                 method: "POST",
@@ -102,6 +102,41 @@ export default function APIContextProvider({ children }) {
         }
     };
 
+
+    const GetInfo = async () => {
+        try {
+            let res = await fetch(`${base_URL}/info`);
+            let data = await res.json();
+            setInfoData(data);
+        } catch (err) {
+            console.log(err)
+        }
+    }
+    // upload image and get image url
+    const ImageUploader = async (uri) => {
+        try {
+            const response = await fetch(`${base_URL}/upload`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ image: uri }),
+            });
+            if (!response.ok) {
+                throw new Error("Failed to upload image");
+            }
+            else {
+                const data = await response.json();
+                return data.secure_url;
+            }
+        } catch (err) {
+            console.log(err);
+        };
+    }
+
+    useEffect(() => {
+        GetInfo();
+    }, [infoData])
     const value = {
         InsertReport,
         setReport,
@@ -110,6 +145,9 @@ export default function APIContextProvider({ children }) {
         ShowMyReports,
         InsertNewUser,
         setVisible,
+        setInfoData,
+        ImageUploader,
+        infoData,
         visible,
         allReports,
         currentUser,
