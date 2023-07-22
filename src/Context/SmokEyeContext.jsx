@@ -29,12 +29,16 @@ export default function SmokeyeContextProvider({ children, navigation }) {
   const [latitude, setLatitude] = useState("");
   const [longitude, setLongitude] = useState("");
 
-  /*All Reports*/
-  /*const [allReports, setAllReports] = useState([]);*/
-
   const [currentLocation, setCurrentLocation] = useState([]);
-  const [infoData, setInfoData] = useState([]);
 
+  const data = [
+    { label: "מסעדה", value: "מסעדה" },
+    { label: "קניון", value: "קניון" },
+    { label: "קולנוע", value: "אולם קולנוע" },
+    { label: "פארק שעשועים", value: "פארק" },
+    { label: "תאטרון", value: "תאטרון" },
+    { label: "אולם הופעות", value: "אולם הופעות" },
+  ];
   /*  const GetReports = async () => {
       try {
         let res = await fetch(`${base_URL}/reports`);
@@ -61,46 +65,6 @@ export default function SmokeyeContextProvider({ children, navigation }) {
     dataFetch();
   };
   //to do
-
-
-
-  // upload image and get image url
-  const ImageUploader = async (uri) => {
-    try {
-      const response = await fetch(`${base_URL}/upload`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ image: uri }),
-      });
-      if (!response.ok) {
-        throw new Error("Failed to upload image");
-      }
-      else {
-        const data = await response.json();
-        return data.secure_url;
-      }
-    } catch (err) {
-      console.log(err);
-    };
-  }
-
-
-
-  const GetInfo = async () => {
-    try {
-      let res = await fetch(`${base_URL}/info`);
-      let data = await res.json();
-      setInfoData(data);
-    } catch (err) {
-      console.log(err)
-    }
-  }
-
-  useEffect(() => {
-    GetInfo();
-  }, [infoData])
 
 
   //Cheack if regstration corrent//
@@ -136,7 +100,6 @@ export default function SmokeyeContextProvider({ children, navigation }) {
     setFirstName,
     setlastName,
     setConfirmPassword,
-    setInfoData,
     setPhone,
     setAddress,
     setSmoke,
@@ -147,8 +110,6 @@ export default function SmokeyeContextProvider({ children, navigation }) {
     setDes,
     setisActive,
     setCurrentLocation,
-    ImageUploader,
-    infoData,
     currentLocation,
     isActive,
     firstName,
@@ -165,6 +126,7 @@ export default function SmokeyeContextProvider({ children, navigation }) {
     streetNum,
     imageUri,
     des,
+    data
   };
   return (
     <SmokeyeContext.Provider value={value}>{children}</SmokeyeContext.Provider>
