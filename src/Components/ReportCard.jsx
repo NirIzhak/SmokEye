@@ -6,8 +6,7 @@ export default function ReportCard({ date, type, address, place, details, image,
   const { createReport } = useContext(SmokeyeContext);
   let a = address[0].street + " " + address[0].streetNum + " " + address[0].city;
   const dateArr = date.split(" ");
-  /*{ uri: media }*/
-  /* <Image source={media ? {uri:media} : {uri:'https://wallpapercave.com/wp/wp6681156.jpg'}} style={styles.img} />*/
+
 
   return (
     <View style={styles.continer}>
