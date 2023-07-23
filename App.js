@@ -21,6 +21,7 @@ import React, {useEffect, useState} from 'react';
 import APIContextProvider from './src/Context/APIContext';
 import UserInfo from './src/Screens/UserInfo';
 import StoreInfo from './src/Screens/StoreInfo';
+import EditDetails from './src/Screens/EditDetails'
 //import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 
 //const Tab = createMaterialBottomTabNavigator();
@@ -81,8 +82,18 @@ const UserTab = ()=>{
     <Tab.Screen component={NewReport} name='Report' options={({route})=>({tabBarLabel: "דיווח חדש", tabBarActiveTintColor: route.name === 'Report' ? '#F39508' : 'black',headerShown: false ,tabBarLabel: "דיווח חדש", tabBarIcon:()=>(<MaterialCommunityIcons name="pen" size={26} color="black" />)})}></Tab.Screen>
     <Tab.Screen component={Info} name='Info' options={({route})=>({tabBarLabel: "מידע", tabBarActiveTintColor: route.name === 'Info' ? '#F39508' : 'black',headerShown: false ,tabBarLabel: "מידע" ,tabBarBadgeStyle: { backgroundColor: '#007CFF' }, tabBarIcon:()=>(<MaterialCommunityIcons name="information-outline" size={26} color="black" />)})}></Tab.Screen>
     <Tab.Screen component={ReportsStack} name='Reports' options={({route})=>({tabBarLabel: "הדיווחים שלי", tabBarActiveTintColor: route.name === 'Reports' ? '#F39508' : 'black'  ,headerShown: false,tabBarIcon:()=>(<MaterialCommunityIcons name="store" size={26} color="black" />)})}></Tab.Screen>
-    <Tab.Screen component={Profile} name='Profile'  options={({route})=>({tabBarLabel: "פרופיל", tabBarActiveTintColor: route.name === 'Profile' ? '#F39508' : 'black', headerShown: false ,tabBarIcon: () => (<MaterialCommunityIcons name="account" color="#000" size={26} />)})}></Tab.Screen>
+    <Tab.Screen component={ProfileStack} name='Profile' options={({route})=>({tabBarLabel: "פרופיל", tabBarActiveTintColor: route.name === 'Profile' ? '#F39508' : 'black', headerShown: false ,tabBarIcon: () => (<MaterialCommunityIcons name="account" color="#000" size={26} />)})}></Tab.Screen>
   </Tab.Navigator>
+  )
+}
+const ProfileStack = ()=>{
+  return(
+  <Stack.Navigator initialRouteName='profile'>
+  <Stack.Screen name='profile' component={Profile} options={({route})=>({tabBarLabel: "פרופיל", tabBarActiveTintColor: route.name === 'myReports' ? '#F39508' : 'black'}, {headerShown: false})} />
+  <Stack.Screen name='editDetails' component={EditDetails} options={({route})=>({tabBarLabel: "עריכת פרטים", tabBarActiveTintColor: route.name === 'fullReport' ? '#F39508' : 'black'}, {headerShown: false})} />
+  <Stack.Screen name='myReports' component={MyReports} options={({route})=>({tabBarLabel: "הדיווחים שלי", tabBarActiveTintColor: route.name === 'myReports' ? '#F39508' : 'black'}, {headerShown: false})} />
+  <Stack.Screen name='fullReport' component={FullReport} options={({route})=>({tabBarLabel: "דיווח", tabBarActiveTintColor: route.name === 'fullReport' ? '#F39508' : 'black'}, {headerShown: false})} />
+  </Stack.Navigator>
   )
 }
 
@@ -95,7 +106,6 @@ const ReportsStack = ()=>{
   </Stack.Navigator>
   )
 }
-
 
 
 // reports stack
