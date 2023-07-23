@@ -13,16 +13,14 @@ import { Colors, fontSizes } from "../style/AllStyels";
 
 
 export default function NewReport() {
-  const { imageUri, setImageUri, des, setDes, setCurrentLocation,
-  } = useContext(SmokeyeContext);
-  const { city, setCity, street, setStreet, streetNum, SetStreetNum, ImageUploader, setReport, report, InsertReport, currentUser, GetAddress, latitude, longitude } = useContext(APIContext)
+  const { data, imageUri, setImageUri, des, setDes, setCurrentLocation } = useContext(SmokeyeContext);
+  const { city, setCity, street, setStreet, streetNum, SetStreetNum, ImageUploader, setReport, report, InsertReport, currentUser, latitude, longitude, GetAddress, GetLocationByAddress } = useContext(APIContext)
   const date = new Date();
 
   const [checked, setChecked] = useState("Business");
   const [value, setValue] = useState(null);
   const [BusName, setBusName] = useState("");
   const [select, setSelect] = useState(false);
-  const { data } = useContext(SmokeyeContext);
 
 
 
@@ -96,18 +94,7 @@ export default function NewReport() {
 
 
 
-  const GetLocationByAddress = async(street, num, city)=>{
-    try{
-      let res = await fetch(`https://api.tomtom.com/search/2/structuredGeocode.json?key=RjOFc93hAGcOpbjZ0SnOV4TIzDTP1mz9&countryCode=IL&limit=10&ofss=0&streetNumber=${num}&streetName=${street}&municipality=${city}`);
-      let data = await res.json();
-      return{
-        lon: data.results[0].position.lon,
-        lat: data.results[0].position.lat
-      }
-    }catch(err){
-      console.log(err)
-    }
-  }
+
 
   const ViewBus = () => {
     return (
@@ -152,6 +139,8 @@ export default function NewReport() {
       setSelect(true);
     }
   });
+  /** */
+
 
   return (
     <>
