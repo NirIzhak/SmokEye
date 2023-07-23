@@ -1,18 +1,18 @@
 import { View, Text, SafeAreaView, Image, StyleSheet } from "react-native";
 import React from "react";
 
-export default function FullReport({ date, type, address, place, details, image }) {
+export default function FullReport() {
 
   return (
     <SafeAreaView style={styles.continer}>
       <Text style={styles.title}>פרטי דיווח מלאים:</Text>
-      <Text style={styles.text}>עסק / פרטי: {type}</Text>
-      <Text style={styles.text}>תיאור: xxxx {details}</Text>
-      <Text style={styles.text}>כתובת מלאה: {address}</Text>
-      <Text style={styles.text}>מיקום : {place}</Text>
-      <Text style={styles.text}>תאריך: {date}</Text>
+      <Text style={styles.text}>עסק / פרטי: </Text>
+      <Text style={styles.text}>תיאור: </Text>
+      <Text style={styles.text}>כתובת מלאה: </Text>
+      <Text style={styles.text}>מיקום : </Text>
+      <Text style={styles.text}>תאריך: </Text>
       <Text style={styles.imageText}>תמונה:</Text>
-      <Image source={{ uri: image }} style={styles.image} />
+      <Image source={{ uri: null }} style={styles.image} />
     </SafeAreaView>
   );
 }
