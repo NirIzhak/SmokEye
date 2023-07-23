@@ -1,17 +1,15 @@
 import { View, Text, Button, SafeAreaView, StyleSheet } from "react-native";
 import React, { useContext } from "react";
-import { SmokeyeContext } from "../Context/SmokEyeContext";
 import { Avatar } from "@react-native-material/core";
 import { APIContext } from "../Context/APIContext";
 
 export default function Profile() {
   const { currentUser, allReports } = useContext(APIContext);
-  const fullname = currentUser.firstName + " " + currentUser.lastName; //currentUser.firstName + " " + currentUser.lastName;
+  const fullname = currentUser.firstName + " " + currentUser.lastName;
   const amountReports = allReports.length;
   const image = currentUser.image || null;
   console.log(image);
 
-  //{currentUser.reports.length}
   return (
     <SafeAreaView style={styles.continer}>
       <View style={styles.profileView}>
