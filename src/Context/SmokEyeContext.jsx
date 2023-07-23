@@ -19,9 +19,6 @@ export default function SmokeyeContextProvider({ children, navigation }) {
   const [isActive, setisActive] = useState(true);
 
   /*New Report */
-  /*  const [city, setCity] = useState("");
-    const [street, setStreet] = useState("");
-    const [streetNum, SetStreetNum] = useState("");*/
   const [imageUri, setImageUri] = useState(null);
   const [des, setDes] = useState("");
   const [report, setReport] = useState({});
