@@ -1,53 +1,82 @@
-import { View, Text, Button, SafeAreaView, StyleSheet } from "react-native";
+import { View, Text, Button, SafeAreaView, StyleSheet, FlatList } from "react-native";
 import { useContext, useEffect, useState } from "react";
 import { Avatar } from "@react-native-material/core";
 import { APIContext } from "../Context/APIContext";
+import { ScrollView } from "react-native-gesture-handler";
+import ReportCard from "./ReportCard";
 
-export default function Profile() {
+export default function Profile({ navigation }) {
   const [renderImage, setRenderImage] = useState(false);
   const [image, setImage] = useState("");
-  const { currentUser, allReports } = useContext(APIContext);
+  const { currentUser, allReports, ShowMyReports } = useContext(APIContext);
   const fullname = currentUser.firstName + " " + currentUser.lastName;
   const amountReports = allReports.length;
-
+  useEffect(() => {
+    if (!allReports) return;
+    ShowMyReports(currentUser.email);
+  }, [allReports]);
   useEffect(() => {
     if (!renderImage) {
       setImage(currentUser.image || null);
       setRenderImage(true);
     }
   }, [renderImage])
+  const EditPage = () => {
+    navigation.navigate('editDetails');
+  }
   return (
-    <SafeAreaView style={styles.continer}>
-      <View style={styles.profileView}>
-        <View style={styles.avatar}>
-          {image ? (
-            <Avatar image={{ uri: `${image}` }} size={100} />
-          ) : (
-            <Avatar label={fullname} size={100} color="#F39508" />
-          )}
+    <View>
+      <SafeAreaView style={[styles.continer]}>
+        <View style={styles.profileView}>
+          <View style={styles.avatar}>
+            {image ? (
+              <Avatar image={{ uri: `${image}` }} size={100} />
+            ) : (
+              <Avatar label={fullname} size={100} color="#F39508" />
+            )}
+          </View>
+          <View>
+            <Text style={styles.title_conteiner}>{fullname}</Text>
+          </View>
         </View>
+        <View style={styles.line}></View>
+        <View style={styles.points}>
+          <View style={styles.reports}>
+            <Text>סה"כ דיווחים </Text>
+            <Text style={styles.nums}>{amountReports}</Text>
+          </View>
+        </View>
+        <Button
+          title="עריכת פרטים"
+          color="#F39508"
+          style={styles.btn_edit}
+          onPress={EditPage}
+        ></Button>
+      </SafeAreaView>
+      <ScrollView nestedScrollEnabled={true} style={{ width: "100%" }}>
         <View>
-          <Text style={styles.title_conteiner}>{fullname}</Text>
+          <ScrollView horizontal={true} style={{ width: "100%" }}>
+            <FlatList
+              data={allReports}
+              renderItem={({ item }) => (
+                <ReportCard key={item.id}{...item} navigation={navigation} />
+              )}
+              style={styles.continer_table}
+            />
+          </ScrollView>
         </View>
-      </View>
-      <View style={styles.line}></View>
-      <View style={styles.points}>
-        <View style={styles.reports}>
-          <Text style={styles.nums}>{amountReports}</Text>
-          <Text>סך הכל דיווחים קיימים</Text>
-        </View>
-      </View>
-      <Button
-        title="עריכת פרטים"
-        color="#F39508"
-        style={styles.btn_edit}
-      ></Button>
-    </SafeAreaView>
+      </ScrollView>
+    </View>
+
   );
 }
+
 const styles = StyleSheet.create({
   continer: {
     marginVertical: 50,
+  },
+  pos: {
+    position: 'relative'
   },
   profileView: {
     alignItems: "center",
@@ -60,7 +89,8 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   btn_edit: {
-    marginTop: 5,
+    marginTop: 50,
+    width: "50%"
   },
   avatar: {
     //marginTop: 25,
