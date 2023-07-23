@@ -176,10 +176,23 @@ export default function APIContextProvider({ children }) {
     }
     return inputString;
   };
+  const GetLocationByAddress = async (street, num, city) => {
+    try {
+      let res = await fetch(`https://api.tomtom.com/search/2/structuredGeocode.json?key=RjOFc93hAGcOpbjZ0SnOV4TIzDTP1mz9&countryCode=IL&limit=10&ofss=0&streetNumber=${num}&streetName=${street}&municipality=${city}`);
+      let data = await res.json();
+      return {
+        lon: data.results[0].position.lon,
+        lat: data.results[0].position.lat
+      }
+    } catch (err) {
+      console.log(err)
+    }
+  }
 
   useEffect(() => {
     GetInfo();
   }, [infoData]);
+
   const value = {
     InsertReport,
     setReport,
@@ -190,13 +203,14 @@ export default function APIContextProvider({ children }) {
     setVisible,
     setInfoData,
     ImageUploader,
-    GetAddress,
     setLocation,
     setLatitude,
     setLongitude,
     setCity,
     setStreet,
     SetStreetNum,
+    GetAddress,
+    GetLocationByAddress,
     city,
     street,
     streetNum,
