@@ -59,6 +59,27 @@ export default function APIContextProvider({ children }) {
       alert("שם משתמש או סיסמא לא תקינים");
     }
   };
+  const UpdateUser = async (currentE, updetedUser) => {
+    try {
+      console.log('hello :>> ', updetedUser);
+      const url = `${base_URL}/users/UpdateUser`;
+      const response = await fetch(url, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ currentE: currentE, updetedUser: updetedUser }),
+      });
+      if (!response.ok) {
+        throw new Error("Request failed with status " + response.status());
+      } else {
+        //setVisible(true);
+        setCurrentUser(response.json())
+      }
+    } catch (err) {
+      console.log("err :>> ", err);
+    }
+  };
   const InsertReport = async (doc, email) => {
     try {
       if (doc.date == null) {
@@ -84,7 +105,7 @@ export default function APIContextProvider({ children }) {
           email: email,
         }),
       });
-      alert("דיווח נשלח בהצלחה!");
+      if (response.ok) { alert("דיווח נשלח בהצלחה!"); }
     } catch (err) {
       console.log("err :>> ", err);
     }
@@ -195,6 +216,7 @@ export default function APIContextProvider({ children }) {
 
 
   const value = {
+    UpdateUser,
     InsertReport,
     setReport,
     setCurrentUser,
