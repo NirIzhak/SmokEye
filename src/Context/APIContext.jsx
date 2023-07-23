@@ -1,5 +1,6 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState, useEffect, useContext } from "react";
 import { base_URL } from "../../utilis/api";
+import { SmokeyeContext } from "./SmokEyeContext";
 export const APIContext = createContext();
 
 export default function APIContextProvider({ children }) {
@@ -8,7 +9,12 @@ export default function APIContextProvider({ children }) {
   const [allReports, setAllReports] = useState([]);
   const [visible, setVisible] = useState(false);
   const [infoData, setInfoData] = useState([]);
-
+  const [location, setLocation] = useState({});
+  const [latitude, setLatitude] = useState("");
+  const [longitude, setLongitude] = useState("");
+  const [city, setCity] = useState("");
+  const [street, setStreet] = useState("");
+  const [streetNum, SetStreetNum] = useState("");
   //Add Client to clients Array
   const InsertNewUser = async (user) => {
     try {
@@ -134,6 +140,42 @@ export default function APIContextProvider({ children }) {
       console.log(err);
     }
   };
+  const GetAddress = async () => {
+    try {
+      const response = await fetch(
+        `https://api.tomtom.com/search/2/reverseGeocode/${latitude},${longitude}.json?&key=RjOFc93hAGcOpbjZ0SnOV4TIzDTP1mz9`,
+        {
+          headers: {
+            Accept: "*/*",
+          },
+        }
+      );
+      const result = await response.json();
+      console.log(result);
+      if (
+        result.addresses[0].address.municipality == "" ||
+        result.addresses[0].address.street == "" ||
+        result.addresses[0].address.streetNumber == ""
+      ) {
+        alert(
+          "לא היה ניתן למצוא את המיקום שלך, אנא מלא את פרטי המיקום באופן ידני"
+        );
+      } else {
+        setCity(result.addresses[0].address.municipality);
+        setStreet(extractStreetName(result.addresses[0].address.street));
+        SetStreetNum(result.addresses[0].address.streetNumber);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  const extractStreetName = (inputString) => {
+    const firstSpaceIndex = inputString.indexOf(" ");
+    if (firstSpaceIndex !== -1) {
+      return inputString.substring(firstSpaceIndex + 1);
+    }
+    return inputString;
+  };
 
   useEffect(() => {
     GetInfo();
@@ -148,6 +190,18 @@ export default function APIContextProvider({ children }) {
     setVisible,
     setInfoData,
     ImageUploader,
+    GetAddress,
+    setLocation,
+    setLatitude,
+    setLongitude,
+    setCity,
+    setStreet,
+    SetStreetNum,
+    city,
+    street,
+    streetNum,
+    latitude,
+    longitude,
     infoData,
     visible,
     allReports,
