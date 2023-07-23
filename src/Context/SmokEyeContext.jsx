@@ -12,7 +12,6 @@ export default function SmokeyeContextProvider({ children, navigation }) {
   /*Register Values*/
   const [firstName, setFirstName] = useState("");
   const [lastName, setlastName] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
   const [smoke, setSmoke] = useState(false);
@@ -20,14 +19,12 @@ export default function SmokeyeContextProvider({ children, navigation }) {
   const [isActive, setisActive] = useState(true);
 
   /*New Report */
-  const [city, setCity] = useState("");
-  const [street, setStreet] = useState("");
-  const [streetNum, SetStreetNum] = useState("");
+  /*  const [city, setCity] = useState("");
+    const [street, setStreet] = useState("");
+    const [streetNum, SetStreetNum] = useState("");*/
   const [imageUri, setImageUri] = useState(null);
   const [des, setDes] = useState("");
-  const [location, setLocation] = useState({});
-  const [latitude, setLatitude] = useState("");
-  const [longitude, setLongitude] = useState("");
+
 
   const [currentLocation, setCurrentLocation] = useState([]);
 
@@ -70,15 +67,6 @@ export default function SmokeyeContextProvider({ children, navigation }) {
   //Cheack if regstration corrent//
 
 
-
-  const extractStreetName = (inputString) => {
-    const firstSpaceIndex = inputString.indexOf(" ");
-    if (firstSpaceIndex !== -1) {
-      return inputString.substring(firstSpaceIndex + 1);
-    }
-    return inputString;
-  };
-
   useEffect(() => {
     LoadUsers();
   }, []);
@@ -87,25 +75,14 @@ export default function SmokeyeContextProvider({ children, navigation }) {
   const toggleSwitch = () => setSmoke((previousState) => !previousState);
 
   const value = {
-    location,
-    latitude,
-    longitude,
-    setLatitude,
-    setLongitude,
-    setLocation,
-    setCity,
     toggleSwitch,
     setEmail,
     setPassword,
     setFirstName,
     setlastName,
-    setConfirmPassword,
     setPhone,
     setAddress,
     setSmoke,
-    extractStreetName,
-    setStreet,
-    SetStreetNum,
     setImageUri,
     setDes,
     setisActive,
@@ -117,13 +94,9 @@ export default function SmokeyeContextProvider({ children, navigation }) {
     smoke,
     email,
     password,
-    confirmPassword,
     phone,
     address,
     clients,
-    city,
-    street,
-    streetNum,
     imageUri,
     des,
     data
