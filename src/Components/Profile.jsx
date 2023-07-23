@@ -1,15 +1,21 @@
 import { View, Text, Button, SafeAreaView, StyleSheet } from "react-native";
-import React, { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Avatar } from "@react-native-material/core";
 import { APIContext } from "../Context/APIContext";
 
 export default function Profile() {
+  const [renderImage, setRenderImage] = useState(false);
+  const [image, setImage] = useState("");
   const { currentUser, allReports } = useContext(APIContext);
   const fullname = currentUser.firstName + " " + currentUser.lastName;
   const amountReports = allReports.length;
-  const image = currentUser.image || null;
-  console.log(image);
 
+  useEffect(() => {
+    if (!renderImage) {
+      setImage(currentUser.image || null);
+      setRenderImage(true);
+    }
+  }, [renderImage])
   return (
     <SafeAreaView style={styles.continer}>
       <View style={styles.profileView}>
