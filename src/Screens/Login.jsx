@@ -8,8 +8,8 @@ import Profile from "../Components/Profile";
 import { APIContext } from "../Context/APIContext";
 
 export default function Login({ navigation }) {
-  const { setEmail, setPassword, email, password, setLocation, setLatitude, setLongitude, setCurrentLocation } = useContext(SmokeyeContext);
-  const { ConfirmClient, currentUser } = useContext(APIContext);
+  const { setEmail, setPassword, email, password, setCurrentLocation } = useContext(SmokeyeContext);
+  const { ConfirmClient, currentUser, setLatitude, setLongitude, setLocation } = useContext(APIContext);
 
   const handlePress = () => {
     Keyboard.dismiss();
