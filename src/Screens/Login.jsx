@@ -4,12 +4,11 @@ import { SmokeyeContext } from "../Context/SmokEyeContext";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Colors, fontSizes } from "../style/AllStyels";
 import * as Location from "expo-location";
-import Profile from "../Components/Profile";
 import { APIContext } from "../Context/APIContext";
 
 export default function Login({ navigation }) {
   const { setEmail, setPassword, email, password, setCurrentLocation } = useContext(SmokeyeContext);
-  const { ConfirmClient, currentUser, setLatitude, setLongitude, setLocation } = useContext(APIContext);
+  const { ConfirmClient, setLatitude, setLongitude, setLocation } = useContext(APIContext);
 
   const handlePress = () => {
     Keyboard.dismiss();
@@ -40,20 +39,12 @@ export default function Login({ navigation }) {
       console.log("err clearonboarding", err)
     }
   }
-  // chack who is the current user and his role
+  // chack who is the current user and his spicific role
   const Validuser = async (e, p) => {
-    await ConfirmClient(e, p);
-    console.log('currentUser :>> ', currentUser);
-    if (currentUser.role == "client") {
-      navigation.navigate("userScreens");
-    } else if (
-      currentUser.role == "Regulator" ||
-      currentUser.role == "Reasercher"
-    ) {
-      navigation.navigate("adminScreens");
-    } else if (currentUser.user.role == "storeAdmin") {
-      navigation.navigate("storeAdmin");
-    }
+    let role = await ConfirmClient(e, p);
+    if (role == "client") { navigation.navigate("userScreens"); }
+    else if (role == "Regulator" || r == "Reasercher") { navigation.navigate("adminScreens"); }
+    else if (role == "storeAdmin") { navigation.navigate("storeAdmin"); }
   }
 
   return (
