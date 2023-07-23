@@ -1,32 +1,18 @@
-import {
-  Text,
-  View,
-  StyleSheet,
-  TextInput,
-  Switch,
-  TouchableOpacity,
-  SafeAreaView,
-  Image,
-  Animated,
-  Modal,
-  Button,
-  Alert,
-} from "react-native";
+import { Text, View, StyleSheet, TextInput, Switch, TouchableOpacity, SafeAreaView, Image, Animated, Modal, Button, Alert } from "react-native";
 import { useContext, useState, useRef, useEffect } from "react";
 import { SmokeyeContext } from "../Context/SmokEyeContext";
 import { Colors } from "../style/AllStyels";
 import { APIContext } from "../Context/APIContext";
-import { launchImageLibrary } from "react-native-image-picker";
 import * as ImagePicker from "expo-image-picker";
 
 export default function Register({ navigation }) {
+
   const [tempUser, setTempuser] = useState();
   const [photo, setPhoto] = useState(null);
-  const { email, password, phone, address, isActive, setisActive, setPassword, setFirstName, setlastName, setEmail, setPhone, setAddress, toggleSwitch, smoke, firstName, lastName,
-  } = useContext(SmokeyeContext);
-  const { visible, setVisible, InsertNewUser, ImageUploader } =
-    useContext(APIContext);
+  const { email, password, phone, address, setPassword, setFirstName, setlastName, setEmail, setPhone, setAddress, toggleSwitch, smoke, firstName, lastName } = useContext(SmokeyeContext);
+  const { visible, setVisible, InsertNewUser, ImageUploader } = useContext(APIContext);
 
+  //camera
   const createTwoButtonAlert = () =>
     Alert.alert("הוספת תמונה", "הוספת תמונת פרופיל", [
       {
@@ -53,8 +39,29 @@ export default function Register({ navigation }) {
       setPhoto(pickerResult.assets[0].base64);
     }
   };
-
-  /************************* */
+  //Add client
+  const AddClient = async () => {
+    const imageLink = await ImageUploader(photo);
+    setTempuser({
+      firstName: `${firstName}`,
+      lastName: `${lastName}`,
+      email: `${email}`,
+      password: `${password}`,
+      phone: `${phone}`,
+      address: `${address}`,
+      role: "client",
+      smoke: smoke,
+      img: imageLink,
+      reports: [],
+      isActive: true,
+    });
+    console.log(imageLink);
+  };
+  const ReturnTologinScreen = () => {
+    navigation.navigate("Login");
+    setVisible(false);
+  };
+  /******POP MASSAGE****** */
   const ModalPoup = ({ visible, children }) => {
     const [showModal, setShowModal] = useState(visible);
     const scaleValue = useRef(new Animated.Value(0)).current;
@@ -94,28 +101,7 @@ export default function Register({ navigation }) {
     );
   };
 
-  const AddClient = async () => {
-    await setisActive(true);
-    const imageLink = await ImageUploader(photo);
-    setTempuser({
-      firstName: `${firstName}`,
-      lastName: `${lastName}`,
-      email: `${email}`,
-      password: `${password}`,
-      phone: `${phone}`,
-      address: `${address}`,
-      role: "client",
-      smoke: smoke,
-      img: imageLink,
-      reports: [],
-      isActive: isActive,
-    });
-    console.log(imageLink);
-  };
-  const ReturnTologinScreen = () => {
-    navigation.navigate("Login");
-    setVisible(false);
-  };
+  //check singal user (temp)
   useEffect(() => {
     if (!tempUser) return;
     else {
@@ -124,9 +110,7 @@ export default function Register({ navigation }) {
       setTempuser();
     }
   }, [tempUser]);
-  /*const handlePress = () => {
-    Keyboard.dismiss();
-  };*/
+
 
   return (
     <SafeAreaView style={styles.container}>
