@@ -1,12 +1,14 @@
-import { View, Text, Image, TouchableOpacity, StyleSheet, Pressable, Button } from 'react-native'
-import React from 'react'
+import { View, Text, StyleSheet, Button } from 'react-native'
+import { useContext, useEffect, useState } from 'react'
+import { APIContext } from '../Context/APIContext';
 
 export default function ReportCard({ date, type, address, place, details, image, navigation }) {
 
+  // full address name
   let a = address[0].street + " " + address[0].streetNum + " " + address[0].city;
+  //spreate between date and clock
   const dateArr = date.split(" ");
-  /*{ uri: media }*/
-  /* <Image source={media ? {uri:media} : {uri:'https://wallpapercave.com/wp/wp6681156.jpg'}} style={styles.img} />*/
+
 
   return (
     <View style={styles.continer}>
@@ -35,10 +37,9 @@ export default function ReportCard({ date, type, address, place, details, image,
           <Button
             title='פרטים מלאים'
             color='#F39508'
-            onPress={() => {
-              navigation.navigate("fullReport", { date, type, address, place, details, image });
-            }}
-          >
+            onPress={
+              navigation.navigate("fullReport")
+            }>
           </Button >
         </View>
       </View>
