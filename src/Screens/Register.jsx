@@ -22,24 +22,7 @@ import * as ImagePicker from "expo-image-picker";
 export default function Register({ navigation }) {
   const [tempUser, setTempuser] = useState();
   const [photo, setPhoto] = useState(null);
-  const {
-    email,
-    password,
-    phone,
-    address,
-    isActive,
-    setisActive,
-    setPassword,
-    setConfirmPassword,
-    setFirstName,
-    setlastName,
-    setEmail,
-    setPhone,
-    setAddress,
-    toggleSwitch,
-    smoke,
-    firstName,
-    lastName,
+  const { email, password, phone, address, isActive, setisActive, setPassword, setFirstName, setlastName, setEmail, setPhone, setAddress, toggleSwitch, smoke, firstName, lastName,
   } = useContext(SmokeyeContext);
   const { visible, setVisible, InsertNewUser, ImageUploader } =
     useContext(APIContext);
