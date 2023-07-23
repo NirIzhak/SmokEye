@@ -13,30 +13,16 @@ import { Colors, fontSizes } from "../style/AllStyels";
 
 
 export default function NewReport() {
-  const {
-    city,
-    setCity,
-    street,
-    setStreet,
-    streetNum,
-    SetStreetNum,
-    imageUri,
-    setImageUri,
-    des,
-    setDes,
-    setCurrentLocation,
-    location,
-    latitude,
-    longitude,
+  const { imageUri, setImageUri, des, setDes, setCurrentLocation,
   } = useContext(SmokeyeContext);
-  const { ImageUploader, setReport, report, InsertReport, currentUser } = useContext(APIContext)
+  const { city, setCity, street, setStreet, streetNum, SetStreetNum, ImageUploader, setReport, report, InsertReport, currentUser, GetAddress, latitude, longitude } = useContext(APIContext)
   const date = new Date();
 
   const [checked, setChecked] = useState("Business");
   const [value, setValue] = useState(null);
   const [BusName, setBusName] = useState("");
   const [select, setSelect] = useState(false);
-  const { extractStreetName, data } = useContext(SmokeyeContext);
+  const { data } = useContext(SmokeyeContext);
 
 
 
@@ -108,35 +94,7 @@ export default function NewReport() {
       { text: "העלאת תמונה חדשה מהמצלמה", onPress: () => openCamera() },
     ]);
   //location
-  const GetAddress = async () => {
-    try {
-      const response = await fetch(
-        `https://api.tomtom.com/search/2/reverseGeocode/${latitude},${longitude}.json?&key=RjOFc93hAGcOpbjZ0SnOV4TIzDTP1mz9`,
-        {
-          headers: {
-            Accept: "*/*",
-          },
-        }
-      );
-      const result = await response.json();
-      console.log(result);
-      if (
-        result.addresses[0].address.municipality == "" ||
-        result.addresses[0].address.street == "" ||
-        result.addresses[0].address.streetNumber == ""
-      ) {
-        alert(
-          "לא היה ניתן למצוא את המיקום שלך, אנא מלא את פרטי המיקום באופן ידני"
-        );
-      } else {
-        setCity(result.addresses[0].address.municipality);
-        setStreet(extractStreetName(result.addresses[0].address.street));
-        SetStreetNum(result.addresses[0].address.streetNumber);
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
+
 
   const ViewBus = () => {
     return (
