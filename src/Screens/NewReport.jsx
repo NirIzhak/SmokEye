@@ -13,7 +13,7 @@ import { Colors, fontSizes } from "../style/AllStyels";
 
 
 export default function NewReport() {
-  const { data, imageUri, setImageUri, des, setDes, setCurrentLocation } = useContext(SmokeyeContext);
+  const { data, imageUri, setImageUri, des, setDes } = useContext(SmokeyeContext);
   const { city, setCity, street, setStreet, streetNum, SetStreetNum, ImageUploader, setReport, report, InsertReport, currentUser, latitude, longitude, GetAddress, GetLocationByAddress } = useContext(APIContext)
   const date = new Date();
 
@@ -22,13 +22,11 @@ export default function NewReport() {
   const [BusName, setBusName] = useState("");
   const [select, setSelect] = useState(false);
 
-
-
   const handlePress = () => {
     Keyboard.dismiss();
   };
 
-
+  //creating ner report
   const createReport = async () => {
     const locationFromAddress = await GetLocationByAddress(street, streetNum, city);
     const imageLink = await ImageUploader(imageUri);
@@ -46,12 +44,14 @@ export default function NewReport() {
       image: `${imageLink}`,
     });
   };
+  //check new report
   useEffect(() => {
     if (!report) return;
     InsertReport(report, currentUser.email);
   }, [report]);
 
-  //Camera
+  //Camera function 
+  //taking picture from camera
   const openCamera = async () => {
     let permissionResult = await ImagePicker.requestCameraPermissionsAsync();
 
@@ -66,7 +66,7 @@ export default function NewReport() {
       await setImageUri(pickerResult.assets[0].base64);
     }
   };
-
+  //ask for permisstion
   const handleChooseImage = async () => {
     let permissionResult =
       await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -82,6 +82,7 @@ export default function NewReport() {
       setImageUri(pickerResult.assets[0].base64);
     }
   };
+  //show two choises button
   const createTwoButtonAlert = () =>
     Alert.alert("הוספת תמונה", "בחר אחת מן האופציות", [
       {
@@ -90,12 +91,8 @@ export default function NewReport() {
       },
       { text: "העלאת תמונה חדשה מהמצלמה", onPress: () => openCamera() },
     ]);
-  //location
 
-
-
-
-
+  //show dropdown
   const ViewBus = () => {
     return (
       <>
@@ -121,6 +118,7 @@ export default function NewReport() {
       </>
     );
   };
+  //show Business field
   const ViewPrivate = () => {
     return (
       <>
