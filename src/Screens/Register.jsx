@@ -35,7 +35,7 @@ export default function Register({ navigation }) {
       quality: 1.0,
     });
 
-    if (!pickerResult.cancelled) {
+    if (!pickerResult.canceled) {
       setPhoto(pickerResult.assets[0].base64);
     }
   };
