@@ -18,7 +18,6 @@ export default function APIContextProvider({ children }) {
   //Add Client to clients Array
   const InsertNewUser = async (user) => {
     try {
-      console.log("insert :>> ");
       const url = `${base_URL}/users/Register`;
       const response = await fetch(url, {
         method: "PUT",
@@ -50,7 +49,8 @@ export default function APIContextProvider({ children }) {
       });
       if (response.ok) {
         let user = await response.json();
-        setCurrentUser(user);
+        await setCurrentUser(user);
+        return await user.role;
       } else {
         let error = await response.text();
         throw new Error(error);
@@ -60,7 +60,6 @@ export default function APIContextProvider({ children }) {
     }
   };
   const InsertReport = async (doc, email) => {
-    console.log("hi InsertReport :>> ", doc, email);
     try {
       if (doc.date == null) {
         return;
@@ -119,6 +118,9 @@ export default function APIContextProvider({ children }) {
       console.log(err);
     }
   };
+  useEffect(() => {
+    GetInfo();
+  }, [infoData]);
 
   // upload image and get image url
   const ImageUploader = async (uri) => {
@@ -140,6 +142,7 @@ export default function APIContextProvider({ children }) {
       console.log(err);
     }
   };
+  //location
   const GetAddress = async () => {
     try {
       const response = await fetch(
@@ -189,9 +192,7 @@ export default function APIContextProvider({ children }) {
     }
   }
 
-  useEffect(() => {
-    GetInfo();
-  }, [infoData]);
+
 
   const value = {
     InsertReport,
