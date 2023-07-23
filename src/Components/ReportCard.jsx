@@ -36,7 +36,7 @@ export default function ReportCard({ date, type, address, place, details, image,
             title='פרטים מלאים'
             color='#F39508'
             onPress={() => {
-              navigation.navigate("fullReport", { date, type, address, place, details, image });
+              navigation.navigate("FullReport", date, type, address, place, details, image);
             }}
           >
           </Button >
