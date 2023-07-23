@@ -1,8 +1,9 @@
 import { View, Text, Image, TouchableOpacity, StyleSheet, Pressable, Button } from 'react-native'
-import React from 'react'
+import { useContext, useEffect } from 'react'
+import { SmokeyeContext } from '../Context/SmokEyeContext';
 
 export default function ReportCard({ date, type, address, place, details, image, navigation }) {
-
+  const { createReport } = useContext(SmokeyeContext);
   let a = address[0].street + " " + address[0].streetNum + " " + address[0].city;
   const dateArr = date.split(" ");
   /*{ uri: media }*/
@@ -36,7 +37,8 @@ export default function ReportCard({ date, type, address, place, details, image,
             title='פרטים מלאים'
             color='#F39508'
             onPress={() => {
-              navigation.navigate("FullReport", date, type, address, place, details, image);
+              createReport(date, type, address, place, details, image);
+              navigation.navigate('fullReport')
             }}
           >
           </Button >
