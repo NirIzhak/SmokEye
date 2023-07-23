@@ -24,7 +24,7 @@ export default function SmokeyeContextProvider({ children, navigation }) {
     const [streetNum, SetStreetNum] = useState("");*/
   const [imageUri, setImageUri] = useState(null);
   const [des, setDes] = useState("");
-
+  const [report, setReport] = useState({});
 
   const [currentLocation, setCurrentLocation] = useState([]);
 
@@ -49,6 +49,17 @@ export default function SmokeyeContextProvider({ children, navigation }) {
     useEffect(() => {
       GetReports();
     }, [allReports]);*/
+
+  const createReport = (d, t, add, p, de, i) => {
+    setReport({
+      date: d,
+      type: t,
+      address: add,
+      place: p,
+      details: de,
+      image: i
+    })
+  }
 
   // try to get users
   const dataFetch = async () => {
@@ -87,6 +98,9 @@ export default function SmokeyeContextProvider({ children, navigation }) {
     setDes,
     setisActive,
     setCurrentLocation,
+    createReport,
+    setReport,
+    report,
     currentLocation,
     isActive,
     firstName,
