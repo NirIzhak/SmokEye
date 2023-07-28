@@ -59,16 +59,15 @@ export default function APIContextProvider({ children }) {
       alert("שם משתמש או סיסמא לא תקינים");
     }
   };
-  const UpdateUser = async (currentE, updetedUser) => {
+  const UpdateUser = async (currentE, firstName, lastName, email, phone, address) => {
     try {
-      console.log('hello :>> ', updetedUser);
       const url = `${base_URL}/users/UpdateUser`;
       const response = await fetch(url, {
-        method: "PATCH",
+        method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ currentE: currentE, updetedUser: updetedUser }),
+        body: JSON.stringify({ currentE: currentE, firstName: firstName, lastName: lastName, email: email, phone: phone, address: address }),
       });
       if (!response.ok) {
         throw new Error("Request failed with status " + response.status());
