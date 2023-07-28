@@ -2,9 +2,11 @@ import { View, Text, SafeAreaView } from 'react-native';
 import React, { useContext } from 'react';
 import MapView, { Marker } from 'react-native-maps';
 import { SmokeyeContext } from '../Context/SmokEyeContext';
+import { APIContext } from '../Context/APIContext';
 
 export default function Map() {
-  const {allReports, currentLocation} = useContext(SmokeyeContext);
+  const {allReports} = useContext(APIContext);
+  const { currentLocation} = useContext(SmokeyeContext);
   const reportsData = allReports.map(({_id, location, type, details})=>({
    _id,
    coordinate:{
@@ -19,7 +21,7 @@ export default function Map() {
   return (
     <View>
       <MapView
-        mapType="standard"
+        mapType="none"
         style={{ width: '100%', height: '100%' }}
         region={{
           latitude: currentLocation[0],

@@ -1,10 +1,10 @@
 import { View, Text, FlatList, StyleSheet } from "react-native";
 import React, { useContext } from "react";
-import { SmokeyeContext } from "../Context/SmokEyeContext";
 import ReportCard from "../Components/ReportCard";
+import { APIContext } from "../Context/APIContext";
 
 export default function MyReports({ navigation }) {
-  const { allReports } = useContext(SmokeyeContext);
+  const { allReports } = useContext(APIContext);
   return (
     <View style={styles.continer} >
       <Text style={[styles.continer_title, styles.title]}>
@@ -15,7 +15,7 @@ export default function MyReports({ navigation }) {
         renderItem={({ item }) => (
           <ReportCard {...item} navigation={navigation} />
         )}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => item._id}
         style={styles.continer_table}
       />
     </View>

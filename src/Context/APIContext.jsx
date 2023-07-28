@@ -86,7 +86,7 @@ export default function APIContextProvider({ children }) {
       }
       let dateString = doc.date;
       let dateParts = dateString.split("/");
-      let formattedDate = `${dateParts[1]}/${dateParts[0]}/${dateParts[2]}`;
+      let formattedDate = `${dateParts[0]}/${dateParts[1]}/${dateParts[2]}`;
       const url = `${base_URL}/reports/AddReport`;
       const response = await fetch(url, {
         method: "PUT",
@@ -212,6 +212,20 @@ export default function APIContextProvider({ children }) {
     }
   }
 
+
+     const GetReports = async () => {
+      try {
+        let res = await fetch(`${base_URL}/reports`);
+        let data = await res.json();
+        setAllReports(data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+  
+    useEffect(() => {
+      GetReports();
+    }, [allReports]);
 
 
   const value = {

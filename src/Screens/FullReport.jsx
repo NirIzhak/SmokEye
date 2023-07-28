@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView, Image, StyleSheet } from "react-native";
+import { Text, SafeAreaView, Image, StyleSheet } from "react-native";
 import React, { useContext } from "react";
 import { SmokeyeContext } from "../Context/SmokEyeContext";
 
@@ -6,11 +6,10 @@ export default function FullReport() {
   const { report } = useContext(SmokeyeContext);
   let a = report.address[0].street + " " + report.address[0].streetNum + " " + report.address[0].city;
   const dateArr = report.date.split(" ");
-  console.log('report :>> ', report);
   return (
     <SafeAreaView style={styles.continer}>
       <Text style={styles.title}>פרטי דיווח מלאים:</Text>
-      <Text style={styles.text}>עסק / פרטי: {report.type}</Text>
+      <Text style={styles.text}>עסק / פרטי: {report.type=="Private" ? "פרטי" : "עסק"}</Text>
       <Text style={styles.text}>תיאור: {report.details}</Text>
       <Text style={styles.text}>כתובת מלאה: {a}</Text>
       <Text style={styles.text}>מיקום : {report.place}</Text>

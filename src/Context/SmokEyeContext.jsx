@@ -1,6 +1,5 @@
 import { createContext, useState, useEffect } from "react";
 import Users from "../Data/Users.json";
-import { base_URL } from "../../utilis/api";
 
 export const SmokeyeContext = createContext();
 
@@ -42,19 +41,7 @@ export default function SmokeyeContextProvider({ children, navigation }) {
     { label: "תאטרון", value: "תאטרון" },
     { label: "אולם הופעות", value: "אולם הופעות" },
   ];
-  /*  const GetReports = async () => {
-      try {
-        let res = await fetch(`${base_URL}/reports`);
-        let data = await res.json();
-        setAllReports(data);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-  
-    useEffect(() => {
-      GetReports();
-    }, [allReports]);*/
+ 
 
   const createReport = (d, t, add, p, de, i) => {
     setReport({
