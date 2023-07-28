@@ -25,6 +25,15 @@ export default function SmokeyeContextProvider({ children, navigation }) {
 
   const [currentLocation, setCurrentLocation] = useState([]);
 
+  const [TfirstName, setTFirstName] = useState("");
+  const [TlastName, setTlastName] = useState("");
+  const [Temail, setTemail] = useState("");
+  const [Tphone, setTPhone] = useState("");
+  const [Taddress, setTAddress] = useState("");
+  const [TStreet, setTStreet] = useState(false);
+  const [TStreetNum, setTStreetNum] = useState([]);
+  const [TCity, setTCity] = useState(true);
+
   const data = [
     { label: "מסעדה", value: "מסעדה" },
     { label: "קניון", value: "קניון" },
@@ -97,6 +106,22 @@ export default function SmokeyeContextProvider({ children, navigation }) {
     setCurrentLocation,
     createReport,
     setReport,
+    Temail,
+    setTemail,
+    Tphone,
+    setTPhone,
+    Taddress,
+    setTAddress,
+    TStreet,
+    setTStreet,
+    TStreetNum,
+    setTStreetNum,
+    TCity,
+    setTCity,
+    TfirstName,
+    setTFirstName,
+    TlastName,
+    setTlastName,
     report,
     currentLocation,
     isActive,
