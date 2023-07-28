@@ -137,7 +137,6 @@ export default function NewReport() {
       setSelect(true);
     }
   });
-  /** */
 
 
   return (
@@ -218,7 +217,8 @@ export default function NewReport() {
                   >
                     <Text style={styles.btn}>מצא אותי !</Text>
                   </TouchableOpacity>
-                ) : null}
+                ) : <Text>זיהה את מיקומך ? ניתן להכניס ידנית </Text>
+                }
               </View>
               <View>
                 <Text
