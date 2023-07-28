@@ -43,7 +43,7 @@ export default function Login({ navigation }) {
   const Validuser = async (e, p) => {
     let role = await ConfirmClient(e, p);
     if (role == "client") { navigation.navigate("userScreens"); }
-    else if (role == "Regulator" || r == "Reasercher") { navigation.navigate("adminScreens"); }
+    else if (role == "Regulator" || role == "Reasercher") { navigation.navigate("adminScreens"); }
     else if (role == "storeAdmin") { navigation.navigate("storeAdmin"); }
   }
 
