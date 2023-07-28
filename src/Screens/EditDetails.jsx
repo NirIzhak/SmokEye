@@ -1,15 +1,56 @@
 import { View, Text, TouchableWithoutFeedback, StyleSheet, TextInput, Switch, TouchableOpacity, Keyboard } from 'react-native'
-import { useContext } from 'react'
-import { SmokeyeContext, useState } from '../Context/SmokEyeContext';
+import { useContext, useEffect, useState } from 'react'
+import { SmokeyeContext } from '../Context/SmokEyeContext';
 import { Colors, fontSizes } from "../style/AllStyels";
+import { APIContext } from '../Context/APIContext';
 export default function EditDetails() {
-  const { setPassword, setlastName, setFirstName, setEmail, setPhone, setAddress, toggleSwitch, smoke, firstName, lastName, email, password } = useContext(SmokeyeContext);
-  /*const [firstNameError, setFirstNameError] = useState('');
+  const [currentAddress, setCurrentAddress] = useState([]);
+  const [once, setOnce] = useState(false);
+  const { setlastName, setFirstName,
+    setEmail, setPhone,
+    firstName, lastName, email, phone,
+    setAddress, toggleSwitch,
+    smoke, Temail,
+    setTemail,
+    address,
+    Tphone,
+    setTPhone,
+    TStreet,
+    setTStreet,
+    TStreetNum,
+    setTStreetNum,
+    TCity,
+    setTCity,
+    TfirstName,
+    setTFirstName,
+    TlastName,
+    setTlastName } = useContext(SmokeyeContext);
+  const { currentUser, UpdateUser } = useContext(APIContext);
+
+
+  const [firstNameError, setFirstNameError] = useState('');
   const [lastNameError, setLastNameError] = useState('');
   const [emailError, setEmailError] = useState('');
-  const [passwordError, setPasswordError] = useState('');*/
+  const [passwordError, setPasswordError] = useState('');
   const upDateUser = () => {
+    const emailPattern = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+    if (Temail != "" && emailPattern.test(Temail)) { setEmail(Temail); console.log('hi :>> '); }
+    else { setEmail(currentUser.email); console.log('bye :>> '); }
+    if (TfirstName != "") { setFirstName(TfirstName) }
+    else { setFirstName(currentUser.firstName) }
+    if (TlastName != "") { setlastName(TlastName) }
+    else { setlastName(currentUser.lastName) }
+    if (Tphone != "") { setPhone(Tphone); }
+    else { setPhone(currentUser.phone); }
+    if (TStreet != "" && TStreetNum != "" && TCity != "") {
+      setAddress({ TStreet, TStreetNum, TCity })
+    }
+    else {
+      setAddress({ address })
+    }
+    UpdateUser(currentUser.email, firstName, lastName, email, phone, address)
   }
+
   const handlePress = () => {
     Keyboard.dismiss();
   };
@@ -22,34 +63,46 @@ export default function EditDetails() {
         <TextInput
           style={styles.input}
           placeholder="שם פרטי"
-          onChangeText={(text) => setFirstName(text)}
+          onChangeText={(text) => setTFirstName(text)}
+          defaultValue={currentUser.firstName}
         />
         <TextInput
           style={styles.input}
           placeholder="שם משפחה"
-          onChangeText={(text) => setlastName(text)}
+          onChangeText={(text) => setTlastName(text)}
+          defaultValue={currentUser.lastName}
         />
         <TextInput
           style={styles.input}
           placeholder="שם משתמש (מייל)"
-          onChangeText={(text) => setEmail(text)}
+          onChangeText={(text) => setTemail(text)}
           keyboardType="email-address"
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="סיסמא"
-          onChangeText={(text) => setPassword(text)}
+          defaultValue={currentUser.email}
         />
         <TextInput
           style={styles.input}
           placeholder="פלאפון"
-          onChangeText={(text) => setPhone(text)}
+          onChangeText={(text) => setTPhone(text)}
           keyboardType="phone-pad"
+          defaultValue={currentUser.phone}
         />
         <TextInput
           style={styles.input}
-          placeholder="כתובת"
-          onChangeText={(text) => setAddress(text)}
+          placeholder="רחוב"
+          onChangeText={(text) => setTStreet(text)}
+          defaultValue={"iiiiiii"}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="מספר רחוב"
+          onChangeText={(text) => setTStreetNum(text)}
+          defaultValue={"uuuuu"}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="עיר"
+          onChangeText={(text) => setTCity(text)}
+          defaultValue={"ccc"}
         />
         <View style={styles.switchContainer}>
           <Text style={styles.switchLabel}>לא מעשן</Text>
