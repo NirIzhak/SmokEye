@@ -213,19 +213,19 @@ export default function APIContextProvider({ children }) {
   }
 
 
-     const GetReports = async () => {
-      try {
-        let res = await fetch(`${base_URL}/reports`);
-        let data = await res.json();
-        setAllReports(data);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-  
-    useEffect(() => {
-      GetReports();
-    }, [allReports]);
+  const GetReports = async () => {
+    try {
+      let res = await fetch(`${base_URL}/reports`);
+      let data = await res.json();
+      setAllReports(data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    GetReports();
+  }, [allReports]);
 
 
   const value = {
