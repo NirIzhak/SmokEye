@@ -52,7 +52,6 @@ export default function Register({ navigation }) {
       role: "client",
       smoke: smoke,
       img: imageLink,
-      reports: [],
       isActive: true,
     });
     console.log(imageLink);
