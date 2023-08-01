@@ -8,13 +8,10 @@ import ReportCard from "./ReportCard";
 export default function Profile({ navigation }) {
   const [renderImage, setRenderImage] = useState(false);
   const [image, setImage] = useState("");
-  const { currentUser, allReports, ShowMyReports } = useContext(APIContext);
+  const { currentUser, allMyReports } = useContext(APIContext);
   const fullname = currentUser.firstName + " " + currentUser.lastName;
-  const amountReports = allReports.length;
-  useEffect(() => {
-    if (!allReports) return;
-    ShowMyReports(currentUser.email);
-  }, [allReports]);
+  const amountReports = allMyReports.length;
+
   useEffect(() => {
     if (!renderImage) {
       setImage(currentUser.image || null);
@@ -53,19 +50,6 @@ export default function Profile({ navigation }) {
           onPress={EditPage}
         ></Button>
       </SafeAreaView>
-      <ScrollView nestedScrollEnabled={true} style={{ width: "100%" }}>
-        <View>
-          <ScrollView horizontal={true} style={{ width: "100%" }}>
-            <FlatList
-              data={allReports}
-              renderItem={({ item }) => (
-                <ReportCard key={item.id}{...item} navigation={navigation} />
-              )}
-              style={styles.continer_table}
-            />
-          </ScrollView>
-        </View>
-      </ScrollView>
     </View>
 
   );
