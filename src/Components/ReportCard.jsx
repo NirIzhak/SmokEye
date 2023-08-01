@@ -1,13 +1,21 @@
-import { View, Text, Image, TouchableOpacity, StyleSheet, Pressable, Button } from 'react-native'
-import { useContext, useEffect } from 'react'
+import { View, Text, Image, TouchableOpacity, StyleSheet, Button, Modal } from 'react-native'
+import { useContext } from 'react'
 import { SmokeyeContext } from '../Context/SmokEyeContext';
+import { APIContext } from '../Context/APIContext';
+import { Popstyles } from '../style/PopUpModal';
 
-export default function ReportCard({ date, type, address, place, details, image, navigation }) {
+
+export default function ReportCard({ _id, date, type, address, place, details, image, navigation }) {
   const { createReport } = useContext(SmokeyeContext);
+  const { DeleteReport, setpopMsgDelete, popMsgDelete } = useContext(APIContext);
   let a = address[0].street + " " + address[0].streetNum + " " + address[0].city;
   const dateArr = date.split(" ");
-
-
+  const hidePopupModal = () => {
+    setpopMsgDelete(false);
+  }
+  const deleteReport = () => {
+    DeleteReport(_id);
+  }
   return (
     <View style={styles.continer}>
       <View style={styles.text_continer}>
@@ -41,7 +49,39 @@ export default function ReportCard({ date, type, address, place, details, image,
             }}
           >
           </Button >
+          <Button title='מחק דיווח' color='#F39508' onPress={deleteReport}>
+          </Button>
         </View>
+        {
+          popMsgDelete ?
+            <>
+              <View>
+                <Modal
+                  visible={popMsgDelete}
+                  animationType="fade"
+                  transparent={true}
+                  onRequestClose={hidePopupModal}
+                >
+                  <View style={Popstyles.modalContainer}>
+                    <View style={Popstyles.modalContent}>
+                      <Text style={Popstyles.messageText}>דיווח נמחק בהצלחה !</Text>
+                      <View style={{ alignItems: 'center' }}>
+                        <Image source={{ uri: "https://cdn-icons-png.flaticon.com/512/1102/1102355.png?w=740&t=st=1690886025~exp=1690886625~hmac=5516a06b0266fe418d8604dcc0fc5935f96153877b94db73796af0874f383cd5" }} style={{
+                          height: 180,
+                          width: 180,
+                        }}></Image>
+                      </View>
+                      <TouchableOpacity onPress={hidePopupModal}>
+                        <Text style={Popstyles.closeButton}>סגור</Text>
+                      </TouchableOpacity>
+                    </View>
+                  </View>
+                </Modal>
+              </View>
+            </>
+            :
+            null
+        }
       </View>
     </View>
 
@@ -68,9 +108,12 @@ const styles = StyleSheet.create({
   },
   text_field: {
     fontSize: 15,
-    textAlign: 'center'
+
   },
   btn: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    gap: 2,
     width: 350,
     marginHorizontal: 10
   }
