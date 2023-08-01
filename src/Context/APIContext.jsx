@@ -1,13 +1,15 @@
-import { createContext, useState, useEffect, useContext } from "react";
+import { createContext, useState, useEffect } from "react";
 import { base_URL } from "../../utilis/api";
-import { SmokeyeContext } from "./SmokEyeContext";
 export const APIContext = createContext();
 
 export default function APIContextProvider({ children }) {
   const [report, setReport] = useState({});
   const [currentUser, setCurrentUser] = useState({});
   const [allReports, setAllReports] = useState([]);
+  const [allMyReports, setAllMyReports] = useState([]);
   const [visible, setVisible] = useState(false);
+  const [popMsgReport, setpopMsgReport] = useState(false);
+  const [popMsgDelete, setpopMsgDelete] = useState(false);
   const [infoData, setInfoData] = useState([]);
   const [location, setLocation] = useState({});
   const [latitude, setLatitude] = useState("");
@@ -104,13 +106,33 @@ export default function APIContextProvider({ children }) {
           email: email,
         }),
       });
-      if (response.ok) { alert("דיווח נשלח בהצלחה!"); }
+      if (response.ok) {
+        console.log('עבר בהצלחה :>> ');
+        setpopMsgReport(true);
+      }
     } catch (err) {
+      alert("דיווח נכשל");
       console.log("err :>> ", err);
     }
     setReport({});
   };
-
+  const DeleteReport = async (id) => {
+    try {
+      const url = `${base_URL}/reports/DeleteReport`;
+      const response = await fetch(url, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id: id }),
+      });
+      if (response.ok) {
+        setpopMsgDelete(true);
+      }
+    } catch (err) {
+      console.log('err :>> ', err);
+    }
+  }
   const ShowMyReports = async (email) => {
     try {
       const url = `${base_URL}/reports/ShowMyReports`;
@@ -122,7 +144,7 @@ export default function APIContextProvider({ children }) {
         body: JSON.stringify({ email: email }),
       });
       if (response.ok) {
-        setAllReports(await response.json());
+        setAllMyReports(await response.json());
       }
     } catch (err) {
       console.log("err :>> ", err);
@@ -247,6 +269,13 @@ export default function APIContextProvider({ children }) {
     SetStreetNum,
     GetAddress,
     GetLocationByAddress,
+    setAllMyReports,
+    setpopMsgReport,
+    DeleteReport,
+    setpopMsgDelete,
+    popMsgDelete,
+    allMyReports,
+    popMsgReport,
     city,
     street,
     streetNum,
