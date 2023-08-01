@@ -1,5 +1,5 @@
 import {
-  View, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, Keyboard, Image, Alert, StyleSheet, SafeAreaView, ScrollView
+  View, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, Keyboard, Image, Alert, StyleSheet, Button, ScrollView, Modal
 } from "react-native";
 import { Dropdown } from "react-native-element-dropdown";
 import React, { useEffect, useState, useContext } from "react";
@@ -10,11 +10,14 @@ import { APIContext } from "../Context/APIContext";
 import { RadioButton, Provider as PaperProvider } from "react-native-paper";
 import { theme } from "../style/AllStyels";
 import { Colors, fontSizes } from "../style/AllStyels";
+import { Popstyles } from "../style/PopUpModal";
+
+/**/
 
 
 export default function NewReport() {
   const { data, imageUri, setImageUri, des, setDes } = useContext(SmokeyeContext);
-  const { city, setCity, street, setStreet, streetNum, SetStreetNum, ImageUploader, setReport, report, InsertReport, currentUser, latitude, longitude, GetAddress, GetLocationByAddress } = useContext(APIContext)
+  const { popMsgReport, setpopMsgReport, city, setCity, street, setStreet, streetNum, SetStreetNum, ImageUploader, setReport, report, InsertReport, currentUser, latitude, longitude, GetAddress, GetLocationByAddress } = useContext(APIContext);
   const date = new Date();
 
   const [checked, setChecked] = useState("Business");
@@ -25,7 +28,9 @@ export default function NewReport() {
   const handlePress = () => {
     Keyboard.dismiss();
   };
-
+  const hidePopupModal = () => {
+    setpopMsgReport(false);
+  }
   //creating ner report
   const createReport = async () => {
     const locationFromAddress = await GetLocationByAddress(street, streetNum, city);
@@ -138,7 +143,6 @@ export default function NewReport() {
     }
   });
 
-
   return (
     <>
       <ScrollView>
@@ -220,19 +224,50 @@ export default function NewReport() {
                 ) : <Text>זיהה את מיקומך ? ניתן להכניס ידנית </Text>
                 }
               </View>
-              <View>
-                <Text
-                  style={styles.sendReport}
+              <View style={styles.sendReport}>
+                <Button
+                  color={Colors.primary}
+                  title="דווח"
                   onPress={() => {
                     createReport();
                   }}
                 >
-                  דווח
-                </Text>
+
+                </Button>
               </View>
             </View>
           </PaperProvider>
         </TouchableWithoutFeedback>
+        {
+          popMsgReport ?
+            <>
+              <View>
+                <Modal
+                  visible={popMsgReport}
+                  animationType="fade"
+                  transparent={true}
+                  onRequestClose={hidePopupModal}
+                >
+                  <View style={Popstyles.modalContainer}>
+                    <View style={Popstyles.modalContent}>
+                      <Text style={Popstyles.messageText}>דיווח נשלח בהצלחה ! </Text>
+                      <View style={{ alignItems: 'center' }}>
+                        <Image source={{ uri: "https://cdn-icons-png.flaticon.com/512/1102/1102355.png?w=740&t=st=1690886025~exp=1690886625~hmac=5516a06b0266fe418d8604dcc0fc5935f96153877b94db73796af0874f383cd5" }} style={{
+                          height: 180,
+                          width: 180,
+                        }}></Image>
+                      </View>
+                      <TouchableOpacity onPress={hidePopupModal}>
+                        <Text style={Popstyles.closeButton}>סגור</Text>
+                      </TouchableOpacity>
+                    </View>
+                  </View>
+                </Modal>
+              </View>
+            </>
+            :
+            null
+        }
       </ScrollView>
     </>
   );
@@ -315,11 +350,7 @@ const styles = StyleSheet.create({
     width: "30%",
   },
   sendReport: {
-    borderWidth: 1,
-    borderStyle: "solid",
-    borderColor: Colors.primary,
-    marginTop: 5,
-    paddingHorizontal: 50,
+    marginTop: 10,
   },
   report_Bus: {
     textAlignVertical: "center",
@@ -353,5 +384,5 @@ const styles = StyleSheet.create({
   },
   inputSearchStyle: {
     height: 40,
-  },
+  }
 });
