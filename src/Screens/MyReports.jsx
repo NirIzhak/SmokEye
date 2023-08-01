@@ -4,22 +4,26 @@ import ReportCard from "../Components/ReportCard";
 import { APIContext } from "../Context/APIContext";
 
 export default function MyReports({ navigation }) {
-  const { allReports, ShowMyReports, currentUser } = useContext(APIContext);
+  const { allMyReports, ShowMyReports, currentUser } = useContext(APIContext);
 
   useEffect(() => {
-    if (!allReports) return;
-    ShowMyReports(currentUser.email);
-  }, [allReports]);
-
+    checkReports(currentUser.email);
+  }, [allMyReports]);
+  const checkReports = () => {
+    if (!allMyReports) { return; }
+    else {
+      ShowMyReports(currentUser.email);
+    }
+  }
   return (
     <View style={styles.continer} >
       <Text style={[styles.continer_title, styles.title]}>
         הדיווחים שלי
       </Text>
       <Text style={[styles.secondary_title, styles.title]}>סה"כ -
-        {allReports.length}</Text>
+        {allMyReports.length}</Text>
       <FlatList
-        data={allReports}
+        data={allMyReports}
         renderItem={({ item }) => (
           <ReportCard key={item.id}{...item} navigation={navigation} />
         )}
