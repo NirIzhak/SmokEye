@@ -4,7 +4,7 @@ import { SmokeyeContext } from "../Context/SmokEyeContext";
 import { Colors } from "../style/AllStyels";
 import { APIContext } from "../Context/APIContext";
 import * as ImagePicker from "expo-image-picker";
-
+import { Popstyles } from "../style/PopUpModal";
 export default function Register({ navigation }) {
 
   const [tempUser, setTempuser] = useState();
@@ -12,6 +12,9 @@ export default function Register({ navigation }) {
   const { email, password, phone, address, setPassword, setFirstName, setlastName, setEmail, setPhone, setAddress, toggleSwitch, smoke, firstName, lastName } = useContext(SmokeyeContext);
   const { visible, setVisible, InsertNewUser, ImageUploader } = useContext(APIContext);
 
+  const hidePopupModal = () => {
+    setVisible(false);
+  }
   //camera
   const createTwoButtonAlert = () =>
     Alert.alert("הוספת תמונה", "הוספת תמונת פרופיל", [
@@ -60,45 +63,7 @@ export default function Register({ navigation }) {
     navigation.navigate("Login");
     setVisible(false);
   };
-  /******POP MASSAGE****** */
-  const ModalPoup = ({ visible, children }) => {
-    const [showModal, setShowModal] = useState(visible);
-    const scaleValue = useRef(new Animated.Value(0)).current;
-    useEffect(() => {
-      toggleModal();
-    }, [visible]);
-    const toggleModal = () => {
-      if (visible) {
-        setShowModal(true);
-        Animated.spring(scaleValue, {
-          toValue: 1,
-          duration: 300,
-          useNativeDriver: true,
-        }).start();
-      } else {
-        setTimeout(() => setShowModal(false), 200);
-        Animated.timing(scaleValue, {
-          toValue: 0,
-          duration: 300,
-          useNativeDriver: true,
-        }).start();
-      }
-    };
-    return (
-      <Modal transparent visible={showModal}>
-        <View style={styles.modalBackGround}>
-          <Animated.View
-            style={[
-              styles.modalContainer,
-              { transform: [{ scale: scaleValue }] },
-            ]}
-          >
-            {children}
-          </Animated.View>
-        </View>
-      </Modal>
-    );
-  };
+
 
   //check singal user (temp)
   useEffect(() => {
@@ -175,30 +140,36 @@ export default function Register({ navigation }) {
       <TouchableOpacity onPress={AddClient} style={styles.button}>
         <Text style={styles.title}>הרשם</Text>
       </TouchableOpacity>
-      <ModalPoup visible={visible}>
-        <View style={{ alignItems: "center" }}>
-          <View style={styles.header}>
-            <TouchableOpacity onPress={ReturnTologinScreen}>
-              <Image
-                source={{
-                  uri: "https://cdn-icons-png.flaticon.com/512/67/67345.png?w=740&t=st=1685792830~exp=1685793430~hmac=8c346bf78fce79a22309a9833f9ca23399d7d2a51a3a91f450129e146e0acb5f",
-                }}
-                style={styles.x_logo}
-              />
-            </TouchableOpacity>
-          </View>
-        </View>
-        <View style={{ alignItems: "center" }}>
-          <Image
-            source={{
-              uri: "https://cdn-icons-png.flaticon.com/512/1102/1102052.png?w=740&t=st=1685792426~exp=1685793026~hmac=dc4ad9d28be355423331316bbc9134a769239442102bee59e4438c3d243d7b3c",
-            }}
-            style={styles.success_logo}
-          />
-        </View>
-
-        <Text style={styles.popUp_text}>הרשמתך נקלטה בהצלחה !</Text>
-      </ModalPoup>
+      {
+        visible ?
+          <>
+            <View>
+              <Modal
+                visible={visible}
+                animationType="fade"
+                transparent={true}
+                onRequestClose={hidePopupModal}
+              >
+                <View style={Popstyles.modalContainer}>
+                  <View style={Popstyles.modalContent}>
+                    <Text style={Popstyles.messageText}> ההרשמה התבצעה בהצלחה !</Text>
+                    <View style={{ alignItems: 'center' }}>
+                      <Image source={{ uri: "https://cdn-icons-png.flaticon.com/512/1102/1102355.png?w=740&t=st=1690886025~exp=1690886625~hmac=5516a06b0266fe418d8604dcc0fc5935f96153877b94db73796af0874f383cd5" }} style={{
+                        height: 180,
+                        width: 180,
+                      }}></Image>
+                    </View>
+                    <TouchableOpacity onPress={hidePopupModal}>
+                      <Text style={Popstyles.closeButton}>סגור</Text>
+                    </TouchableOpacity>
+                  </View>
+                </View>
+              </Modal>
+            </View>
+          </>
+          :
+          null
+      }
     </SafeAreaView>
   );
 }
@@ -247,40 +218,5 @@ const styles = StyleSheet.create({
     width: "50%",
     marginLeft: "auto",
     marginRight: "auto",
-  },
-  /************* */
-  modalBackGround: {
-    flex: 1,
-    backgroundColor: "rgba(0,0,0,0.5)",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  modalContainer: {
-    width: "80%",
-    backgroundColor: "white",
-    paddingHorizontal: 20,
-    paddingVertical: 30,
-    borderRadius: 20,
-    elevation: 20,
-  },
-  header: {
-    width: "100%",
-    height: 40,
-    alignItems: "flex-end",
-    justifyContent: "center",
-  },
-  popUp_text: {
-    marginVertical: 30,
-    fontSize: 20,
-    textAlign: "center",
-  },
-  x_logo: {
-    height: 20,
-    width: 20,
-  },
-  success_logo: {
-    height: 150,
-    width: 150,
-    marginVertical: 10,
-  },
+  }
 });
