@@ -18,13 +18,14 @@ export default function Map() {
   }))
 
 
+
   return (
     <View>
       <MapView
-        mapType="none"
+        mapType="standard"
         style={{ width: '100%', height: '100%' }}
         region={{
-          latitude: currentLocation[0],
+          latitude: currentLocation[0] ,
           longitude: currentLocation[1],
           latitudeDelta: 0.015,
           longitudeDelta: 0.0121,
