@@ -33,6 +33,7 @@ export default function SmokeyeContextProvider({ children, navigation }) {
   const [TStreetNum, setTStreetNum] = useState([]);
   const [TCity, setTCity] = useState(true);
 
+  // list of places 
   const data = [
     { label: "מסעדה", value: "מסעדה" },
     { label: "קניון", value: "קניון" },
@@ -41,8 +42,8 @@ export default function SmokeyeContextProvider({ children, navigation }) {
     { label: "תאטרון", value: "תאטרון" },
     { label: "אולם הופעות", value: "אולם הופעות" },
   ];
- 
 
+  //creating report object
   const createReport = (d, t, add, p, de, i) => {
     setReport({
       date: d,
