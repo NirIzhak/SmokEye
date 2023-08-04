@@ -17,6 +17,9 @@ export default function APIContextProvider({ children }) {
   const [city, setCity] = useState("");
   const [street, setStreet] = useState("");
   const [streetNum, SetStreetNum] = useState("");
+
+  //Users
+
   //Add Client to clients Array
   const InsertNewUser = async (user) => {
     try {
@@ -61,6 +64,7 @@ export default function APIContextProvider({ children }) {
       alert("שם משתמש או סיסמא לא תקינים");
     }
   };
+  //update User details
   const UpdateUser = async (currentE, firstName, lastName, email, phone, address) => {
     try {
       const url = `${base_URL}/users/UpdateUser`;
@@ -81,6 +85,10 @@ export default function APIContextProvider({ children }) {
       console.log("err :>> ", err);
     }
   };
+
+  //Reports
+
+  //insert new Report
   const InsertReport = async (doc, email) => {
     try {
       if (doc.date == null) {
@@ -116,6 +124,7 @@ export default function APIContextProvider({ children }) {
     }
     setReport({});
   };
+  //delete Report from Reports DB 
   const DeleteReport = async (id) => {
     try {
       const url = `${base_URL}/reports/DeleteReport`;
@@ -133,6 +142,7 @@ export default function APIContextProvider({ children }) {
       console.log('err :>> ', err);
     }
   }
+  //show reports of user
   const ShowMyReports = async (email) => {
     try {
       const url = `${base_URL}/reports/ShowMyReports`;
@@ -150,7 +160,19 @@ export default function APIContextProvider({ children }) {
       console.log("err :>> ", err);
     }
   };
+  const GetReports = async () => {
+    try {
+      let res = await fetch(`${base_URL}/reports`);
+      let data = await res.json();
+      setAllReports(data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
+  //Info
+
+  //Get all queries
   const GetInfo = async () => {
     try {
       let res = await fetch(`${base_URL}/info`);
@@ -160,9 +182,9 @@ export default function APIContextProvider({ children }) {
       console.log(err);
     }
   };
-  useEffect(() => {
-    GetInfo();
-  }, [infoData]);
+
+
+  //Upload
 
   // upload image and get image url
   const ImageUploader = async (uri) => {
@@ -185,6 +207,7 @@ export default function APIContextProvider({ children }) {
     }
   };
   //location
+  //get Address from spcific cords
   const GetAddress = async () => {
     try {
       const response = await fetch(
@@ -221,6 +244,8 @@ export default function APIContextProvider({ children }) {
     }
     return inputString;
   };
+
+  //Get Location from address input from External API 
   const GetLocationByAddress = async (street, num, city) => {
     try {
       let res = await fetch(`https://api.tomtom.com/search/2/structuredGeocode.json?key=RjOFc93hAGcOpbjZ0SnOV4TIzDTP1mz9&countryCode=IL&limit=10&ofss=0&streetNumber=${num}&streetName=${street}&municipality=${city}`);
@@ -234,21 +259,13 @@ export default function APIContextProvider({ children }) {
     }
   }
 
-
-  const GetReports = async () => {
-    try {
-      let res = await fetch(`${base_URL}/reports`);
-      let data = await res.json();
-      setAllReports(data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
   useEffect(() => {
     GetReports();
   }, [allReports]);
 
+  useEffect(() => {
+    GetInfo();
+  }, [infoData]);
 
   const value = {
     UpdateUser,
