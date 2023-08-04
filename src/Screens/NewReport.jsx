@@ -11,6 +11,7 @@ import { RadioButton, Provider as PaperProvider } from "react-native-paper";
 import { theme } from "../style/AllStyels";
 import { Colors, fontSizes } from "../style/AllStyels";
 import { Popstyles } from "../style/PopUpModal";
+import Logoff from "../Components/Logoff";
 
 /**/
 
@@ -110,7 +111,7 @@ export default function NewReport() {
           iconStyle={styles.iconStyle}
           data={data}
           search
-          maxHeight={250}
+          maxHeight={300}
           labelField="label"
           valueField="value"
           placeholder="בחר מקום"
@@ -356,10 +357,12 @@ const styles = StyleSheet.create({
     textAlignVertical: "center",
   },
   dropdown: {
+    direction: 'rtl',
     height: 50,
     backgroundColor: Colors.white,
     borderRadius: 5,
-    paddingHorizontal: 15,
+    paddingHorizontal: 2,
+    width: 200,
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
