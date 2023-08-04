@@ -1,15 +1,19 @@
-import { View, Text, Button } from 'react-native'
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef } from 'react';
+import { Text, View, Button, Platform } from 'react-native';
 import * as Device from 'expo-device';
 import * as Notifications from 'expo-notifications';
+import Constants from "expo-constants";
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
     shouldShowAlert: true,
-    shouldPlaySound: true,
+    shouldPlaySound: false,
     shouldSetBadge: false,
   }),
 });
+
+
+// Can use this function below or use Expo's Push Notification Tool from: https://expo.dev/notifications
 async function sendPushNotification(expoPushToken) {
   const message = {
     to: expoPushToken,
@@ -29,6 +33,7 @@ async function sendPushNotification(expoPushToken) {
     body: JSON.stringify(message),
   });
 }
+
 async function registerForPushNotificationsAsync() {
   let token;
   if (Device.isDevice) {
@@ -42,7 +47,11 @@ async function registerForPushNotificationsAsync() {
       alert('Failed to get push token for push notification!');
       return;
     }
-    token = (await Notifications.getExpoPushTokenAsync()).data;
+    token = (
+      await Notifications.getExpoPushTokenAsync({
+        projectId: Constants.expoConfig.extra.eas.projectId,
+      })
+    )
     console.log(token);
   } else {
     alert('Must use physical device for Push Notifications');
@@ -82,6 +91,7 @@ export default function PushNotification() {
       Notifications.removeNotificationSubscription(responseListener.current);
     };
   }, []);
+
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'space-around' }}>
       <Text>Your expo push token: {expoPushToken}</Text>
@@ -97,6 +107,6 @@ export default function PushNotification() {
         }}
       />
     </View>
-  )
-};
+  );
+}
 
