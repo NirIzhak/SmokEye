@@ -5,7 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Colors, fontSizes } from "../style/AllStyels";
 import * as Location from "expo-location";
 import { APIContext } from "../Context/APIContext";
-import Logoff from "../Components/Logoff";
+
 
 export default function Login({ navigation }) {
   const { setEmail, setPassword, email, password, setCurrentLocation } = useContext(SmokeyeContext);
