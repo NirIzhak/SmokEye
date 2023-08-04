@@ -11,7 +11,6 @@ import { RadioButton, Provider as PaperProvider } from "react-native-paper";
 import { theme } from "../style/AllStyels";
 import { Colors, fontSizes } from "../style/AllStyels";
 import { Popstyles } from "../style/PopUpModal";
-import Logoff from "../Components/Logoff";
 
 /**/
 
