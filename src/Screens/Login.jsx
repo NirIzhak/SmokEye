@@ -1,5 +1,6 @@
-import { useContext, useEffect, useState } from "react";
-import { View, Text, TextInput, TouchableOpacity, Keyboard, StyleSheet, KeyboardAvoidingView } from "react-native";
+import { useContext, useEffect } from "react";
+import { View, Text, TouchableOpacity, Keyboard, StyleSheet, ImageBackground, Image, TouchableWithoutFeedback } from "react-native";
+import { Button, Divider, TextInput } from "react-native-paper";
 import { SmokeyeContext } from "../Context/SmokEyeContext";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Colors, fontSizes } from "../style/AllStyels";
@@ -7,10 +8,14 @@ import * as Location from "expo-location";
 import { APIContext } from "../Context/APIContext";
 
 
+/*
+ <KeyboardAvoidingView behavior="padding" onPress={handlePress} >
+  </KeyboardAvoidingView>
+*/
+
 export default function Login({ navigation }) {
   const { setEmail, setPassword, email, password, setCurrentLocation } = useContext(SmokeyeContext);
   const { ConfirmClient, setLatitude, setLongitude, setLocation } = useContext(APIContext);
-
   const handlePress = () => {
     Keyboard.dismiss();
   };
@@ -49,99 +54,116 @@ export default function Login({ navigation }) {
   }
 
   return (
-    <KeyboardAvoidingView behavior="padding" onPress={handlePress}>
+    <TouchableWithoutFeedback onPress={handlePress} >
       <View style={Styles.continer}>
-        <Text style={{ textAlign: "center", marginTop: 80, fontSize: 40 }}>
+        <Image
+          source={require("../Images/logo.png")}
+          style={Styles.logo}
+          resizeMode="center"
+        />
+        <Text style={{ textAlign: "center", fontSize: 36 }}>
           התחברות
         </Text>
         <TextInput
+          mode="outlined"
+          label="Email"
+          activeOutlineColor={Colors.primary}
           onChangeText={(text) => setEmail(text)}
-          placeholder="כתובת מייל"
-          style={[Styles.input, Styles.input_btn]}
+          style={Styles.login_input}
           keyboardType="email-address"
           autoCapitalize="none"
         />
         <TextInput
+          mode="outlined"
+          activeOutlineColor={Colors.primary}
+          style={Styles.login_input}
           onChangeText={(text) => setPassword(text)}
-          placeholder="סיסמא"
+          label="סיסמא"
           secureTextEntry={true}
-          style={[Styles.input, Styles.input_btn]}
           onBlur={() => Keyboard.dismiss()}
         />
-        <TouchableOpacity style={{ marginTop: 10 }}><Text style={{ textAlign: 'center' }}>שכחת סיסמא ? </Text></TouchableOpacity>
-        <TouchableOpacity
+        <TouchableOpacity style={{ marginTop: 5 }}><Text style={{ textAlign: 'center' }}>שכחת סיסמא ? </Text></TouchableOpacity>
+        <Button
+          buttonColor={Colors.primary}
+          mode="contained"
           onPress={() => { Validuser(email, password); }}
           style={Styles.login_btn}>
-          <Text>כניסה</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[Styles.button, Styles.input_btn, { marginTop: 100 }]}
-          onPress={() => {
-            navigation.navigate("Register");
-          }}
-        >
-          <Text>אין לך משתמש ? הרשם עכשיו !</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={[Styles.input_btn, Styles.googleConection]}>
-          <Text>כניסה מהירה עם גוגל</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[Styles.button, Styles.input_btn]}
-          onPress={() => {
-            navigation.navigate("FastReport");
-          }}
-        >
-          <Text>דיווח מהיר ללא התחברות</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[Styles.button, Styles.input_btn]}
-          onPress={() => {
-            clearOnboarding();
-          }}
-        >
-          <Text>אנבורדינג</Text>
-        </TouchableOpacity>
+          <Text>התחבר</Text>
+        </Button>
+        <View style={{ flexDirection: 'row', alignItems: "center" }}>
+          <Divider style={{ width: "40%", marginLeft: 20 }} />
+          <Text style={{ paddingHorizontal: 15 }}>או</Text>
+          <Divider style={{ width: "40%", marginRight: 20 }} />
+        </View>
+        <View style={Styles.btn_container}>
+          <Button
+            style={[Styles.input_btn]}
+            textColor={Colors.black}
+            onPress={() => {
+              navigation.navigate("Register");
+            }}
+          >
+            <Text>אין לך משתמש ? הרשם עכשיו !</Text>
+          </Button>
+          <Button icon={"google"} textColor={Colors.black} buttonColor={Colors.transparent} style={[Styles.input_btn]}>
+            <Text>התחבר עם גוגל</Text>
+          </Button>
+          <Button
+            style={[Styles.button, Styles.input_btn]}
+            onPress={() => {
+              clearOnboarding();
+            }}
+          >
+            <Text>אנבורדינג</Text>
+          </Button>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate("FastReport");
+            }}
+          >
+            <Text style={{ color: "#B5B4B4" }}>דווח כאנונימי</Text>
+          </TouchableOpacity>
+        </View>
       </View>
-    </KeyboardAvoidingView>
+    </TouchableWithoutFeedback>
   );
 }
 const Styles = StyleSheet.create({
   continer: {
-    direction: "rtl",
+    backgroundColor: Colors.white,
+    height: "100%",
   },
-  input_btn: {
+  logo: {
+    width: 180,
+    height: 180,
+    marginHorizontal: "28%",
+  },
+  btn_container: {
     justifyContent: "center",
     alignItems: "center",
-    textAlign: "center",
-    borderWidth: 1,
-    borderStyle: "solid",
-    borderRadius: 50,
-    padding: 5,
     marginTop: 20,
-    marginLeft: "auto",
-    marginRight: "auto",
-    width: "90%",
+    gap: 15
   },
-  input: {
-    borderColor: Colors.borderColor,
-    fontSize: fontSizes.XL,
-  },
-  button: {
-    fontSize: fontSizes.S,
-    backgroundColor: Colors.primary,
-    borderColor: Colors.transparent,
-  },
-  googleConection: {
+  input_btn: {
+    borderWidth: 1.5,
     borderColor: Colors.primary,
+    width: "80%",
+    fontSize: fontSizes.S,
+  },
+  login_input: {
+    width: "65%",
+    textAlign: "right",
+    direction: "rtl",
+    marginHorizontal: 70,
+    backgroundColor: Colors.white,
+    marginVertical: 5
   },
   login_btn: {
-    backgroundColor: Colors.primary,
-    alignItems: "center",
     margin: 25,
     width: "30%",
     marginLeft: "auto",
     marginRight: "auto",
-    padding: 10,
-    borderRadius: 50,
+    padding: 5,
+    borderRadius: 2,
   },
 });
