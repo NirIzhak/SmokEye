@@ -1,6 +1,4 @@
-import {
-  View, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, Keyboard, Image, Alert, StyleSheet, Button, ScrollView, Modal
-} from "react-native";
+import { View, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, Keyboard, Image, Alert, StyleSheet, Button, ScrollView, Modal } from "react-native";
 import { Dropdown } from "react-native-element-dropdown";
 import React, { useEffect, useState, useContext } from "react";
 import * as Location from "expo-location";
@@ -8,14 +6,11 @@ import * as ImagePicker from "expo-image-picker";
 import { SmokeyeContext } from "../Context/SmokEyeContext";
 import { APIContext } from "../Context/APIContext";
 import { RadioButton, Provider as PaperProvider } from "react-native-paper";
-import { theme } from "../style/AllStyels";
-import { Colors, fontSizes } from "../style/AllStyels";
+import { theme, Colors, fontSizes } from "../style/AllStyels";
 import { Popstyles } from "../style/PopUpModal";
 
-/**/
-
-
 export default function NewReport() {
+
   const { data, imageUri, setImageUri, des, setDes } = useContext(SmokeyeContext);
   const { popMsgReport, setpopMsgReport, city, setCity, street, setStreet, streetNum, SetStreetNum, ImageUploader, setReport, report, InsertReport, currentUser, latitude, longitude, GetAddress, GetLocationByAddress } = useContext(APIContext);
   const date = new Date();
@@ -123,15 +118,16 @@ export default function NewReport() {
       </>
     );
   };
-  //show Business field
+  //show Business field/*[styles.report_Bus, styles.input_Text]*/
   const ViewPrivate = () => {
     return (
       <>
-        <Text>הוסיפו את שם העסק</Text>
+        <Text style={{ fontWeight: "bold" }}>הוסיפו את שם העסק</Text>
         <TextInput
-          style={[styles.report_Bus, styles.input_Text]}
+          style={styles.Private_input}
           onChangeText={(text) => setBusName(text)}
-        ></TextInput>
+        >
+        </TextInput>
       </>
     );
   };
@@ -145,171 +141,178 @@ export default function NewReport() {
 
   return (
     <>
-      <ScrollView>
-        <TouchableWithoutFeedback onPress={handlePress}>
-          <PaperProvider theme={theme}>
-            <View style={styles.container}>
-              <Text style={[styles.title]}> על מה הדיווח?</Text>
-              <View style={styles.radio_btn}>
-                <View style={styles.radioButtonContainer}>
-                  <RadioButton.Android
-                    value="Business"
-                    status={checked === "Business" ? "checked" : "unchecked"}
-                    onPress={() => setChecked("Business")}
-                    color={theme.colors.primary}
-                  />
-                  <Text style={styles.radioButtonText}>
-                    עסק בו הסיגריות בגלוי
-                  </Text>
-                </View>
-                <View style={styles.radioButtonContainer}>
-                  <RadioButton.Android
-                    value="Private"
-                    status={checked === "Private" ? "checked" : "unchecked"}
-                    onPress={() => setChecked("Private")}
-                  />
-                  <Text style={styles.radioButtonText}>עישון במקום לא חוקי</Text>
-                </View>
-              </View>
-              <View>{select ? ViewBus() : ViewPrivate()}</View>
-              <Text style={[styles.title]}> פרט בקצרה על המקרה </Text>
-              <TextInput
-                placeholder="לדוגמא: עסק שמוכר סיגריות שנראות באופן גלוי"
-                onBlur={handlePress}
-                onChangeText={(text) => setDes(text)}
-                style={[styles.report_Details, styles.input_Text]}
-              />
-              <TouchableOpacity
-                onPress={createTwoButtonAlert}
-                style={styles.buttonContainer}
-              >
-                {imageUri ? (
-                  <Text style={[styles.btn]}>החלף תמונה</Text>
-                ) : (
-                  <Text style={[styles.btn]}>העלאת תמונה</Text>
-                )}
-              </TouchableOpacity>
-              {imageUri && (
-                <Text>נבחרה תמונה!</Text>
-              )}
-              <Text style={styles.title}>פרטי מיקום:</Text>
-              <View style={styles.addressContainer}>
-                <TextInput
-                  placeholder="שם הרחוב"
-                  defaultValue={street}
-                  onChangeText={(text) => setStreet(text)}
-                  style={[styles.addressInput, styles.streetInput]}
+      <TouchableWithoutFeedback onPress={handlePress}>
+        <PaperProvider theme={theme}>
+          <View style={styles.container}>
+            <Text style={[styles.title, { fontSize: fontSizes.XL }]}> על מה הדיווח?</Text>
+            <View style={styles.radio_btn}>
+              <View style={styles.radioButtonContainer}>
+                <RadioButton.Android
+                  value="Business"
+                  status={checked === "Business" ? "checked" : "unchecked"}
+                  onPress={() => setChecked("Business")}
+                  color={theme.colors.primary}
                 />
-                <TextInput
-                  placeholder="מספר"
-                  defaultValue={streetNum}
-                  onChangeText={(text) => SetStreetNum(text)}
-                  style={[styles.addressInput, styles.streetNumInput]}
-                />
-                <TextInput
-                  placeholder="עיר"
-                  defaultValue={city}
-                  onChangeText={(text) => setCity(text)}
-                  style={[styles.addressInput, styles.cityInput]}
-                />
+                <Text style={styles.radioButtonText}>
+                  עסק בו הסיגריות בגלוי
+                </Text>
               </View>
-              <View>
-                {latitude && longitude ? (
-                  <TouchableOpacity
-                    onPress={GetAddress}
-                    style={styles.buttonContainer}
-                  >
-                    <Text style={styles.btn}>מצא אותי !</Text>
-                  </TouchableOpacity>
-                ) : <Text>זיהה את מיקומך ? ניתן להכניס ידנית </Text>
-                }
-              </View>
-              <View style={styles.sendReport}>
-                <Button
-                  color={Colors.primary}
-                  title="דווח"
-                  onPress={() => {
-                    createReport();
-                  }}
-                >
-
-                </Button>
+              <View style={styles.radioButtonContainer}>
+                <RadioButton.Android
+                  value="Private"
+                  status={checked === "Private" ? "checked" : "unchecked"}
+                  onPress={() => setChecked("Private")}
+                />
+                <Text style={styles.radioButtonText}>עישון במקום לא חוקי</Text>
               </View>
             </View>
-          </PaperProvider>
-        </TouchableWithoutFeedback>
-        {
-          popMsgReport ?
-            <>
-              <View>
-                <Modal
-                  visible={popMsgReport}
-                  animationType="fade"
-                  transparent={true}
-                  onRequestClose={hidePopupModal}
+            <View>{select ? ViewBus() : ViewPrivate()}</View>
+            <Text style={[styles.title]}> פרט בקצרה על המקרה </Text>
+            <TextInput
+              multiline
+              numberOfLines={4}
+              placeholder="לדוגמא: עסק שמוכר סיגריות שנראות באופן גלוי"
+              onBlur={handlePress}
+              onChangeText={(text) => setDes(text)}
+              style={[styles.report_Details, styles.input_Text]}
+            />
+            <TouchableOpacity
+              onPress={createTwoButtonAlert}
+              style={styles.buttonContainer}
+            >
+              {imageUri ? (
+                <Text style={[styles.btn]}>החלף תמונה</Text>
+              ) : (
+                <Text style={[styles.btn]}>העלאת תמונה</Text>
+              )}
+            </TouchableOpacity>
+            {imageUri && (
+              <Text>נבחרה תמונה!</Text>
+            )}
+            <Text style={styles.title}>פרטי מיקום:</Text>
+            <View style={styles.addressContainer}>
+              <TextInput
+                placeholder="שם הרחוב"
+                defaultValue={street}
+                onChangeText={(text) => setStreet(text)}
+                style={[styles.addressInput, styles.streetInput]}
+              />
+              <TextInput
+                placeholder="מספר"
+                defaultValue={streetNum}
+                onChangeText={(text) => SetStreetNum(text)}
+                style={[styles.addressInput, styles.streetNumInput]}
+              />
+              <TextInput
+                placeholder="עיר"
+                defaultValue={city}
+                onChangeText={(text) => setCity(text)}
+                style={[styles.addressInput, styles.cityInput]}
+              />
+            </View>
+            <View>
+              {latitude && longitude ? (
+                <TouchableOpacity
+                  onPress={GetAddress}
+                  style={styles.buttonContainer}
                 >
-                  <View style={Popstyles.modalContainer}>
-                    <View style={Popstyles.modalContent}>
-                      <Text style={Popstyles.messageText}>דיווח נשלח בהצלחה ! </Text>
-                      <View style={{ alignItems: 'center' }}>
-                        <Image source={{ uri: "https://cdn-icons-png.flaticon.com/512/1102/1102355.png?w=740&t=st=1690886025~exp=1690886625~hmac=5516a06b0266fe418d8604dcc0fc5935f96153877b94db73796af0874f383cd5" }} style={{
-                          height: 180,
-                          width: 180,
-                        }}></Image>
-                      </View>
-                      <TouchableOpacity onPress={hidePopupModal}>
-                        <Text style={Popstyles.closeButton}>סגור</Text>
-                      </TouchableOpacity>
+                  <Text style={styles.btn}>מצא אותי !</Text>
+                </TouchableOpacity>
+              ) : <Text>זיהה את מיקומך ? ניתן להכניס ידנית </Text>
+              }
+            </View>
+            <View style={styles.sendReport}>
+              <Button
+                color={Colors.primary}
+                title="דווח"
+                onPress={() => {
+                  createReport();
+                }}
+              >
+
+              </Button>
+            </View>
+          </View>
+        </PaperProvider>
+      </TouchableWithoutFeedback>
+      {
+        popMsgReport ?
+          <>
+            <View>
+              <Modal
+                visible={popMsgReport}
+                animationType="fade"
+                transparent={true}
+                onRequestClose={hidePopupModal}
+              >
+                <View style={Popstyles.modalContainer}>
+                  <View style={Popstyles.modalContent}>
+                    <Text style={Popstyles.messageText}>דיווח נשלח בהצלחה ! </Text>
+                    <View style={{ alignItems: 'center' }}>
+                      <Image source={{ uri: "https://cdn-icons-png.flaticon.com/512/1102/1102355.png?w=740&t=st=1690886025~exp=1690886625~hmac=5516a06b0266fe418d8604dcc0fc5935f96153877b94db73796af0874f383cd5" }} style={{
+                        height: 180,
+                        width: 180,
+                      }}></Image>
                     </View>
+                    <TouchableOpacity onPress={hidePopupModal}>
+                      <Text style={Popstyles.closeButton}>סגור</Text>
+                    </TouchableOpacity>
                   </View>
-                </Modal>
-              </View>
-            </>
-            :
-            null
-        }
-      </ScrollView>
+                </View>
+              </Modal>
+            </View>
+          </>
+          :
+          null
+      }
     </>
   );
 }
 const styles = StyleSheet.create({
-  basic_fontSize: {
-    fontSize: fontSizes.S,
-  },
-  input_Text: {
-    borderColor: Colors.borderColor,
-    borderWidth: 1,
-    borderRadius: 5,
-    padding: 5,
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: Colors.white,
+    height: "100%"
   },
   title: {
     marginBottom: 10,
     marginTop: 50,
     textAlign: "center",
-  },
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    textAlign: "right",
-  },
-  report_Details: {
-    width: "85%",
-    textAlignVertical: "top",
-  },
-  radio_btn: {
-    flexDirection: "row",
-    justifyContent: "space-around",
-    marginBottom: 20,
+    fontWeight: "bold"
   },
   radioButtonContainer: {
     flexDirection: "row",
     alignItems: "center",
     marginRight: 10,
   },
+  radio_btn: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    marginBottom: 20,
+  },
   radioButtonText: {
     marginLeft: 5,
   },
+  Private_input: {
+    borderBottomColor: Colors.black,
+    borderBottomWidth: 1,
+    marginTop: 15,
+    textAlign: 'right'
+  },
+  input_Text: {
+    borderColor: Colors.borderColor,
+    borderWidth: 1,
+    borderRadius: 5,
+    padding: 5,
+    direction: "rtl"
+  },
+  report_Details: {
+    width: "85%",
+    textAlignVertical: "top",
+  },
+
   buttonContainer: {
     marginTop: 20,
     backgroundColor: Colors.primary,
@@ -317,9 +320,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 40,
   },
-  btn: {
-    color: Colors.white,
-  },
+
   img: {
     width: 200,
     height: 200,
@@ -333,7 +334,8 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   addressInput: {
-    borderWidth: 1,
+    borderBottomColor: Colors.black,
+    borderBottomWidth: 2,
     borderColor: Colors.borderColor,
     borderRadius: 5,
     padding: 5,
@@ -356,7 +358,7 @@ const styles = StyleSheet.create({
     textAlignVertical: "center",
   },
   dropdown: {
-    direction: 'rtl',
+    textAlign: 'right',
     height: 50,
     backgroundColor: Colors.white,
     borderRadius: 5,
@@ -386,5 +388,11 @@ const styles = StyleSheet.create({
   },
   inputSearchStyle: {
     height: 40,
-  }
+  },
+  basic_fontSize: {
+    fontSize: fontSizes.S,
+  },
+  btn: {
+    color: Colors.white,
+  },
 });
