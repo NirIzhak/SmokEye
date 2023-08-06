@@ -10,6 +10,7 @@ export default function Info({ navigation }) {
           <Text style={styles.title}>
             מידע
           </Text>
+          <Text style={{ marginHorizontal: 40, textAlign: "center", marginTop: 10 }}>כאן תוכלו למצוא את כל המידע על התקנות  בעסק  ובמרחב הציבורי</Text>
         </View>
         <View style={styles.row}>
           <View style={[styles.topic_box, styles.elevation]}>
@@ -18,11 +19,11 @@ export default function Info({ navigation }) {
                 navigation.navigate("userInfo");
               }}
             >
-              <Text style={styles.title_text}>בן אדם</Text>
+              <Text style={styles.title_text}>המרחב הציבורי</Text>
               <Image source={require("../Images/Businesswoman.png")} style={{ width: 150, height: 150 }} />
             </TouchableOpacity>
           </View>
-          <View style={[styles.topic_box, styles.elevation]}>
+          <View style={[styles.topic_box]}>
 
             <TouchableOpacity
               onPress={() => {
@@ -43,9 +44,8 @@ export default function Info({ navigation }) {
 }
 const styles = StyleSheet.create({
   container: {
-    display: 'flex',
-    justifyContent: "center",
-    alignItems: 'center',
+    flex: 1,
+    margin: 10,
     backgroundColor: Colors.white,
     height: "100%",
   },
@@ -59,19 +59,15 @@ const styles = StyleSheet.create({
   },
   topic_box: {
     marginTop: 100,
-    //borderWidth: 1,
-    width: '50%',
-    padding: 25,
+    borderWidth: 1,
+    width: '48%',
+    padding: 10,
     borderRadius: 6,
-    shadowColor: '#171717',
-    shadowOffset: { width: -2, height: 4 },
-    shadowOpacity: 0.2,
-    shadowRadius: 3,
+    marginHorizontal: 5
   },
-  elevation: {
-    elevation: 20,
-    shadowColor: '#D7D5D4',
-  },
-  title_text: { textAlign: "center" }
+  title_text: {
+    textAlign: "center",
+    marginBottom: 15,
+  }
 
 })
