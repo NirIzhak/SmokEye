@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { View, Text, TouchableOpacity, Animated } from "react-native";
+import { Colors } from "../style/AllStyels"
 
 const Accordion = ({ title, content }) => {
   const [expanded, setExpanded] = useState(false);
@@ -62,7 +63,6 @@ const styles = {
     borderRadius: 5,
     marginBottom: 10,
     elevation: 3,
-    direction: 'rtl',
   },
   headerContainer: {
     flexDirection: "row",
@@ -73,7 +73,7 @@ const styles = {
     borderBottomColor: "#dddddd",
   },
   title: {
-    textAlign: "left",
+    textAlign: "right",
     fontSize: 20,
     fontWeight: "bold",
     color: "#333333",
@@ -92,6 +92,7 @@ const styles = {
     textAlign: "left",
     fontSize: 16,
     color: "#555555",
+    textAlign: "right"
   },
 };
 
