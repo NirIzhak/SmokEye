@@ -3,6 +3,7 @@ import { useContext } from 'react'
 import { SmokeyeContext } from '../Context/SmokEyeContext';
 import { APIContext } from '../Context/APIContext';
 import { Popstyles } from '../style/PopUpModal';
+import { Svg } from 'react-native-svg';
 
 
 export default function ReportCard({ _id, date, type, address, place, details, image, navigation }) {
@@ -19,26 +20,31 @@ export default function ReportCard({ _id, date, type, address, place, details, i
   return (
     <View style={styles.continer}>
       <View style={styles.text_continer}>
-        <Text style={styles.text_field}>
-          <Text style={styles.text_bold}>תאריך : </Text>
-          <Text>{dateArr[0]}</Text>
-        </Text>
-        <Text>
-          <Text style={styles.text_bold}>עסק/אחר : </Text>
-          <Text>{type == "Private" ? "פרטי" : "עסק"}</Text>
-        </Text>
-        <Text>
-          <Text style={styles.text_bold}>תיאור : </Text>
-          <Text>{details}</Text>
-        </Text>
-        <Text style={styles.text_field}>
-          <Text style={styles.text_bold}>כתובת : </Text>
-          <Text>{a}</Text>
-        </Text>
-        <Text style={styles.text_field}>
-          <Text style={styles.text_bold}>מיקום : </Text>
-          <Text>{place}</Text>
-        </Text>
+        <View style={styles.alldets}>
+          <Text style={styles.text_field}>
+            <Text style={styles.text_bold}>תאריך : </Text>
+            <Text>{dateArr[0]}</Text>
+          </Text>
+          <Text>
+            <Text style={styles.text_bold}>עסק / המרחב ציבורי : </Text>
+            <Text>{type == "Private" ? "ציבורי" : "עסק"}</Text>
+          </Text>
+          <Text>
+            <Text style={styles.text_bold}>תיאור : </Text>
+            <Text>{details}</Text>
+          </Text>
+          <Text style={styles.text_field}>
+            <Text style={styles.text_bold}>כתובת : </Text>
+            <Text>{a}</Text>
+          </Text>
+          <Text style={styles.text_field}>
+            <Text style={styles.text_bold}>מיקום : </Text>
+            <Text>{place}</Text>
+          </Text>
+          <TouchableOpacity onPress={deleteReport}>
+            <Image source={require("../Images/icons8-trash-50.png")}></Image>
+          </TouchableOpacity>
+        </View>
         <View style={styles.btn}>
           <Button
             title='פרטים מלאים'
@@ -49,8 +55,6 @@ export default function ReportCard({ _id, date, type, address, place, details, i
             }}
           >
           </Button >
-          <Button title='מחק דיווח' color='#F39508' onPress={deleteReport}>
-          </Button>
         </View>
         {
           popMsgDelete ?
@@ -116,5 +120,9 @@ const styles = StyleSheet.create({
     gap: 2,
     width: 350,
     marginHorizontal: 10
+  },
+  alldets: {
+    display: "flex",
+    justifyContent: "space-between"
   }
 })
