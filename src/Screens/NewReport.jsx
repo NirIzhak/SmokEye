@@ -28,9 +28,9 @@ export default function NewReport() {
   }
   //creating ner report
   const createReport = async () => {
+    //splash window
     const locationFromAddress = await GetLocationByAddress(street, streetNum, city);
     const imageLink = await ImageUploader(imageUri);
-    // add get location from address! ----- IMPORTENT
     await setReport({
       date: `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`,
       type: `${checked}`,
