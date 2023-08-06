@@ -105,8 +105,9 @@ export default function Login({ navigation }) {
           >
             <Text>אין לך משתמש ? הרשם עכשיו !</Text>
           </Button>
-          <Button icon={"google"} textColor={Colors.black} buttonColor={Colors.transparent} style={[Styles.input_btn]}>
-            <Text>התחבר עם גוגל</Text>
+          <Button textColor={Colors.black} buttonColor={Colors.transparent} style={[Styles.input_btn]}>
+            <Text>התחבר עם גוגל </Text>
+            <Image source={require("../Images/icons8-google-48.png")} style={{ width: 24, height: 24 }}></Image>
           </Button>
           <Button
             style={[Styles.button, Styles.input_btn]}
@@ -151,10 +152,9 @@ const Styles = StyleSheet.create({
     fontSize: fontSizes.S,
   },
   login_input: {
-    width: "65%",
-    textAlign: "right",
-    direction: "rtl",
-    marginHorizontal: 70,
+    width: "70%",
+    textAlign: "left",
+    marginHorizontal: 60,
     backgroundColor: Colors.white,
     marginVertical: 5
   },
