@@ -1,9 +1,8 @@
-import { View, Text, Button, SafeAreaView, StyleSheet, FlatList } from "react-native";
+import { View, Text, Button, SafeAreaView, StyleSheet, TouchableOpacity } from "react-native";
 import { useContext, useEffect, useState } from "react";
 import { Avatar } from "@react-native-material/core";
 import { APIContext } from "../Context/APIContext";
-import { ScrollView } from "react-native-gesture-handler";
-import ReportCard from "./ReportCard";
+import { Colors } from "../style/AllStyels"
 
 export default function Profile({ navigation }) {
   const [renderImage, setRenderImage] = useState(false);
@@ -43,12 +42,12 @@ export default function Profile({ navigation }) {
             <Text style={styles.nums}>{amountReports}</Text>
           </View>
         </View>
-        <Button
-          title="עריכת פרטים"
-          color="#F39508"
-          style={styles.btn_edit}
+        <TouchableOpacity
+          style={[styles.btn_edit]}
           onPress={EditPage}
-        ></Button>
+        >
+          <Text>עריכת פרטים</Text>
+        </TouchableOpacity>
       </SafeAreaView>
     </View>
 
@@ -73,11 +72,14 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   btn_edit: {
-    marginTop: 50,
-    width: "50%"
-  },
-  avatar: {
-    //marginTop: 25,
+    width: "60%",
+    borderWidth: 2,
+    borderColor: Colors.transparent,
+    alignItems: "center",
+    marginHorizontal: 80,
+    paddingVertical: 5,
+    borderRadius: 5,
+    backgroundColor: Colors.primary,
   },
   line: {
     height: 2,
