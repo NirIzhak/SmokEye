@@ -20,30 +20,34 @@ export default function ReportCard({ _id, date, type, address, place, details, i
   return (
     <View style={styles.continer}>
       <View style={styles.text_continer}>
-        <View style={styles.alldets}>
-          <Text style={styles.text_field}>
-            <Text style={styles.text_bold}>תאריך : </Text>
-            <Text>{dateArr[0]}</Text>
-          </Text>
-          <Text>
-            <Text style={styles.text_bold}>עסק / המרחב ציבורי : </Text>
-            <Text>{type == "Private" ? "ציבורי" : "עסק"}</Text>
-          </Text>
-          <Text>
-            <Text style={styles.text_bold}>תיאור : </Text>
-            <Text>{details}</Text>
-          </Text>
-          <Text style={styles.text_field}>
-            <Text style={styles.text_bold}>כתובת : </Text>
-            <Text>{a}</Text>
-          </Text>
-          <Text style={styles.text_field}>
-            <Text style={styles.text_bold}>מיקום : </Text>
-            <Text>{place}</Text>
-          </Text>
-          <TouchableOpacity onPress={deleteReport}>
-            <Image source={require("../Images/icons8-trash-50.png")}></Image>
-          </TouchableOpacity>
+        <View style={styles.contentContiner}>
+          <View>
+            <TouchableOpacity onPress={deleteReport}>
+              <Image source={require("../Images/icons8-trash-50.png")} style={{ width: 20, height: 20 }}></Image>
+            </TouchableOpacity>
+          </View>
+          <View>
+            <Text style={styles.text_field}>
+              <Text style={styles.text_bold}>תאריך : </Text>
+              <Text>{dateArr[0]}</Text>
+            </Text>
+            <Text>
+              <Text style={styles.text_bold}>עסק / המרחב ציבורי : </Text>
+              <Text>{type == "Private" ? "ציבורי" : "עסק"}</Text>
+            </Text>
+            <Text>
+              <Text style={styles.text_bold}>תיאור : </Text>
+              <Text>{details}</Text>
+            </Text>
+            <Text style={styles.text_field}>
+              <Text style={styles.text_bold}>כתובת : </Text>
+              <Text>{a}</Text>
+            </Text>
+            <Text style={styles.text_field}>
+              <Text style={styles.text_bold}>מיקום : </Text>
+              <Text>{place}</Text>
+            </Text>
+          </View>
         </View>
         <View style={styles.btn}>
           <Button
@@ -119,10 +123,13 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     gap: 2,
     width: 350,
-    marginHorizontal: 10
+    marginHorizontal: 5
   },
-  alldets: {
-    display: "flex",
-    justifyContent: "space-between"
-  }
+  contentContiner: {
+    flex: 1,
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
+    flexDirection: 'row',
+  },
+
 })
