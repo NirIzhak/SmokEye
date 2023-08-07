@@ -90,19 +90,19 @@ export default function EditDetails() {
           style={styles.input}
           placeholder="רחוב"
           onChangeText={(text) => setTStreet(text)}
-          defaultValue={"iiiiiii"}
+          defaultValue={""}
         />
         <TextInput
           style={styles.input}
           placeholder="מספר רחוב"
           onChangeText={(text) => setTStreetNum(text)}
-          defaultValue={"uuuuu"}
+          defaultValue={""}
         />
         <TextInput
           style={styles.input}
           placeholder="עיר"
           onChangeText={(text) => setTCity(text)}
-          defaultValue={"ccc"}
+          defaultValue={""}
         />
         <View style={styles.switchContainer}>
           <Text style={styles.switchLabel}>לא מעשן</Text>
