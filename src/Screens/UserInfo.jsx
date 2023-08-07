@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView, StyleSheet } from "react-native";
+import { Text, SafeAreaView, StyleSheet } from "react-native";
 import React, { useContext } from "react";
 import Accordion from "../Components/Accordion";
 import { APIContext } from "../Context/APIContext";
