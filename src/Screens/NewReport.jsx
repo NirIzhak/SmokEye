@@ -1,4 +1,4 @@
-import { View, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, Keyboard, Image, Alert, StyleSheet, Button, ScrollView, Modal } from "react-native";
+import { View, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, Keyboard, Image, Alert, StyleSheet, Button, Modal } from "react-native";
 import { Dropdown } from "react-native-element-dropdown";
 import React, { useEffect, useState, useContext } from "react";
 import * as Location from "expo-location";
@@ -8,6 +8,7 @@ import { APIContext } from "../Context/APIContext";
 import { RadioButton, Provider as PaperProvider } from "react-native-paper";
 import { theme, Colors, fontSizes } from "../style/AllStyels";
 import { Popstyles } from "../style/PopUpModal";
+import { KeyboardAvoidingView } from "react-native";
 
 export default function NewReport() {
 
@@ -141,9 +142,9 @@ export default function NewReport() {
 
   return (
     <>
-      <TouchableWithoutFeedback onPress={handlePress}>
+      <KeyboardAvoidingView behavior="padding" onPress={handlePress} style={styles.container}>
         <PaperProvider theme={theme}>
-          <View style={styles.container}>
+          <View style={styles.headContiner}>
             <Text style={[styles.title, { fontSize: fontSizes.XL }]}> על מה הדיווח?</Text>
             <View style={styles.radio_btn}>
               <View style={styles.radioButtonContainer}>
@@ -234,7 +235,7 @@ export default function NewReport() {
             </View>
           </View>
         </PaperProvider>
-      </TouchableWithoutFeedback>
+      </KeyboardAvoidingView>
       {
         popMsgReport ?
           <>
@@ -271,13 +272,17 @@ export default function NewReport() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
     backgroundColor: Colors.white,
-    height: "100%"
+    height: "100%",
+    justifyContent: "center",
+    paddingHorizontal: 20,
+    paddingVertical: 30
+  },
+  headContiner: {
+    alignItems: "center",
   },
   title: {
-    marginBottom: 10,
+    marginBottom: 20,
     marginTop: 50,
     textAlign: "center",
     fontWeight: "bold"
@@ -299,7 +304,9 @@ const styles = StyleSheet.create({
     borderBottomColor: Colors.black,
     borderBottomWidth: 1,
     marginTop: 15,
-    textAlign: 'right'
+    textAlign: 'right',
+
+
   },
   input_Text: {
     borderColor: Colors.borderColor,
