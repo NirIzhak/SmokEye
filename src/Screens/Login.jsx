@@ -56,11 +56,12 @@ export default function Login({ navigation }) {
   return (
     <TouchableWithoutFeedback onPress={handlePress} >
       <View style={Styles.continer}>
-        <Image
-          source={require("../Images/logo.png")}
-          style={Styles.logo}
-          resizeMode="center"
-        />
+        <View style={Styles.logo}>
+          <Image
+            source={require("../Images/logo.png")}
+            resizeMode="center"
+          />
+        </View>
         <Text style={{ textAlign: "center", fontSize: 36 }}>
           התחברות
         </Text>
@@ -135,9 +136,11 @@ const Styles = StyleSheet.create({
     height: "100%",
   },
   logo: {
-    width: 180,
-    height: 180,
-    marginHorizontal: "28%",
+    justifyContent: "center",
+    width: 100,
+    height: 100,
+    marginHorizontal: -50,
+    marginTop: 80
   },
   btn_container: {
     justifyContent: "center",
