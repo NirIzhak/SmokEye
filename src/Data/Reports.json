@@ -1,0 +1,154 @@
+[
+{
+    "date":"1/7/2023",
+    "type":"Business",
+    "location":[32.062526, 34.773308],
+    "address":[{
+        "street":"אלנבי",
+        "streetNum":"126",
+        "city":"תל אביב"
+        }],
+    "place":"אבי מתוקים",
+    "details":"מכירת סגריות באופן לא חוקי ",
+    "image":"https://res.cloudinary.com/ds9hgdboe/image/upload/v1690891931/hvdcxqdy…",
+    "reporter":"Anonymous"
+},
+{
+    "date":"2/2/2023",
+    "type":"Private",
+    "location":[32.068664, 34.783099],
+    "address":[{
+        "street":"קרליבך",
+        "streetNum":"6",
+        "city":"תל אביב"
+        }],
+    "place":"מסעדה",
+    "details":"עישון לא חוקי במסעדה",
+    "image":"https://res.cloudinary.com/ds9hgdboe/image/upload/v1690891931/hvdcxqdy…",
+    "reporter":"מיכאל ברוך",
+    "userId":"648c78cdbe148038a75c8302"
+},
+{
+    "date":"17/4/2023",
+    "type":"Business",
+    "location":[31.669650, 34.577809],
+    "address":[{
+        "street":"אלי כהן",
+        "streetNum":"38",
+        "city":"אשקלון"
+        }],
+    "place":"מסעדה",
+    "details":"מכירת סגריות באופן לא חוקי ",
+    "image":"https://res.cloudinary.com/ds9hgdboe/image/upload/v1690891931/hvdcxqdy…",
+    "reporter":"מיכאל ברוך",
+    "userId":"648c78cdbe148038a75c8302"
+},
+{
+    "date":"3/5/2023",
+    "type":"Private",
+    "location":[31.779847, 34.639363],
+    "address":[{
+        "street":"הדר",
+        "streetNum":"11",
+        "city":"אשדוד"
+        }],
+    "place":"מסעדה",
+    "details":"עישון לא חוקי במסעדה",
+    "image":"https://res.cloudinary.com/ds9hgdboe/image/upload/v1690891931/hvdcxqdy…",
+    "reporter":"מיכאל ברוך",
+    "userId":"648c78cdbe148038a75c8302"
+},
+{
+    "date":"20/1/2023",
+    "type":"Business",
+    "location":[31.810261, 34.654120],
+    "address":[{
+        "street":"שיר הספירים",
+        "streetNum":"19",
+        "city":"אשדוד"
+        }],
+    "place":"מסעדה",
+    "details":"מכירת סגריות באופן לא חוקי ",
+    "image":"https://res.cloudinary.com/ds9hgdboe/image/upload/v1690891931/hvdcxqdy…",
+    "reporter":"מיכאל ברוך",
+    "userId":"648c78cdbe148038a75c8302"
+},
+{
+    "date":"23/6/2022",
+    "type":"Private",
+    "location":[32.162080, 34.845240],
+    "address":[{
+        "street":"בן יהודה",
+        "streetNum":"14",
+        "city":"הרצליה"
+        }],
+    "place":"מסעדה",
+    "details":"עישון לא חוקי במסעדה",
+    "image":"https://res.cloudinary.com/ds9hgdboe/image/upload/v1690891931/hvdcxqdy…",
+    "reporter":"מני בניהו",
+    "userId":"64b2b393c8467d27f7d74006"
+},
+{
+    "date":"5/10/2022",
+    "type":"Business",
+    "location":[32.138041, 34.842029],
+    "address":[{
+        "street":"יותם",
+        "streetNum":"2",
+        "city":"רמת השרון"
+        }],
+    "place":"מסעדה",
+    "details":"מכירת סגריות באופן לא חוקי ",
+    "image":"https://res.cloudinary.com/ds9hgdboe/image/upload/v1690891931/hvdcxqdy…",
+    "reporter":"יוסי קני",
+    "userId":"649d5cb945ab9ea870e46b78"
+},
+{
+    "date":"14/9/2021",
+    "type":"Business",
+    "location":[32.068889, 34.823916],
+    "address":[{
+        "street":"עמינדב",
+        "streetNum":"10",
+        "city":"רמת גן"
+        }],
+    "place":"מסעדה",
+    "details":"מכירת סגריות באופן לא חוקי ",
+    "image":"https://res.cloudinary.com/ds9hgdboe/image/upload/v1690891931/hvdcxqdy…",
+    "reporter":"מני בניהו",
+    "userId":"64b2b393c8467d27f7d74006"
+},
+{
+    "date":"27/2/2023",
+    "type":"Private",
+    "location":[32.071613, 34.810493],
+    "address":[{
+        "street":"ארלוזרוב",
+        "streetNum":"12",
+        "city":"גבעתיים"
+        }],
+    "place":"מסעדה",
+    "details":"עישון לא חוקי במסעדה",
+    "image":"https://res.cloudinary.com/ds9hgdboe/image/upload/v1690891931/hvdcxqdy…",
+    "reporter":"יוסי קני",
+    "userId":"649d5cb945ab9ea870e46b78"
+},
+{
+    "date":"1/8/2023",
+    "type":"Business",
+    "location":[32.048627, 34.757049],
+    "address":[{
+        "street":"שבטי ישראל",
+        "streetNum":"24",
+        "city":"תל אביב - יפו"
+        }],
+    "place":"מסעדה",
+    "details":"מכירת סגריות באופן לא חוקי ",
+    "image":"https://res.cloudinary.com/ds9hgdboe/image/upload/v1690891931/hvdcxqdy…",
+    "reporter":"מני בניהו",
+    "userId":"64b2b393c8467d27f7d74006"
+}
+  
+
+    
+]
