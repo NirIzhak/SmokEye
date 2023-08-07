@@ -1,10 +1,11 @@
-import { Text, View, StyleSheet, TextInput, Switch, TouchableOpacity, SafeAreaView, Image, Animated, Modal, Button, Alert } from "react-native";
-import { useContext, useState, useRef, useEffect } from "react";
+import { Text, View, StyleSheet, Switch, TouchableOpacity, KeyboardAvoidingView, SafeAreaView, Image, Modal, Alert } from "react-native";
+import { useContext, useState, useEffect } from "react";
 import { SmokeyeContext } from "../Context/SmokEyeContext";
-import { Colors } from "../style/AllStyels";
+import { Colors, fontSizes } from "../style/AllStyels";
 import { APIContext } from "../Context/APIContext";
 import * as ImagePicker from "expo-image-picker";
 import { Popstyles } from "../style/PopUpModal";
+import { Button, TextInput } from "react-native-paper";
 export default function Register({ navigation }) {
 
   const [tempUser, setTempuser] = useState();
@@ -75,108 +76,129 @@ export default function Register({ navigation }) {
     }
   }, [tempUser]);
 
-
+  const handlePress = () => {
+    Keyboard.dismiss();
+  };
   return (
-    <SafeAreaView style={styles.container}>
-      <Text style={styles.h1_title}>הרשמה</Text>
-      <Text style={styles.title}>שם פרטי</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="שם פרטי"
-        onChangeText={(text) => setFirstName(text)}
-      />
-      <Text style={styles.title}>שם משפחה</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="שם משפחה"
-        onChangeText={(text) => setlastName(text)}
-      />
-      <Text style={styles.title}>Email</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="מייל"
-        onChangeText={(text) => setEmail(text)}
-        keyboardType="email-address"
-      />
-      <Text style={styles.title}>סיסמא</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="סיסמא"
-        onChangeText={(text) => setPassword(text)}
-      />
-      <Text style={styles.title}>מספר טלפון</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="פלאפון"
-        onChangeText={(text) => setPhone(text)}
-        keyboardType="phone-pad"
-      />
-      <Text style={styles.title}>כתובת</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="כתובת"
-        onChangeText={(text) => setAddress(text)}
-      />
-      <TouchableOpacity onPress={createTwoButtonAlert}>
-        {photo ? (
-          <Text style={[styles.btn]}>התמונה עלתה!</Text>
-        ) : (
-          <Text style={[styles.btn]}>העלאת תמונה</Text>
-        )}
-      </TouchableOpacity>
+    <>
+      <SafeAreaView>
 
-      <View style={styles.smoke_comtiner}>
-        <Text style={styles.title}>לא מעשן</Text>
-        <Switch
-          trackColor={{ false: "#767577", true: "#7CC69E" }}
-          thumbColor={smoke ? "#5CEE9F" : "#f4f3f4"}
-          ios_backgroundColor="#3e3e3e"
-          onValueChange={toggleSwitch}
-          value={smoke}
-          style={{ margin: 10 }}
+      </SafeAreaView>
+      <View style={styles.container}>
+        <View>
+          <Text style={styles.h1_title}>הרשמה</Text>
+        </View>
+        <View style={styles.rowInputConteiner}>
+          <TextInput
+            activeOutlineColor={Colors.primary}
+            style={styles.input2}
+            mode="outlined"
+            label="שם פרטי"
+            onChangeText={(text) => setFirstName(text)}
+          />
+          <TextInput
+            activeOutlineColor={Colors.primary}
+            mode="outlined"
+            style={styles.input2}
+            label="שם משפחה"
+            onChangeText={(text) => setlastName(text)}
+          />
+        </View>
+        <TextInput
+          activeOutlineColor={Colors.primary}
+          mode="outlined"
+          style={styles.input}
+          label="Email"
+          onChangeText={(text) => setEmail(text)}
+          keyboardType="email-address"
         />
-        <Text style={styles.title}>מעשן</Text>
-      </View>
-      <TouchableOpacity onPress={AddClient} style={styles.button}>
-        <Text style={styles.title}>הרשם</Text>
-      </TouchableOpacity>
-      {
-        visible ?
-          <>
-            <View>
-              <Modal
-                visible={visible}
-                animationType="fade"
-                transparent={true}
-                onRequestClose={hidePopupModal}
-              >
-                <View style={Popstyles.modalContainer}>
-                  <View style={Popstyles.modalContent}>
-                    <Text style={Popstyles.messageText}> ההרשמה התבצעה בהצלחה !</Text>
-                    <View style={{ alignItems: 'center' }}>
-                      <Image source={{ uri: "https://cdn-icons-png.flaticon.com/512/1102/1102355.png?w=740&t=st=1690886025~exp=1690886625~hmac=5516a06b0266fe418d8604dcc0fc5935f96153877b94db73796af0874f383cd5" }} style={{
-                        height: 180,
-                        width: 180,
-                      }}></Image>
+        <TextInput
+          activeOutlineColor={Colors.primary}
+          mode="outlined"
+          style={styles.input}
+          label="סיסמא"
+          onChangeText={(text) => setPassword(text)}
+        />
+        <TextInput
+          activeOutlineColor={Colors.primary}
+          mode="outlined"
+          style={styles.input}
+          label="פלאפון"
+          onChangeText={(text) => setPhone(text)}
+          keyboardType="phone-pad"
+        />
+        <TextInput
+          activeOutlineColor={Colors.primary}
+          mode="outlined"
+          style={styles.input}
+          label="כתובת"
+          onChangeText={(text) => setAddress(text)}
+        />
+        <TouchableOpacity style={styles.button2} onPress={createTwoButtonAlert}>
+          {photo ? (
+            <Text style={[styles.title, { fontSize: fontSizes.M }]}>התמונה עלתה!</Text>
+          ) : (
+            <Text style={[styles.title, { fontSize: fontSizes.S }]}>העלאת תמונה</Text>
+          )}
+        </TouchableOpacity>
+
+        <View style={styles.smoke_comtiner}>
+          <Text style={styles.title}>לא מעשן</Text>
+          <Switch
+            trackColor={{ false: "#767577", true: "#7CC69E" }}
+            thumbColor={smoke ? "#5CEE9F" : "#f4f3f4"}
+            ios_backgroundColor="#3e3e3e"
+            onValueChange={toggleSwitch}
+            value={smoke}
+            style={{ margin: 10 }}
+          />
+          <Text style={styles.title}>מעשן</Text>
+        </View>
+        <TouchableOpacity onPress={AddClient} style={styles.button}>
+          <Text style={styles.title}>הרשם</Text>
+        </TouchableOpacity>
+        {
+          visible ?
+            <>
+              <View>
+                <Modal
+                  visible={visible}
+                  animationType="fade"
+                  transparent={true}
+                  onRequestClose={hidePopupModal}
+                >
+                  <View style={Popstyles.modalContainer}>
+                    <View style={Popstyles.modalContent}>
+                      <Text style={Popstyles.messageText}> ההרשמה התבצעה בהצלחה !</Text>
+                      <View style={{ alignItems: 'center' }}>
+                        <Image source={{ uri: "https://cdn-icons-png.flaticon.com/512/1102/1102355.png?w=740&t=st=1690886025~exp=1690886625~hmac=5516a06b0266fe418d8604dcc0fc5935f96153877b94db73796af0874f383cd5" }} style={{
+                          height: 180,
+                          width: 180,
+                        }}></Image>
+                      </View>
+                      <TouchableOpacity onPress={hidePopupModal}>
+                        <Text style={Popstyles.closeButton}>סגור</Text>
+                      </TouchableOpacity>
                     </View>
-                    <TouchableOpacity onPress={hidePopupModal}>
-                      <Text style={Popstyles.closeButton}>סגור</Text>
-                    </TouchableOpacity>
                   </View>
-                </View>
-              </Modal>
-            </View>
-          </>
-          :
-          null
-      }
-    </SafeAreaView>
+                </Modal>
+              </View>
+            </>
+            :
+            null
+        }
+      </View>
+    </>
+
   );
 }
 const styles = StyleSheet.create({
   container: {
-    marginHorizontal: 20,
-    marginVertical: 20,
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: "100%",
+    backgroundColor: Colors.white
   },
   title: {
     textAlign: "center",
@@ -187,26 +209,37 @@ const styles = StyleSheet.create({
     fontSize: 40,
     marginBottom: 30,
   },
+  rowInputConteiner: {
+    marginBottom: 12,
+    justifyContent: "center",
+    width: "90%",
+    flexDirection: 'row-reverse'
+  },
   input: {
-    flexDirection: "row",
-    borderColor: "#8C8A89",
-    borderRadius: 5,
-    borderWidth: 1,
+    backgroundColor: Colors.white,
     marginBottom: 12,
     textAlign: "right",
-    height: 35,
-    width: "75%",
-    marginLeft: "auto",
-    marginRight: "auto",
+    width: "90%",
+  },
+  input2: {
+    backgroundColor: Colors.white,
+    margin: 15,
+    width: "45%",
+
   },
   button: {
     backgroundColor: Colors.primary,
     width: "40%",
     padding: 15,
-    borderRadius: 20,
-    color: "#fff",
-    marginLeft: "auto",
-    marginRight: "auto",
+    borderRadius: 5,
+    marginTop: 20,
+  },
+  button2: {
+    backgroundColor: Colors.primary,
+    width: "30%",
+    padding: 15,
+    borderRadius: 5,
+    marginTop: 20,
   },
   smoke_comtiner: {
     display: "flex",
@@ -216,7 +249,5 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginBottom: 10,
     width: "50%",
-    marginLeft: "auto",
-    marginRight: "auto",
   }
 });
