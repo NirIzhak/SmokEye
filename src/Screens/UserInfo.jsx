@@ -6,7 +6,7 @@ import { Colors } from "react-native/Libraries/NewAppScreen";
 
 export default function UserInfo() {
   const { infoData } = useContext(APIContext);
-  const personData = infoData[0].person;
+  const personData = infoData.filter((m)=>m.infoFor == "person")
 
   return (
     <SafeAreaView style={styles.continer}>

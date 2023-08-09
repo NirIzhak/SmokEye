@@ -7,7 +7,7 @@ import { Colors } from "react-native/Libraries/NewAppScreen";
 
 export default function StoreInfo() {
   const { infoData } = useContext(APIContext);
-  const businessData = infoData[0].business;
+  const businessData = infoData.filter((m)=>m.infoFor == "business")
 
   return (
     <SafeAreaView style={styles.continer}>
