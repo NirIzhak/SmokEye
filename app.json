@@ -50,6 +50,11 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "owner": "nirizhak15"
+    "owner": "nirizhak15",
+    "extra": {
+      "eas": {
+        "projectId": "204627a1-ba6a-46dc-9e79-2264651bd247"
+      }
+    }
   }
 }
