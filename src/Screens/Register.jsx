@@ -13,6 +13,43 @@ export default function Register({ navigation }) {
   const { email, password, phone, address, setPassword, setFirstName, setlastName, setEmail, setPhone, setAddress, toggleSwitch, smoke, firstName, lastName } = useContext(SmokeyeContext);
   const { visible, setVisible, InsertNewUser, ImageUploader } = useContext(APIContext);
 
+
+
+  function checkNameValidity(name) {
+    name = name.trim();
+    if (name.length >= 2) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  function checkEmailValidity(email) {
+    const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+  
+    return emailPattern.test(email);
+  }
+  
+
+  function checkPasswordLength(password) {
+    if (password.length >= 6) {
+      return true; 
+    } else {
+      return false; 
+    }
+  }
+
+  function checkStringForDigits(str) {
+    const digitPattern = /^\d{10}$/;
+  
+    return digitPattern.test(str);
+  }
+  
+  
+
+
+
+
   const hidePopupModal = () => {
     setVisible(false);
   }
@@ -45,6 +82,8 @@ export default function Register({ navigation }) {
   };
   //Add client
   const AddClient = async () => {
+    if(checkNameValidity(firstName) && checkNameValidity(lastName) && checkEmailValidity(email) && checkPasswordLength(password) && checkStringForDigits(phone) && checkNameValidity(address) && photo){
+      
     const imageLink = await ImageUploader(photo);
     setTempuser({
       firstName: `${firstName}`,
@@ -58,8 +97,16 @@ export default function Register({ navigation }) {
       img: imageLink,
       isActive: true,
     });
-    console.log(imageLink);
+  } else{
+      alert("אנא וודא את כל הפרטים, נראה כי משהו לא תקין")
+    }
   };
+
+
+
+
+
+
   const ReturnTologinScreen = () => {
     navigation.navigate("Login");
     setVisible(false);
@@ -175,7 +222,7 @@ export default function Register({ navigation }) {
                               width: 180,
                             }}></Image>
                           </View>
-                          <TouchableOpacity onPress={hidePopupModal}>
+                          <TouchableOpacity onPress={ReturnTologinScreen}>
                             <Text style={Popstyles.closeButton}>סגור</Text>
                           </TouchableOpacity>
                         </View>
