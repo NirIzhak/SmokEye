@@ -39,7 +39,7 @@ export default function Login({ navigation }) {
   });
   const { setEmail, setPassword, email, password, setCurrentLocation } =
     useContext(SmokeyeContext);
-  const { ConfirmClient, setLatitude, setLongitude, setLocation } =
+  const { ConfirmClient, setLatitude, setLongitude, setLocation, allUsers,setCurrentUser,InsertNewUser } =
     useContext(APIContext);
   const handlePress = () => {
     Keyboard.dismiss();
@@ -59,7 +59,31 @@ export default function Login({ navigation }) {
     );
     const response = await res.json();
     setUserInfo(response);
-    console.log(response)
+    let emailInDb = allUsers.some((e)=>e.email === response.email)
+    if(!emailInDb){
+      let newUser = {
+        firstName: `${response.given_name}`,
+        lastName: `${response.family_name}`,
+        email: `${response.email}`,
+        password: ``,
+        phone: ``,
+        address: ``,
+        role: "client",
+        smoke: '',
+        img: `${response.picture}`,
+        isActive: true,
+      }
+      await InsertNewUser(newUser)
+      console.log("added")
+      setCurrentUser(newUser)
+      navigation.navigate("userScreens");
+    }else{
+      let u = allUsers.filter((e)=>e.email === response.email)
+      setCurrentUser(u)
+      navigation.navigate("userScreens");
+    }
+
+    //console.log(response)
     return response;
   };
 

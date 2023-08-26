@@ -12,11 +12,8 @@ export default function Profile({ navigation }) {
   const amountReports = allMyReports.length;
 
   useEffect(() => {
-    if (!renderImage) {
-      setImage(currentUser.image || null);
-      setRenderImage(true);
-    }
-  }, [renderImage])
+      setImage(currentUser.img || null);
+  }, [currentUser.img])
   const EditPage = () => {
     navigation.navigate('editDetails');
   }
@@ -32,7 +29,7 @@ export default function Profile({ navigation }) {
             )}
           </View>
           <View>
-            <Text style={styles.title_conteiner}>{fullname}</Text>
+            <Text style={styles.title_conteiner}>{currentUser.firstName + " " + currentUser.lastName}</Text>
           </View>
         </View>
         <View style={styles.line}></View>

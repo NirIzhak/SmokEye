@@ -62,8 +62,9 @@ export default function NewReport() {
   };
   //creating ner report
   const createReport = async () => {
-    setIsImageRequired(false); // Reset the image required error
-    if (!imageUri) {
+    setIsImageRequired(false); 
+    if (!imageUri || !street || !streetNum || !city) {
+      alert("חסרים לנו נתונים על מנת לשלוח את הדיווח")
       setIsImageRequired(true);
     } else {
       try {
@@ -93,7 +94,7 @@ export default function NewReport() {
       } catch (err) {
         console.log(err);
       } finally {
-        setIsLoading(false); // Stop loading
+        setIsLoading(false); 
       }
     }
   };
@@ -292,7 +293,10 @@ export default function NewReport() {
             </View>
             <View style={styles.sendReport}>
   {isLoading ? (
+    <>
     <ActivityIndicator size="small" color={Colors.primary} />
+    <Text>שולח דיווח...</Text>
+    </>
   ) : (
     <Button
       color={Colors.primary}
