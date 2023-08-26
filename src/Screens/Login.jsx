@@ -5,7 +5,6 @@ import {
   TouchableOpacity,
   Keyboard,
   StyleSheet,
-  ImageBackground,
   Image,
   TouchableWithoutFeedback,
 } from "react-native";
@@ -82,8 +81,6 @@ export default function Login({ navigation }) {
       setCurrentUser(u)
       navigation.navigate("userScreens");
     }
-
-    //console.log(response)
     return response;
   };
 
@@ -178,7 +175,7 @@ export default function Login({ navigation }) {
               navigation.navigate("Register");
             }}
           >
-            <Text>אין לך משתמש ? הרשם עכשיו !</Text>
+            <Text>אין לך משתמש? הרשם עכשיו</Text>
           </Button>
           <Button
             onPress={() =>token ? getUserInfo() : promptAsync()}

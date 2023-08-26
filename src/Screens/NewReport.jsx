@@ -14,7 +14,6 @@ import {
 } from "react-native";
 import { Dropdown } from "react-native-element-dropdown";
 import React, { useEffect, useState, useContext } from "react";
-import * as Location from "expo-location";
 import * as ImagePicker from "expo-image-picker";
 import { SmokeyeContext } from "../Context/SmokEyeContext";
 import { APIContext } from "../Context/APIContext";
@@ -56,6 +55,7 @@ export default function NewReport() {
 
   const handlePress = () => {
     Keyboard.dismiss();
+    console.log("blur")
   };
   const hidePopupModal = () => {
     setpopMsgReport(false);
@@ -202,8 +202,8 @@ export default function NewReport() {
     <>
       <KeyboardAvoidingView
         behavior="padding"
-        onPress={handlePress}
-        style={styles.container}
+        onPressOut={()=>handlePress}
+                style={styles.container}
       >
         <PaperProvider theme={theme}>
           <View style={styles.headContiner}>
@@ -213,32 +213,29 @@ export default function NewReport() {
             </Text>
             <View style={styles.radio_btn}>
               <View style={styles.radioButtonContainer}>
+                <Text style={styles.radioButtonText}>
+                  עסק בו הסיגריות בגלוי
+                </Text>
                 <RadioButton.Android
                   value="Business"
                   status={checked === "Business" ? "checked" : "unchecked"}
                   onPress={() => setChecked("Business")}
                   color={theme.colors.primary}
                 />
-                <Text style={styles.radioButtonText}>
-                  עסק בו הסיגריות בגלוי
-                </Text>
               </View>
               <View style={styles.radioButtonContainer}>
+                <Text style={styles.radioButtonText}>עישון במקום לא חוקי</Text>
                 <RadioButton.Android
                   value="Private"
                   status={checked === "Private" ? "checked" : "unchecked"}
                   onPress={() => setChecked("Private")}
                 />
-                <Text style={styles.radioButtonText}>עישון במקום לא חוקי</Text>
               </View>
             </View>
             <View>{select ? ViewBus() : ViewPrivate()}</View>
             <Text style={[styles.title]}> פרט בקצרה על המקרה </Text>
             <TextInput
-              multiline
-              numberOfLines={4}
               placeholder="לדוגמא: עסק שמוכר סיגריות שנראות באופן גלוי"
-              onBlur={handlePress}
               onChangeText={(text) => setDes(text)}
               style={[styles.report_Details, styles.input_Text]}
             />
@@ -261,10 +258,10 @@ export default function NewReport() {
             <Text style={styles.title}>פרטי מיקום:</Text>
             <View style={styles.addressContainer}>
               <TextInput
-                placeholder="שם הרחוב"
-                defaultValue={street}
-                onChangeText={(text) => setStreet(text)}
-                style={[styles.addressInput, styles.streetInput]}
+                placeholder="עיר"
+                defaultValue={city}
+                onChangeText={(text) => setCity(text)}
+                style={[styles.addressInput, styles.cityInput]}
               />
               <TextInput
                 placeholder="מספר"
@@ -273,10 +270,10 @@ export default function NewReport() {
                 style={[styles.addressInput, styles.streetNumInput]}
               />
               <TextInput
-                placeholder="עיר"
-                defaultValue={city}
-                onChangeText={(text) => setCity(text)}
-                style={[styles.addressInput, styles.cityInput]}
+                placeholder="שם הרחוב"
+                defaultValue={street}
+                onChangeText={(text) => setStreet(text)}
+                style={[styles.addressInput, styles.streetInput]}
               />
             </View>
             <View>
@@ -390,6 +387,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     padding: 5,
     direction: "rtl",
+    textAlign:'right',
   },
   report_Details: {
     width: "85%",
@@ -423,6 +421,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     padding: 5,
     margin: 2,
+    textAlign:'center'
   },
   streetInput: {
     width: "40%",
