@@ -58,8 +58,8 @@ export default function Login({ navigation }) {
     );
     const response = await res.json();
     setUserInfo(response);
-    let emailInDb = allUsers.some((e) => e.email === response.email)
-    if (!emailInDb) {
+    let emailInDb = allUsers.some((e)=>e.email === response.email)
+    if(!emailInDb){
       let newUser = {
         firstName: `${response.given_name}`,
         lastName: `${response.family_name}`,
@@ -72,17 +72,19 @@ export default function Login({ navigation }) {
         img: `${response.picture}`,
         isActive: true,
       }
+      if(!curr)
       await InsertNewUser(newUser)
       console.log("added")
       setCurrentUser(newUser)
       navigation.navigate("userScreens");
     } else {
-      let u = allUsers.filter((e) => e.email === response.email)
+      let u = allUsers.filter((e)=>e.email === response.email)[0]; 
       setCurrentUser(u)
       navigation.navigate("userScreens");
     }
     return response;
   };
+  
 
   useEffect(() => {
     const getPermissions = async () => {
