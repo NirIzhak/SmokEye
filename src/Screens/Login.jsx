@@ -202,7 +202,7 @@ export default function Login({ navigation }) {
               navigation.navigate("FastReport");
             }}
           >
-            <Text style={{ color: "#B5B4B4" }}>דווח כאנונימי</Text>
+            <Text style={{ color: "#B5B4B4" }}>דווח כאfdsנונימי</Text>
           </TouchableOpacity>
         </View>
       </View>
