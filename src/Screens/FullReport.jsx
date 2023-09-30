@@ -1,6 +1,7 @@
 import { Text, SafeAreaView, Image, StyleSheet } from "react-native";
 import React, { useContext } from "react";
 import { SmokeyeContext } from "../Context/SmokEyeContext";
+import { fontSizes } from "../style/AllStyels";
 
 export default function FullReport() {
   const { report } = useContext(SmokeyeContext);
@@ -9,7 +10,7 @@ export default function FullReport() {
   return (
     <SafeAreaView style={styles.continer}>
       <Text style={styles.title}>פרטי דיווח מלאים:</Text>
-      <Text style={styles.text}>עסק / פרטי: {report.type=="Private" ? "פרטי" : "עסק"}</Text>
+      <Text style={styles.text}>עסק / פרטי: {report.type == "Private" ? "פרטי" : "עסק"}</Text>
       <Text style={styles.text}>תיאור: {report.details}</Text>
       <Text style={styles.text}>כתובת מלאה: {a}</Text>
       <Text style={styles.text}>מיקום : {report.place}</Text>
@@ -35,13 +36,13 @@ const styles = StyleSheet.create({
   },
   text: {
     textAlign: 'right',
-    fontSize: 20,
+    fontSize: fontSizes.S,
     margin: 10,
     marginRight: 25
   },
   title: {
     textAlign: 'center',
-    fontSize: 35,
+    fontSize: fontSizes.M,
     marginTop: 10
   },
   imageText: {
