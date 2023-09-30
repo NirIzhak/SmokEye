@@ -3,7 +3,7 @@ import { useContext } from 'react'
 import { SmokeyeContext } from '../Context/SmokEyeContext';
 import { APIContext } from '../Context/APIContext';
 import { Popstyles } from '../style/PopUpModal';
-import { Svg } from 'react-native-svg';
+import { fontSizes } from '../style/AllStyels';
 
 
 export default function ReportCard({ _id, date, type, address, place, details, image, navigation }) {
@@ -115,7 +115,7 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   },
   text_field: {
-    fontSize: 15,
+    fontSize: fontSizes.S,
 
   },
   btn: {
