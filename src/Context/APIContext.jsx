@@ -8,6 +8,7 @@ export default function APIContextProvider({ children }) {
   const [allReports, setAllReports] = useState([]);
   const [allMyReports, setAllMyReports] = useState([]);
   const [visible, setVisible] = useState(false);
+  const [allUsers, setAllUsers] = useState([]);
   const [popMsgReport, setpopMsgReport] = useState(false);
   const [popMsgDelete, setpopMsgDelete] = useState(false);
   const [infoData, setInfoData] = useState([]);
@@ -19,6 +20,17 @@ export default function APIContextProvider({ children }) {
   const [streetNum, SetStreetNum] = useState("");
 
   //Users
+
+  const GetAllUsers = async()=>{
+    try {
+      let res = await fetch(`${base_URL}/users`);
+      let data = await res.json();
+      setAllUsers(data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
 
   //Add Client to clients Array
   const InsertNewUser = async (user) => {
@@ -259,6 +271,10 @@ export default function APIContextProvider({ children }) {
     }
   }
 
+  useEffect(()=>{
+    GetAllUsers();
+  },[allUsers])
+
   useEffect(() => {
     GetReports();
   }, [allReports]);
@@ -290,6 +306,7 @@ export default function APIContextProvider({ children }) {
     setpopMsgReport,
     DeleteReport,
     setpopMsgDelete,
+    allUsers,
     popMsgDelete,
     allMyReports,
     popMsgReport,

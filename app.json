@@ -2,6 +2,7 @@
   "expo": {
     "name": "SmokEye",
     "slug": "SmokEye",
+    "scheme": "com.auth.SmokEye",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -29,6 +30,7 @@
     ],
     "ios": {
       "supportsTablet": true,
+      "bundleIdentifier": "com.nirizhak15.SmokEye",
       "infoPlist": {
         "NSCameraUsageDescription": "Allow access to the camera",
         "NSPhotoLibraryUsageDescription": "Allow access to the photo library"
@@ -48,8 +50,21 @@
       "package": "com.nirizhak15.SmokEye"
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/favicon.png",
+      "client_id":"815047920130-rcjgnkiuq63jsvjh0ohoqm044vl1i3tl.apps.googleusercontent.com",
+      "project_id":"utopian-spring-394709",
+      "auth_uri":"https://accounts.google.com/o/oauth2/auth",
+      "token_uri":"https://oauth2.googleapis.com/token",
+      "auth_provider_x509_cert_url":"https://www.googleapis.com/oauth2/v1/certs",
+      "client_secret":"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",
+      "redirect_uris":["https://localhost:19006"],
+      "javascript_origins":["https://localhost:19006"]
     },
-    "owner": "nirizhak15"
+    "owner": "nirizhak15",
+    "extra": {
+      "eas": {
+        "projectId": "204627a1-ba6a-46dc-9e79-2264651bd247"
+      }
+    }
   }
 }

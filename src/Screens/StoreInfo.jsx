@@ -7,7 +7,7 @@ import { Colors } from "react-native/Libraries/NewAppScreen";
 
 export default function StoreInfo() {
   const { infoData } = useContext(APIContext);
-  const businessData = infoData[0].business;
+  const businessData = infoData.filter((m)=>m.infoFor == "business")
 
   return (
     <SafeAreaView style={styles.continer}>
@@ -27,7 +27,8 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingVertical: 100,
     height: "100%",
-    backgroundColor: Colors.white
+    backgroundColor: Colors.white,
+    direction:"rtl",
   },
   title: {
     textAlign: "center",
