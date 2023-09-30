@@ -44,6 +44,11 @@ export default function Login({ navigation }) {
     Keyboard.dismiss();
   };
 
+  useEffect(() => {
+    if (token) {
+      getUserInfo(); 
+    }
+  }, [token]);
 
   useEffect(() => {
     if (response?.type === "success") {
@@ -72,7 +77,6 @@ export default function Login({ navigation }) {
         img: `${response.picture}`,
         isActive: true,
       }
-      if(!curr)
       await InsertNewUser(newUser)
       console.log("added")
       setCurrentUser(newUser)
