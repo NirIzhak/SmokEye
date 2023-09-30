@@ -33,18 +33,18 @@ export default function Login({ navigation }) {
       "815047920130-rcjgnkiuq63jsvjh0ohoqm044vl1i3tl.apps.googleusercontent.com"
     //redirectUri: "https://auth.expo.io/@nirizhak15/SmokEye/start"
   },
-  {
-    authorizationEndpoint: "https://accounts.google.com/o/oauth2/v2/auth", // Add this line
-  });
+    {
+      authorizationEndpoint: "https://accounts.google.com/o/oauth2/v2/auth", // Add this line
+    });
   const { setEmail, setPassword, email, password, setCurrentLocation } =
     useContext(SmokeyeContext);
-  const { ConfirmClient, setLatitude, setLongitude, setLocation, allUsers,setCurrentUser,InsertNewUser } =
+  const { ConfirmClient, setLatitude, setLongitude, setLocation, allUsers, setCurrentUser, InsertNewUser } =
     useContext(APIContext);
   const handlePress = () => {
     Keyboard.dismiss();
   };
 
-  
+
   useEffect(() => {
     if (response?.type === "success") {
       const { authentication } = response;
@@ -58,8 +58,8 @@ export default function Login({ navigation }) {
     );
     const response = await res.json();
     setUserInfo(response);
-    let emailInDb = allUsers.some((e)=>e.email === response.email)
-    if(!emailInDb){
+    let emailInDb = allUsers.some((e) => e.email === response.email)
+    if (!emailInDb) {
       let newUser = {
         firstName: `${response.given_name}`,
         lastName: `${response.family_name}`,
@@ -76,8 +76,8 @@ export default function Login({ navigation }) {
       console.log("added")
       setCurrentUser(newUser)
       navigation.navigate("userScreens");
-    }else{
-      let u = allUsers.filter((e)=>e.email === response.email)
+    } else {
+      let u = allUsers.filter((e) => e.email === response.email)
       setCurrentUser(u)
       navigation.navigate("userScreens");
     }
@@ -178,7 +178,7 @@ export default function Login({ navigation }) {
             <Text>אין לך משתמש? הרשם עכשיו</Text>
           </Button>
           <Button
-            onPress={() =>token ? getUserInfo() : promptAsync()}
+            onPress={() => token ? getUserInfo() : promptAsync()}
             textColor={Colors.black}
             buttonColor={Colors.transparent}
             style={[Styles.input_btn]}
@@ -202,7 +202,7 @@ export default function Login({ navigation }) {
               navigation.navigate("FastReport");
             }}
           >
-            <Text style={{ color: "#B5B4B4" }}>דווח כאfdsנונימי</Text>
+            <Text style={{ color: "#B5B4B4" }}>דווח כאנונימי</Text>
           </TouchableOpacity>
         </View>
       </View>
