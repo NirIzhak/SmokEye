@@ -189,7 +189,7 @@ export default function Login({ navigation }) {
             buttonColor={Colors.transparent}
             style={[Styles.input_btn]}
           >
-            <Text>{token ? "כניסה עם גוגל" : "הוספת משתמש גוגל"}</Text>
+            <Text>כניסה עם גוגל</Text>
             <Image
               source={require("../Images/icons8-google-48.png")}
               style={{ width: 24, height: 24 }}
