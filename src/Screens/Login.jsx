@@ -46,7 +46,7 @@ export default function Login({ navigation }) {
 
   useEffect(() => {
     if (token) {
-      getUserInfo(); 
+      getUserInfo();
     }
   }, [token]);
 
@@ -63,8 +63,8 @@ export default function Login({ navigation }) {
     );
     const response = await res.json();
     setUserInfo(response);
-    let emailInDb = allUsers.some((e)=>e.email === response.email)
-    if(!emailInDb){
+    let emailInDb = allUsers.some((e) => e.email === response.email)
+    if (!emailInDb) {
       let newUser = {
         firstName: `${response.given_name}`,
         lastName: `${response.family_name}`,
@@ -82,13 +82,13 @@ export default function Login({ navigation }) {
       setCurrentUser(newUser)
       navigation.navigate("userScreens");
     } else {
-      let u = allUsers.filter((e)=>e.email === response.email)[0]; 
+      let u = allUsers.filter((e) => e.email === response.email)[0];
       setCurrentUser(u)
       navigation.navigate("userScreens");
     }
     return response;
   };
-  
+
 
   useEffect(() => {
     const getPermissions = async () => {
