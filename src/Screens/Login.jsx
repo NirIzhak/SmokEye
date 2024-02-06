@@ -1,3 +1,4 @@
+
 import { useContext, useEffect, useState } from "react";
 import {
   View,
@@ -14,28 +15,27 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Colors, fontSizes } from "../style/AllStyels";
 import * as Location from "expo-location";
 import { APIContext } from "../Context/APIContext";
-import * as WebBroswer from "expo-web-browser";
+import * as WebBrowser from "expo-web-browser";
 import * as Google from "expo-auth-session/providers/google";
 
-WebBroswer.maybeCompleteAuthSession();
+WebBrowser.maybeCompleteAuthSession();
 
 export default function Login({ navigation }) {
   const [userInfo, setUserInfo] = useState(null);
   const [token, setToken] = useState(null);
-  const [request, response, promptAsync] = Google.useAuthRequest({
-    androidClientId:
-      "815047920130-66fqvk7sj091egq4s70hm8ng581r14u3.apps.googleusercontent.com",
-    iosClientId:
-      "815047920130-c5fjpr4kufvvfbe9ubnbpv4f0q6p4t5t.apps.googleusercontent.com",
-    webClientId:
-      "815047920130-rcjgnkiuq63jsvjh0ohoqm044vl1i3tl.apps.googleusercontent.com",
-    expoClientId:
-      "815047920130-rcjgnkiuq63jsvjh0ohoqm044vl1i3tl.apps.googleusercontent.com"
-    //redirectUri: "https://auth.expo.io/@nirizhak15/SmokEye/start"
-  },
+  const [request, response, promptAsync] = Google.useAuthRequest(
     {
-      authorizationEndpoint: "https://accounts.google.com/o/oauth2/v2/auth", // Add this line
-    });
+      androidClientId:
+        "815047920130-66fqvk7sj091egq4s70hm8ng581r14u3.apps.googleusercontent.com",
+      iosClientId:
+        "815047920130-c5fjpr4kufvvfbe9ubnbpv4f0q6p4t5t.apps.googleusercontent.com",
+      webClientId:
+        "815047920130-rcjgnkiuq63jsvjh0ohoqm044vl1i3tl.apps.googleusercontent.com",
+    },
+    {
+      authorizationEndpoint: "https://accounts.google.com/o/oauth2/v2/auth",
+    }
+  );
   const { setEmail, setPassword, email, password, setCurrentLocation } =
     useContext(SmokeyeContext);
   const { ConfirmClient, setLatitude, setLongitude, setLocation, allUsers, setCurrentUser, InsertNewUser } =
@@ -118,7 +118,7 @@ export default function Login({ navigation }) {
       console.log("err clearonboarding", err);
     }
   };
-  // chack who is the current user and his spicific role
+
   const Validuser = async (e, p) => {
     let role = await ConfirmClient(e, p);
     if (role == "client") {
@@ -215,6 +215,7 @@ export default function Login({ navigation }) {
     </TouchableWithoutFeedback>
   );
 }
+
 const Styles = StyleSheet.create({
   continer: {
     backgroundColor: Colors.white,
