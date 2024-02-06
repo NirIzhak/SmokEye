@@ -1,5 +1,8 @@
 import { createContext, useState, useEffect } from "react";
 import { base_URL } from "../../utilis/api";
+import { LogBox } from 'react-native';
+LogBox.ignoreLogs(['new NativeEventEmitter']); // Ignore log notification by message
+LogBox.ignoreAllLogs(); //Ignore all log notifications
 export const APIContext = createContext();
 
 export default function APIContextProvider({ children }) {
@@ -21,7 +24,7 @@ export default function APIContextProvider({ children }) {
 
   //Users
 
-  const GetAllUsers = async()=>{
+  const GetAllUsers = async () => {
     try {
       let res = await fetch(`${base_URL}/users`);
       let data = await res.json();
@@ -271,9 +274,9 @@ export default function APIContextProvider({ children }) {
     }
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     GetAllUsers();
-  },[allUsers])
+  }, [allUsers])
 
   useEffect(() => {
     GetReports();
