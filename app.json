@@ -32,6 +32,9 @@
       "supportsTablet": true,
       "bundleIdentifier": "com.nirizhak15.SmokEye",
       "infoPlist": {
+        "CFBundleURLTypes": [
+          "com.googleusercontent.apps.815047920130-c5fjpr4kufvvfbe9ubnbpv4f0q6p4t5t"
+        ],
         "NSCameraUsageDescription": "Allow access to the camera",
         "NSPhotoLibraryUsageDescription": "Allow access to the photo library"
       }
@@ -51,14 +54,18 @@
     },
     "web": {
       "favicon": "./assets/favicon.png",
-      "client_id":"815047920130-rcjgnkiuq63jsvjh0ohoqm044vl1i3tl.apps.googleusercontent.com",
-      "project_id":"utopian-spring-394709",
-      "auth_uri":"https://accounts.google.com/o/oauth2/auth",
-      "token_uri":"https://oauth2.googleapis.com/token",
-      "auth_provider_x509_cert_url":"https://www.googleapis.com/oauth2/v1/certs",
-      "client_secret":"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",
-      "redirect_uris":["https://localhost:19006"],
-      "javascript_origins":["https://localhost:19006"]
+      "client_id": "815047920130-rcjgnkiuq63jsvjh0ohoqm044vl1i3tl.apps.googleusercontent.com",
+      "project_id": "utopian-spring-394709",
+      "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+      "token_uri": "https://oauth2.googleapis.com/token",
+      "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+      "client_secret": "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",
+      "redirect_uris": [
+        "https://localhost:19006"
+      ],
+      "javascript_origins": [
+        "https://localhost:19006"
+      ]
     },
     "extra": {
       "eas": {

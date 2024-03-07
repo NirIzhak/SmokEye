@@ -31,9 +31,6 @@ export default function Login({ navigation }) {
         "815047920130-c5fjpr4kufvvfbe9ubnbpv4f0q6p4t5t.apps.googleusercontent.com",
       webClientId:
         "815047920130-rcjgnkiuq63jsvjh0ohoqm044vl1i3tl.apps.googleusercontent.com",
-    },
-    {
-      authorizationEndpoint: "https://accounts.google.com/o/oauth2/v2/auth",
     }
   );
   const { setEmail, setPassword, email, password, setCurrentLocation } =
@@ -58,6 +55,7 @@ export default function Login({ navigation }) {
   }, [response]);
 
   const getUserInfo = async () => {
+    console.log(token)
     const res = await fetch(
       "https://www.googleapis.com/oauth2/v1/userinfo?access_token=" + token
     );

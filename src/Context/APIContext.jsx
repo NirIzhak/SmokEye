@@ -58,6 +58,7 @@ export default function APIContextProvider({ children }) {
 
   // chack if the user is exsist
   const ConfirmClient = async (e, p) => {
+    console.log("here")
     try {
       let url = `${base_URL}/users/Login`;
       const response = await fetch(url, {
@@ -76,6 +77,7 @@ export default function APIContextProvider({ children }) {
         throw new Error(error);
       }
     } catch (err) {
+      console.log(err)
       alert("שם משתמש או סיסמא לא תקינים");
     }
   };
