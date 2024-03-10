@@ -26,29 +26,24 @@ export default function Register({ navigation }) {
 
   function checkEmailValidity(email) {
     const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-  
+
     return emailPattern.test(email);
   }
-  
+
 
   function checkPasswordLength(password) {
     if (password.length >= 6) {
-      return true; 
+      return true;
     } else {
-      return false; 
+      return false;
     }
   }
 
   function checkStringForDigits(str) {
     const digitPattern = /^\d{10}$/;
-  
+
     return digitPattern.test(str);
   }
-  
-  
-
-
-
 
   const hidePopupModal = () => {
     setVisible(false);
@@ -82,30 +77,25 @@ export default function Register({ navigation }) {
   };
   //Add client
   const AddClient = async () => {
-    if(checkNameValidity(firstName) && checkNameValidity(lastName) && checkEmailValidity(email) && checkPasswordLength(password) && checkStringForDigits(phone) && checkNameValidity(address) && photo){
-      
-    const imageLink = await ImageUploader(photo);
-    setTempuser({
-      firstName: `${firstName}`,
-      lastName: `${lastName}`,
-      email: `${email}`,
-      password: `${password}`,
-      phone: `${phone}`,
-      address: `${address}`,
-      role: "client",
-      smoke: smoke,
-      img: imageLink,
-      isActive: true,
-    });
-  } else{
+    if (checkNameValidity(firstName) && checkNameValidity(lastName) && checkEmailValidity(email) && checkPasswordLength(password) && checkStringForDigits(phone) && checkNameValidity(address) && photo) {
+
+      const imageLink = await ImageUploader(photo);
+      setTempuser({
+        firstName: `${firstName}`,
+        lastName: `${lastName}`,
+        email: `${email}`,
+        password: `${password}`,
+        phone: `${phone}`,
+        address: `${address}`,
+        role: "client",
+        smoke: smoke,
+        img: imageLink,
+        isActive: true,
+      });
+    } else {
       alert("אנא וודא את כל הפרטים, נראה כי משהו לא תקין")
     }
   };
-
-
-
-
-
 
   const ReturnTologinScreen = () => {
     navigation.navigate("Login");
