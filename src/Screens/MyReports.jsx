@@ -5,7 +5,6 @@ import { APIContext } from "../Context/APIContext";
 
 export default function MyReports({ navigation }) {
   const { allMyReports, ShowMyReports, currentUser } = useContext(APIContext);
-
   useEffect(() => {
     checkReports(currentUser.email);
   }, [allMyReports]);

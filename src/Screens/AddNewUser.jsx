@@ -17,8 +17,8 @@ export default function AddNewUser() {
   const [confirmPassword, setConfirmPassword] = useState("");
   return (
     <SafeAreaView>
-      <Text>הוספת משתמש חדש</Text>
-      <Text style={[styles.title]}>שפ פרטי</Text>
+      <Text style={{textAlign: 'center', fontSize: '26', fontWeight: 'bold', margin: '5%'}}>הוספת משתמש חדש</Text>
+      <Text style={[styles.title]}>שם פרטי</Text>
       <TextInput
         onChangeText={(text) => setFName(text)}
         style={[styles.report_Details, styles.input_Text]}
@@ -57,21 +57,12 @@ export default function AddNewUser() {
           { textAlign: "left" },
         ]}
       />
-      <Text style={[styles.title]}>תמונה</Text>
-      <TextInput
-        onChangeText={(text) => setConfirmPassword(text)}
-        style={[
-          styles.report_Details,
-          styles.input_Text,
-          { textAlign: "left" },
-        ]}
-      />
       <TouchableOpacity
         onPress={() => {
           console.log(fName, lName, email, password, confirmPassword);
         }}
       >
-        <Text>הוספה</Text>
+        <Text style={{backgroundColor: 'grey', padding: '2%', width: '20%', marginLeft: 'auto', marginRight: 'auto', textAlign: 'center', borderRadius: 5, marginTop: '10%'}}>הוספה</Text>
       </TouchableOpacity>
     </SafeAreaView>
   );

@@ -89,10 +89,9 @@ const styles = {
     overflow: "hidden",
   },
   content: {
-    textAlign: "left",
     fontSize: 16,
     color: "#555555",
-    textAlign: "right"
+    textAlign: "left"
   },
 };
 

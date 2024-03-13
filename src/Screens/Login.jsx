@@ -181,7 +181,7 @@ export default function Login({ navigation }) {
           >
             <Text>אין לך משתמש? הרשם עכשיו</Text>
           </Button>
-          <Button
+          {/* <Button
             onPress={() => token ? getUserInfo() : promptAsync()}
             textColor={Colors.black}
             buttonColor={Colors.transparent}
@@ -192,7 +192,7 @@ export default function Login({ navigation }) {
               source={require("../Images/icons8-google-48.png")}
               style={{ width: 24, height: 24 }}
             ></Image>
-          </Button>
+          </Button> */}
           <Button
             style={[Styles.button, Styles.input_btn]}
             onPress={() => {

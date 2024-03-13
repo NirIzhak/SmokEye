@@ -12,8 +12,8 @@ export default function Profile({ navigation }) {
   const amountReports = allMyReports.length;
 
   useEffect(() => {
-      setImage(currentUser.img || null);
-  }, [currentUser.img])
+      setImage(currentUser.image || null);
+  }, [currentUser.image])
   const EditPage = () => {
     navigation.navigate('editDetails');
   }

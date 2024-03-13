@@ -69,7 +69,7 @@ export default function APIContextProvider({ children }) {
       });
       if (response.ok) {
         let user = await response.json();
-        await setCurrentUser(user);
+        setCurrentUser(user);
         return await user.role;
       } else {
         let error = await response.text();
@@ -77,7 +77,6 @@ export default function APIContextProvider({ children }) {
       }
     } catch (err) {
       console.log(err)
-      alert("שם משתמש או סיסמא לא תקינים");
     }
   };
   //update User details
