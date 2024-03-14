@@ -81,7 +81,7 @@ export default function Register({ navigation }) {
 
       const imageLink = await ImageUploader(photo);
       setTempuser({
-        firstName: `${firstName}`,
+        firstName: `${firstName}`.toLowerCase(),
         lastName: `${lastName}`,
         email: `${email}`,
         password: `${password}`,

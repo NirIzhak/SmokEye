@@ -160,7 +160,7 @@ export default function Login({ navigation }) {
           buttonColor={Colors.primary}
           mode="contained"
           onPress={() => {
-            Validuser(email, password);
+            Validuser(email.toLowerCase(), password);
           }}
           style={Styles.login_btn}
         >
