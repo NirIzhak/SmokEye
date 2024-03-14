@@ -17,7 +17,7 @@ import * as Location from "expo-location";
 import { APIContext } from "../Context/APIContext";
 import * as WebBrowser from "expo-web-browser";
 import * as Google from "expo-auth-session/providers/google";
-
+import { Popstyles } from "../style/PopUpModal";
 WebBrowser.maybeCompleteAuthSession();
 
 export default function Login({ navigation }) {
@@ -35,7 +35,7 @@ export default function Login({ navigation }) {
   );
   const { setEmail, setPassword, email, password, setCurrentLocation } =
     useContext(SmokeyeContext);
-  const { ConfirmClient, setLatitude, setLongitude, setLocation, allUsers, setCurrentUser, InsertNewUser } =
+  const { ConfirmClient, setLatitude, setLongitude, setLocation, allUsers, setCurrentUser, InsertNewUser,popMsgLogin } =
     useContext(APIContext);
   const handlePress = () => {
     Keyboard.dismiss();
@@ -210,7 +210,42 @@ export default function Login({ navigation }) {
           </TouchableOpacity>
         </View>
       </View>
+      {popMsgLogin ? (
+        <>
+          <View>
+            <Modal
+              visible={popMsgLogin}
+              animationType="fade"
+              transparent={true}
+              onRequestClose={hidePopupModal}
+            >
+              <View style={Popstyles.modalContainer}>
+                <View style={Popstyles.modalContent}>
+                  <Text style={Popstyles.messageText}>
+                    אופססס......נראה שיש משהו לא תקין בנתונים{" "}
+                  </Text>
+                  <View style={{ alignItems: "center" }}>
+                    <Image
+                      source={{
+                        uri: "https://cdn-icons-png.flaticon.com/512/1102/1102355.png?w=740&t=st=1690886025~exp=1690886625~hmac=5516a06b0266fe418d8604dcc0fc5935f96153877b94db73796af0874f383cd5",
+                      }}
+                      style={{
+                        height: 180,
+                        width: 180,
+                      }}
+                    ></Image>
+                  </View>
+                  <TouchableOpacity onPress={hidePopupModal}>
+                    <Text style={Popstyles.closeButton}>סגור</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            </Modal>
+          </View>
+        </>
+      ) : null}
     </TouchableWithoutFeedback>
+    
   );
 }
 

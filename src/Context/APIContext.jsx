@@ -16,6 +16,7 @@ export default function APIContextProvider({ children }) {
   const [allUsers, setAllUsers] = useState([]);
   const [popMsgReport, setpopMsgReport] = useState(false);
   const [popMsgDelete, setpopMsgDelete] = useState(false);
+  const [popMsgLogin,setpopMsgLogin] = useState(false);
   const [infoData, setInfoData] = useState([]);
   const [location, setLocation] = useState({});
   const [latitude, setLatitude] = useState("");
@@ -71,13 +72,11 @@ export default function APIContextProvider({ children }) {
         body: JSON.stringify({ email: e, password: p }),
       });
       if (response.ok) {
-        console.log('secsses :>> ');
         let user = await response.json();
         setCurrentUser(user);
         return await user.role;
       } else {
-        let error = await response.text();
-        console.log('error :>> ', error);
+        setpopMsgLogin(true);
       }
     } catch (err) {
       console.log(err)
@@ -134,11 +133,9 @@ export default function APIContextProvider({ children }) {
         }),
       });
       if (response.ok) {
-        console.log('עבר בהצלחה :>> ');
         setpopMsgReport(true);
       }
     } catch (err) {
-      alert("דיווח נכשל");
       console.log("err :>> ", err);
     }
     setReport({});
@@ -317,6 +314,7 @@ export default function APIContextProvider({ children }) {
     popMsgDelete,
     allMyReports,
     popMsgReport,
+    popMsgLogin,
     city,
     street,
     streetNum,
