@@ -1,6 +1,8 @@
 import { createContext, useState, useEffect } from "react";
 import { base_URL } from "../../utilis/api";
 import { LogBox } from 'react-native';
+import { err } from "react-native-svg";
+import { Colors } from "react-native/Libraries/NewAppScreen";
 LogBox.ignoreLogs(['new NativeEventEmitter']); // Ignore log notification by message
 LogBox.ignoreAllLogs(); //Ignore all log notifications
 export const APIContext = createContext();
@@ -58,6 +60,7 @@ export default function APIContextProvider({ children }) {
 
   // chack if the user is exsist
   const ConfirmClient = async (e, p) => {
+    console.log('hii :>> ');
     try {
       let url = `${base_URL}/users/Login`;
       const response = await fetch(url, {
@@ -68,12 +71,13 @@ export default function APIContextProvider({ children }) {
         body: JSON.stringify({ email: e, password: p }),
       });
       if (response.ok) {
+        console.log('secsses :>> ');
         let user = await response.json();
         setCurrentUser(user);
         return await user.role;
       } else {
         let error = await response.text();
-        throw new Error(error);
+        console.log('error :>> ', error);
       }
     } catch (err) {
       console.log(err)
