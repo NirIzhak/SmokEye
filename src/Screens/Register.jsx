@@ -150,6 +150,7 @@ export default function Register({ navigation }) {
             />
             <TextInput
               activeOutlineColor={Colors.primary}
+              secureTextEntry={true} 
               mode="outlined"
               style={styles.input}
               label="סיסמא"
