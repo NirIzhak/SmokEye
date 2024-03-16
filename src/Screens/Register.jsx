@@ -127,7 +127,7 @@ export default function Register({ navigation }) {
             <View style={styles.rowInputConteiner}>
               <TextInput
                 activeOutlineColor={Colors.primary}
-                style={styles.input2}
+                style={[styles.input2,styles.inputRTL]}
                 mode="outlined"
                 label="שם פרטי"
                 onChangeText={(text) => setFirstName(text)}
@@ -135,7 +135,7 @@ export default function Register({ navigation }) {
               <TextInput
                 activeOutlineColor={Colors.primary}
                 mode="outlined"
-                style={styles.input2}
+                style={[styles.input2,styles.inputRTL]}
                 label="שם משפחה"
                 onChangeText={(text) => setlastName(text)}
               />
@@ -143,7 +143,7 @@ export default function Register({ navigation }) {
             <TextInput
               activeOutlineColor={Colors.primary}
               mode="outlined"
-              style={styles.input}
+              style={[styles.input,styles.inputLTR]}
               label="Email"
               onChangeText={(text) => setEmail(text)}
               keyboardType="email-address"
@@ -152,14 +152,14 @@ export default function Register({ navigation }) {
               activeOutlineColor={Colors.primary}
               secureTextEntry={true} 
               mode="outlined"
-              style={styles.input}
+              style={[styles.input,styles.inputLTR]}
               label="סיסמא"
               onChangeText={(text) => setPassword(text)}
             />
             <TextInput
               activeOutlineColor={Colors.primary}
               mode="outlined"
-              style={styles.input}
+              style={[styles.input,styles.inputLTR]}
               label="פלאפון"
               onChangeText={(text) => setPhone(text)}
               keyboardType="phone-pad"
@@ -267,6 +267,8 @@ const styles = StyleSheet.create({
     width: "50%",
 
   },
+  inputLTR:{ textAlign: "left"},
+  inputRTL:{ textAlign: "right"},
   button: {
     backgroundColor: Colors.primary,
     width: "40%",
