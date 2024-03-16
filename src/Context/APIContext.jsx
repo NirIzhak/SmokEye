@@ -61,7 +61,6 @@ export default function APIContextProvider({ children }) {
 
   // chack if the user is exsist
   const ConfirmClient = async (e, p) => {
-    console.log('hii :>> ');
     try {
       let url = `${base_URL}/users/Login`;
       const response = await fetch(url, {
@@ -71,11 +70,11 @@ export default function APIContextProvider({ children }) {
         },
         body: JSON.stringify({ email: e, password: p }),
       });
-      if (response.ok) {
+      if(response.ok){
         let user = await response.json();
         setCurrentUser(user);
         return await user.role;
-      } else {
+      }else {
         setpopMsgLogin(true);
       }
     } catch (err) {
@@ -310,6 +309,7 @@ export default function APIContextProvider({ children }) {
     setpopMsgReport,
     DeleteReport,
     setpopMsgDelete,
+    setpopMsgLogin,
     allUsers,
     popMsgDelete,
     allMyReports,

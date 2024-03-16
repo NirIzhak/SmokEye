@@ -2,6 +2,7 @@
 import { useContext, useEffect, useState } from "react";
 import {
   View,
+  Modal,
   Text,
   TouchableOpacity,
   Keyboard,
@@ -35,7 +36,7 @@ export default function Login({ navigation }) {
   );
   const { setEmail, setPassword, email, password, setCurrentLocation } =
     useContext(SmokeyeContext);
-  const { ConfirmClient, setLatitude, setLongitude, setLocation, allUsers, setCurrentUser, InsertNewUser,popMsgLogin } =
+  const { ConfirmClient, setLatitude, setLongitude, setLocation, allUsers, setCurrentUser, InsertNewUser,popMsgLogin,setpopMsgLogin } =
     useContext(APIContext);
   const handlePress = () => {
     Keyboard.dismiss();
@@ -127,6 +128,9 @@ export default function Login({ navigation }) {
       navigation.navigate("storeAdmin");
     }
   };
+  const hidePopupModal = () => {
+    setpopMsgLogin(false);
+  };
 
   return (
     <TouchableWithoutFeedback onPress={handlePress}>
@@ -209,43 +213,38 @@ export default function Login({ navigation }) {
             <Text style={{ color: "#B5B4B4" }}>דווח כאנונימי</Text>
           </TouchableOpacity>
         </View>
-      </View>
-      {popMsgLogin ? (
-        <>
-          <View>
-            <Modal
-              visible={popMsgLogin}
-              animationType="fade"
-              transparent={true}
-              onRequestClose={hidePopupModal}
-            >
-              <View style={Popstyles.modalContainer}>
-                <View style={Popstyles.modalContent}>
-                  <Text style={Popstyles.messageText}>
-                    אופססס......נראה שיש משהו לא תקין בנתונים{" "}
-                  </Text>
-                  <View style={{ alignItems: "center" }}>
-                    <Image
-                      source={{
-                        uri: "https://cdn-icons-png.flaticon.com/512/1102/1102355.png?w=740&t=st=1690886025~exp=1690886625~hmac=5516a06b0266fe418d8604dcc0fc5935f96153877b94db73796af0874f383cd5",
-                      }}
-                      style={{
-                        height: 180,
-                        width: 180,
-                      }}
-                    ></Image>
+        {popMsgLogin ? (
+          <>
+            <View>
+              <Modal
+                visible={popMsgLogin}
+                animationType="fade"
+                transparent={true}
+                onRequestClose={hidePopupModal}
+              >
+                <View style={Popstyles.modalContainer}>
+                  <View style={Popstyles.modalContent}>
+                    <Text style={Popstyles.messageText}>שם משתמש או סיסמא אינם נכונים</Text>
+                    <View style={{ alignItems: "center" }}>
+                      <Image
+                        source={require('../Images/warning.png')}
+                        style={{
+                          height: 180,
+                          width: 180,
+                        }}
+                      ></Image>
+                    </View>
+                    <TouchableOpacity onPress={hidePopupModal}>
+                      <Text style={Popstyles.closeButton}>סגור</Text>
+                    </TouchableOpacity>
                   </View>
-                  <TouchableOpacity onPress={hidePopupModal}>
-                    <Text style={Popstyles.closeButton}>סגור</Text>
-                  </TouchableOpacity>
                 </View>
-              </View>
-            </Modal>
-          </View>
-        </>
-      ) : null}
+              </Modal>
+            </View>
+          </>
+        ) : null}
+      </View>
     </TouchableWithoutFeedback>
-    
   );
 }
 

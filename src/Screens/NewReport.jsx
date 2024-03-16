@@ -323,9 +323,7 @@ export default function NewReport() {
                   </Text>
                   <View style={{ alignItems: "center" }}>
                     <Image
-                      source={{
-                        uri: "https://cdn-icons-png.flaticon.com/512/1102/1102355.png?w=740&t=st=1690886025~exp=1690886625~hmac=5516a06b0266fe418d8604dcc0fc5935f96153877b94db73796af0874f383cd5",
-                      }}
+                      source={require('../Images/send-mail.png')}
                       style={{
                         height: 180,
                         width: 180,
