@@ -20,6 +20,10 @@ import * as WebBrowser from "expo-web-browser";
 import * as Google from "expo-auth-session/providers/google";
 import { Popstyles } from "../style/PopUpModal";
 WebBrowser.maybeCompleteAuthSession();
+/*
+<TouchableOpacity style={{ marginTop: 5 }}>
+          <Text style={{ textAlign: "center" }}>שכחת סיסמא ? </Text>
+        </TouchableOpacity>*/
 
 export default function Login({ navigation }) {
   const [userInfo, setUserInfo] = useState(null);
@@ -157,9 +161,6 @@ export default function Login({ navigation }) {
           secureTextEntry={true}
           onBlur={() => Keyboard.dismiss()}
         />
-        <TouchableOpacity style={{ marginTop: 5 }}>
-          <Text style={{ textAlign: "center" }}>שכחת סיסמא ? </Text>
-        </TouchableOpacity>
         <Button
           buttonColor={Colors.primary}
           mode="contained"
