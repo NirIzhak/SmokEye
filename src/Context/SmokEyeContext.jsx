@@ -37,10 +37,10 @@ export default function SmokeyeContextProvider({ children, navigation }) {
   const data = [
     { label: "מסעדה", value: "מסעדה" },
     { label: "קניון", value: "קניון" },
-    { label: "קולנוע", value: "אולם קולנוע" },
-    { label: "פארק שעשועים", value: "פארק" },
+    { label: "קולנוע", value: "קולנוע" },
+    { label: "פארק", value: "פארק" },
     { label: "תאטרון", value: "תאטרון" },
-    { label: "אולם הופעות", value: "אולם הופעות" },
+    { label: "אולם", value: "אולם" },
   ];
 
   //creating report object
